@@ -1,1 +1,174 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mega Project | Opening</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Petit+Formal+Script&family=Montserrat:wght@200&display=swap');
+
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000; overflow: hidden; 
+        }
+
+        /* Star Canvas */
+        #starCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+
+        #aurora-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.2) 0%, rgba(58, 123, 213, 0.05) 50%, #000 100%);
+            filter: blur(80px); opacity: 0; transition: opacity 1.5s ease; z-index: 2;
+        }
+
+        .container { 
+            position: relative; z-index: 10; 
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; 
+            height: 100%; text-align: center; color: white; padding: 0 10%; 
+        }
+
+        #main-msg { 
+            font-family: 'Cinzel', serif;
+            font-size: 1rem; letter-spacing: 2px;
+            opacity: 0; transition: opacity 2s ease; line-height: 1.8;
+        }
+
+        .highlight {
+            font-family: 'Petit Formal Script', cursive;
+            font-size: 1.8rem; color: #00d2ff;
+            display: block; margin: 15px 0;
+            text-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+        }
+
+        .btn { 
+            margin-top: 30px; padding: 12px 30px; 
+            border: 1px solid rgba(255,255,255,0.3); 
+            background: rgba(255, 255, 255, 0.05); color: white; 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 0.7rem; letter-spacing: 4px; 
+            text-transform: uppercase; display: none; 
+            backdrop-filter: blur(10px); transition: 0.5s;
+        }
+
+        /* Loader */
+        #loader-wrap { display: none; flex-direction: column; align-items: center; }
+        .ring {
+            width: 50px; height: 50px; border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1); 
+            border-top: 2px solid #00d2ff;
+            animation: spin 1.5s linear infinite; /* Ring ghurbe ektu slow */
+        }
+        #percent { margin-top: 15px; font-family: 'Montserrat'; font-size: 1.2rem; letter-spacing: 2px; }
+        
+        #loading-status {
+            margin-top: 10px; font-family: 'Montserrat';
+            font-size: 0.55rem; letter-spacing: 3px;
+            text-transform: uppercase; color: #00d2ff;
+            opacity: 0; transition: opacity 0.5s ease; /* Fade effect for text change */
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <canvas id="starCanvas"></canvas>
+    <div id="aurora-bg"></div>
+
+    <div class="container">
+        <h1 id="main-msg"></h1>
+        <button id="explore-btn" class="btn" onclick="startLoading()">Enter the Universe</button>
+
+        <div id="loader-wrap">
+            <div class="ring"></div>
+            <div id="percent">0%</div>
+            <div id="loading-status">INITIALIZING...</div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            for (let i = 0; i < 300; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.8,
+                    opacity: Math.random(),
+                    speed: Math.random() * 0.02 + 0.005 // Aro smooth twinkle
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                s.opacity += s.speed;
+                if (s.opacity > 1 || s.opacity < 0.2) s.speed = -s.speed;
+                ctx.globalAlpha = s.opacity; ctx.fillStyle = "white";
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2); ctx.fill();
+            });
+            requestAnimationFrame(drawStars);
+        }
+
+        initCanvas(); drawStars();
+
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('aurora-bg').style.opacity = "1";
+                setTimeout(() => {
+                    msgEl.innerHTML = "A Mega Project dedicated to <span class='highlight'>Prova's 18th Birthday</span>A gift from Shuaib, with all my love.";
+                    msgEl.style.opacity = "1";
+                    setTimeout(() => { btn.style.display = "block"; }, 2000);
+                }, 1000);
+            }, 500);
+        };
+
+        const msgEl = document.getElementById('main-msg');
+        const btn = document.getElementById('explore-btn');
+
+        function startLoading() {
+            msgEl.style.display = "none";
+            btn.style.display = "none";
+            document.getElementById('loader-wrap').style.display = "flex";
+            
+            const statusText = document.getElementById('loading-status');
+            statusText.style.opacity = "1";
+            
+            const phrases = [
+                "CALCULATING COSMIC ALIGNMENT...",
+                "SYNCING OUR HEARTBEATS...",
+                "GATHERING STARDUST FOR YOU...",
+                "LOADING INFINITE MEMORIES...",
+                "ALMOST READY, PROVA..."
+            ];
+
+            let count = 0;
+            const interval = setInterval(() => {
+                count++;
+                document.getElementById('percent').innerText = count + "%";
+                
+                // Text update with slow intervals
+                if (count == 10) statusText.innerText = phrases[0];
+                if (count == 30) statusText.innerText = phrases[1];
+                if (count == 55) statusText.innerText = phrases[2];
+                if (count == 75) statusText.innerText = phrases[3];
+                if (count == 92) statusText.innerText = phrases[4];
+
+                if(count >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => { window.location.href = "segment2.html"; }, 800); 
+                }
+            }, 100); // 100ms kora hoyeche jate loading ektu dhire hoy
+        }
+    </script>
+</body>
+</html>
