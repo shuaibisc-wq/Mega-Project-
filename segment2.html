@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Journey | Memories</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat:wght@300&display=swap');
+
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000; color: white; overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #bg-music { display: none; }
+        
+        #starCanvas {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 1; pointer-events: none;
+        }
+
+        .content {
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 60px 20px;
+        }
+
+        .title {
+            font-family: 'Cinzel', serif; font-size: 1.6rem;
+            letter-spacing: 6px; margin-bottom: 50px; text-align: center;
+            color: #00d2ff; text-shadow: 0 0 15px rgba(0, 210, 255, 0.7);
+        }
+
+        .memory-card {
+            width: 90%; max-width: 380px; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px); margin-bottom: 50px;
+            padding: 20px; border-radius: 15px; opacity: 0;
+            transform: translateY(50px); transition: 1.8s all cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .memory-card.show { opacity: 1; transform: translateY(0); }
+
+        .memory-img {
+            width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .memory-text { 
+            font-size: 0.9rem; line-height: 1.6; letter-spacing: 1px; 
+            color: #f0f0f0; text-align: center; font-style: italic;
+        }
+
+        .next-btn {
+            padding: 18px 35px; background: rgba(0, 210, 255, 0.05); 
+            border: 1px solid #00d2ff; color: #00d2ff;
+            font-family: 'Cinzel'; letter-spacing: 2px;
+            text-transform: uppercase; cursor: pointer; transition: 0.5s;
+            border-radius: 5px; margin-top: 20px; font-size: 0.85rem;
+            line-height: 1.5; text-align: center;
+        }
+        .next-btn:hover { background: #00d2ff; color: #000; box-shadow: 0 0 30px rgba(0, 210, 255, 0.5); }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="music2.mp3" type="audio/mpeg">
+    </audio>
+
+    <canvas id="starCanvas"></canvas>
+
+    <div class="content">
+        <h1 class="title">Tangled Memories</h1>
+
+        <div class="memory-card">
+            <img src="2segment1.jpg" class="memory-img">
+            <p class="memory-text">"You were my new dream."</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="2segment2.jpg" class="memory-img">
+            <p class="memory-text">"The moment that changed the trajectory of my life... our first 'Hello'."</p>
+        </div>
+
+        <div class="memory-card">
+            <img src="2segment3.jpg" class="memory-img">
+            <p class="memory-text">"And at last, I see the light."</p>
+        </div>
+
+        <button class="next-btn" onclick="handleTransition()">
+            That single message started it all.<br>Want to see what happened next?
+        </button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        const music = document.getElementById('bg-music');
+        let stars = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            createStars();
+        }
+
+        function createStars() {
+            stars = [];
+            for (let i = 0; i < 150; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.2,
+                    opacity: Math.random(),
+                    speed: Math.random() * 0.01 + 0.005
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                s.opacity += s.speed;
+                if (s.opacity > 1 || s.opacity < 0.1) s.speed = -s.speed;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // Save music time and redirect
+        function handleTransition() {
+            localStorage.setItem('audioTime', music.currentTime);
+            window.location.href = 'segment3.html';
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        animate();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    music.play().catch(() => {});
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.memory-card').forEach(card => observer.observe(card));
+        
+        // Safety trigger for autoplay
+        document.body.addEventListener('click', () => music.play(), { once: true });
+    </script>
+</body>
+</html>
