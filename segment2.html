@@ -101,17 +101,20 @@
         const music = document.getElementById('bg-music');
         let stars = [];
 
-        // MUSIC AUTO-PLAY LOGIC
-        const playMusic = () => {
-            music.play().catch(() => {
-                console.log("Waiting for user interaction to play music...");
-            });
+        // --- THE "ALMOST" AUTOMATIC FIX ---
+        const startAudio = () => {
+            music.play().then(() => {
+                // If successful, remove listeners so they don't fire again
+                window.removeEventListener('touchstart', startAudio);
+                window.removeEventListener('scroll', startAudio);
+                window.removeEventListener('click', startAudio);
+            }).catch(e => console.log("Autoplay blocked, waiting for touch."));
         };
 
-        // Trigger music on any user action
-        ['click', 'touchstart', 'scroll', 'wheel'].forEach(evt => 
-            window.addEventListener(evt, playMusic, { once: true })
-        );
+        // This triggers as soon as she starts to scroll or touches the screen
+        window.addEventListener('touchstart', startAudio);
+        window.addEventListener('scroll', startAudio);
+        window.addEventListener('click', startAudio);
 
         function resize() {
             canvas.width = window.innerWidth;
@@ -158,6 +161,7 @@
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
                     entry.target.classList.add('show');
+                    startAudio(); // Try playing as soon as a card is in view
                 }
             });
         }, { threshold: 0.1 });
