@@ -133,7 +133,6 @@
             requestAnimationFrame(animate);
         }
 
-        // Save music time and redirect
         function handleTransition() {
             localStorage.setItem('audioTime', music.currentTime);
             window.location.href = 'segment3.html';
@@ -153,8 +152,6 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.memory-card').forEach(card => observer.observe(card));
-        
-        // Safety trigger for autoplay
         document.body.addEventListener('click', () => music.play(), { once: true });
     </script>
 </body>
