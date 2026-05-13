@@ -64,9 +64,9 @@
         .next-btn:hover { background: #00d2ff; color: #000; box-shadow: 0 0 30px rgba(0, 210, 255, 0.5); }
     </style>
 </head>
-<body>
+<body onload="attemptAutoplay()">
 
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="auto">
         <source src="music2.mp3" type="audio/mpeg">
     </audio>
 
@@ -82,7 +82,7 @@
 
         <div class="memory-card">
             <img src="2segment2.jpg" class="memory-img">
-            <p class="memory-text">"The moment that changed the trajectory of my life... our first 'Hello'."</p>
+            <p class="memory-text">"The moment that changed everything... our first 'Hello'."</p>
         </div>
 
         <div class="memory-card">
@@ -96,25 +96,37 @@
     </div>
 
     <script>
+        const music = document.getElementById('bg-music');
+        
+        // --- FORCED AUTOPLAY STRATEGY ---
+        function attemptAutoplay() {
+            // Pick up from where Segment 1 might have left off (if any)
+            const savedTime = localStorage.getItem('audioTime');
+            if (savedTime) music.currentTime = parseFloat(savedTime);
+
+            // Try to play immediately
+            let playPromise = music.play();
+
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // If blocked, wait for the VERY FIRST touch on the screen
+                    const unlock = () => {
+                        music.play();
+                        window.removeEventListener('touchstart', unlock);
+                        window.removeEventListener('mousedown', unlock);
+                        window.removeEventListener('scroll', unlock);
+                    };
+                    window.addEventListener('touchstart', unlock);
+                    window.addEventListener('mousedown', unlock);
+                    window.addEventListener('scroll', unlock);
+                });
+            }
+        }
+
+        // --- STAR BACKGROUND ANIMATION ---
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
-        const music = document.getElementById('bg-music');
         let stars = [];
-
-        // --- THE "ALMOST" AUTOMATIC FIX ---
-        const startAudio = () => {
-            music.play().then(() => {
-                // If successful, remove listeners so they don't fire again
-                window.removeEventListener('touchstart', startAudio);
-                window.removeEventListener('scroll', startAudio);
-                window.removeEventListener('click', startAudio);
-            }).catch(e => console.log("Autoplay blocked, waiting for touch."));
-        };
-
-        // This triggers as soon as she starts to scroll or touches the screen
-        window.addEventListener('touchstart', startAudio);
-        window.addEventListener('scroll', startAudio);
-        window.addEventListener('click', startAudio);
 
         function resize() {
             canvas.width = window.innerWidth;
@@ -157,12 +169,10 @@
         resize();
         animate();
 
+        // Reveal cards on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                    startAudio(); // Try playing as soon as a card is in view
-                }
+                if(entry.isIntersecting) entry.target.classList.add('show');
             });
         }, { threshold: 0.1 });
 
