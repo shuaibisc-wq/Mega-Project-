@@ -21,7 +21,6 @@
             padding: 80px 20px;
         }
 
-        /* The vertical glowing axis */
         .timeline-line {
             position: absolute; left: 50%; top: 100px; bottom: 100px;
             width: 2px; background: linear-gradient(to bottom, transparent, #00d2ff, #7000ff, transparent);
@@ -30,10 +29,10 @@
         }
 
         .moment-card {
-            width: 85%; max-width: 320px; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 210, 255, 0.3);
+            width: 85%; max-width: 320px; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 210, 255, 0.4);
             padding: 25px; border-radius: 20px; margin-bottom: 90px;
-            opacity: 0; transform: translateY(40px); transition: 1.5s all cubic-bezier(0.19, 1, 0.22, 1);
+            opacity: 0; transform: translateY(50px); transition: 1.2s all cubic-bezier(0.19, 1, 0.22, 1);
             backdrop-filter: blur(15px); position: relative;
         }
 
@@ -41,22 +40,23 @@
 
         .chat-ss {
             width: 100%; border-radius: 12px; margin-top: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: 0.5s;
+            box-shadow: 0 5px 20px rgba(0, 210, 255, 0.3);
         }
-        .chat-ss:hover { transform: scale(1.03); border-color: #00d2ff; box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); }
+        .chat-ss:hover { transform: scale(1.05); border-color: #00d2ff; }
 
-        .date { font-family: 'Cinzel'; color: #00d2ff; font-size: 0.7rem; margin-bottom: 8px; letter-spacing: 3px; font-weight: bold; }
-        .moment-title { font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 12px; color: #fff; text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
-        .moment-desc { font-family: 'Dancing Script', cursive; font-size: 1.2rem; line-height: 1.4; color: #e0e0e0; }
+        .date { font-family: 'Cinzel'; color: #00d2ff; font-size: 0.75rem; margin-bottom: 8px; letter-spacing: 3px; font-weight: bold; }
+        .moment-title { font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 12px; color: #fff; text-shadow: 0 0 10px rgba(0, 210, 255, 0.6); }
+        .moment-desc { font-family: 'Dancing Script', cursive; font-size: 1.2rem; line-height: 1.4; color: #f0f0f0; }
         
         .next-btn {
-            z-index: 3; margin-top: 30px; padding: 18px 45px; 
-            background: rgba(0, 210, 255, 0.05); border: 1px solid #00d2ff; 
+            z-index: 3; margin: 40px 0 100px 0; padding: 18px 45px; 
+            background: rgba(0, 210, 255, 0.1); border: 1px solid #00d2ff; 
             color: #00d2ff; font-family: 'Cinzel'; cursor: pointer; 
             border-radius: 40px; letter-spacing: 3px; transition: 0.5s;
         }
-        .next-btn:hover { background: #00d2ff; color: #000; box-shadow: 0 0 30px #00d2ff; }
+        .next-btn:hover { background: #00d2ff; color: #000; box-shadow: 0 0 30px #00d2ff; transform: scale(1.05); }
 
         #bg-music { display: none; }
     </style>
@@ -76,21 +76,21 @@
             <div class="date">The Origin Point</div>
             <div class="moment-title">Where It All Began</div>
             <p class="moment-desc">"One simple message, and our worlds collided. Who knew this single interaction would become the most important 'Constant' in my life?"</p>
-            <img src="chat1.png" class="chat-ss" alt="Sweet Chat 1">
+            <img src="3segment1.png" class="chat-ss" alt="Chat 1">
         </div>
 
         <div class="moment-card">
             <div class="date">Infinite Frequency</div>
             <div class="moment-title">Late Night Chaos</div>
             <p class="moment-desc">"Sleepless nights and endless conversations. Our late-night talks taught me that time doesn't exist when I'm with you."</p>
-            <img src="chat2.png" class="chat-ss" alt="Sweet Chat 2">
+            <img src="3segment2.png" class="chat-ss" alt="Chat 2">
         </div>
 
         <div class="moment-card">
             <div class="date">The Resonance of Care</div>
             <div class="moment-title">A Heart That Cares</div>
             <p class="moment-desc">"Your little moments of care mean more to me than any grand theorem. You are the logic that makes my life make sense."</p>
-            <img src="chat3.png" class="chat-ss" alt="Sweet Chat 3">
+            <img src="3segment3.png" class="chat-ss" alt="Chat 3">
         </div>
 
         <button class="next-btn" onclick="goToFinal()">
@@ -120,7 +120,6 @@
             window.location.href = 'segment4.html';
         }
 
-        // --- CELESTIAL BLINKING STARS ---
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -128,14 +127,15 @@
         function initStars() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            for (let i = 0; i < 200; i++) {
+            for (let i = 0; i < 180; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    radius: Math.random() * 1.5,
+                    radius: Math.random() * 1.8 + 1.2, 
                     opacity: Math.random(),
-                    blinkSpeed: Math.random() * 0.02 + 0.005,
-                    color: Math.random() > 0.8 ? '#00d2ff' : '#ffffff' 
+                    blinkSpeed: Math.random() * 0.015 + 0.005,
+                    color: Math.random() > 0.7 ? '#00d2ff' : '#ffffff',
+                    glow: Math.random() * 15 + 8 
                 });
             }
             animate();
@@ -145,12 +145,14 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             stars.forEach(s => {
                 s.opacity += s.blinkSpeed;
-                if (s.opacity > 1 || s.opacity < 0.1) s.blinkSpeed = -s.blinkSpeed;
-                
+                if (s.opacity > 1 || s.opacity < 0.2) s.blinkSpeed = -s.blinkSpeed;
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.shadowBlur = s.glow * s.opacity; 
+                ctx.shadowColor = s.color;
                 ctx.fillStyle = s.color === '#ffffff' ? `rgba(255, 255, 255, ${s.opacity})` : `rgba(0, 210, 255, ${s.opacity})`;
                 ctx.fill();
+                ctx.shadowBlur = 0; 
             });
             requestAnimationFrame(animate);
         }
@@ -159,13 +161,15 @@
             entries.forEach(entry => {
                 if(entry.isIntersecting) entry.target.classList.add('show');
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.15 });
 
         document.querySelectorAll('.moment-card').forEach(card => observer.observe(card));
         
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            stars = [];
+            initStars();
         });
     </script>
 </body>
