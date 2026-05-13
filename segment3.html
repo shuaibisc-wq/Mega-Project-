@@ -18,42 +18,39 @@
         .timeline-container {
             position: relative; z-index: 2;
             display: flex; flex-direction: column; align-items: center;
-            padding: 100px 20px;
+            padding: 80px 20px;
         }
 
-        /* The vertical mathematical axis */
         .timeline-line {
             position: absolute; left: 50%; top: 100px; bottom: 100px;
             width: 2px; background: linear-gradient(to bottom, transparent, #00d2ff, transparent);
             transform: translateX(-50%);
         }
 
+        /* Moment Cards */
         .moment-card {
             width: 85%; max-width: 320px; background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(0, 210, 255, 0.2);
-            padding: 25px; border-radius: 15px; margin-bottom: 100px;
-            opacity: 0; transform: translateX(-40px); transition: 1.5s all ease;
+            padding: 20px; border-radius: 15px; margin-bottom: 80px;
+            opacity: 0; transform: translateY(30px); transition: 1.2s all ease;
             backdrop-filter: blur(8px); position: relative;
         }
 
-        .moment-card:nth-child(even) { transform: translateX(40px); }
-        .moment-card.show { opacity: 1; transform: translateX(0); }
-
-        /* Small dot on the timeline */
-        .moment-card::before {
-            content: ''; position: absolute; width: 12px; height: 12px;
-            background: #00d2ff; border-radius: 50%; top: 50%;
-            box-shadow: 0 0 10px #00d2ff;
+        /* Chat Screenshot Style */
+        .chat-ss {
+            width: 100%; border-radius: 10px; margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2);
         }
-        .moment-card:nth-child(odd)::before { right: -56px; transform: translateY(-50%); }
-        .moment-card:nth-child(even)::before { left: -56px; transform: translateY(-50%); }
 
-        .date { font-family: 'Cinzel'; color: #00d2ff; font-size: 0.75rem; margin-bottom: 10px; letter-spacing: 2px; }
-        .moment-title { font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 12px; color: #fff; }
-        .moment-desc { font-size: 0.85rem; line-height: 1.6; color: #bbb; font-style: italic; }
+        .moment-card.show { opacity: 1; transform: translateY(0); }
+
+        .date { font-family: 'Cinzel'; color: #00d2ff; font-size: 0.7rem; margin-bottom: 8px; letter-spacing: 2px; }
+        .moment-title { font-family: 'Cinzel'; font-size: 1rem; margin-bottom: 10px; color: #fff; }
+        .moment-desc { font-size: 0.8rem; line-height: 1.5; color: #bbb; font-style: italic; }
         
         .next-btn {
-            z-index: 3; margin-top: 50px; padding: 15px 40px; 
+            z-index: 3; margin-top: 30px; padding: 15px 40px; 
             background: transparent; border: 1px solid #00d2ff; 
             color: #00d2ff; font-family: 'Cinzel'; cursor: pointer; 
             border-radius: 30px; letter-spacing: 2px; transition: 0.5s;
@@ -75,27 +72,24 @@
         <div class="timeline-line"></div>
 
         <div class="moment-card">
-            <div class="date">The Origin (0,0)</div>
-            <div class="moment-title">The First Intersection</div>
-            <p class="moment-desc">"Two parallel lines finally crossed paths. A simple notification that redefined my entire coordinate system."</p>
+            <div class="date">The First Convergence</div>
+            <div class="moment-title">Amader Shuru</div>
+            <p class="moment-desc">"Everything started with this simple text..."</p>
+            <img src="chat1.png" class="chat-ss" alt="Chat Screenshot">
         </div>
 
         <div class="moment-card">
-            <div class="date">Constant Variables</div>
-            <div class="moment-title">The Late Night Talks</div>
-            <p class="moment-desc">"Time became a relative concept. Seconds felt like hours, and hours felt like seconds whenever we talked."</p>
+            <div class="date">Mathematical Resonance</div>
+            <div class="moment-title">Late Night Chaos</div>
+            <p class="moment-desc">"Tokhon bujhi nai je ei manush tai amar mathar shob equation elomelo kore dibe."</p>
+            <img src="chat2.png" class="chat-ss" alt="Chat Screenshot">
         </div>
 
         <div class="moment-card">
-            <div class="date">The Perfect Curve</div>
-            <div class="moment-title">Finding Resonance</div>
-            <p class="moment-desc">"Every conversation added a new dimension to our story, building a geometry only we understand."</p>
-        </div>
-
-        <div class="moment-card">
-            <div class="date">The Limitless Function</div>
-            <div class="moment-title">Infinite Possibilities</div>
-            <p class="moment-desc">"I realized that no matter how far we scroll, our equation only grows stronger."</p>
+            <div class="date">Infinite Loop</div>
+            <div class="moment-title">The Sweetest Logic</div>
+            <p class="moment-desc">"Every time I re-read this, I smile like a fool."</p>
+            <img src="chat3.png" class="chat-ss" alt="Chat Screenshot">
         </div>
 
         <button class="next-btn" onclick="goToFinal()">
@@ -108,21 +102,16 @@
 
         function resumeMusic() {
             const savedTime = localStorage.getItem('audioTime');
-            if (savedTime) {
-                music.currentTime = parseFloat(savedTime);
-            }
+            if (savedTime) music.currentTime = parseFloat(savedTime);
             
-            // Try to play
-            music.play().catch(() => {
-                // If browser blocks, play on first click/scroll
-                const playOnAction = () => {
-                    music.play();
-                    window.removeEventListener('click', playOnAction);
-                    window.removeEventListener('scroll', playOnAction);
-                };
-                window.addEventListener('click', playOnAction);
-                window.addEventListener('scroll', playOnAction);
-            });
+            const startPlay = () => {
+                music.play();
+                window.removeEventListener('scroll', startPlay);
+                window.removeEventListener('touchstart', startPlay);
+            };
+            window.addEventListener('scroll', startPlay);
+            window.addEventListener('touchstart', startPlay);
+            music.play().catch(() => {});
         }
 
         function goToFinal() {
@@ -130,7 +119,7 @@
             window.location.href = 'segment4.html';
         }
 
-        // --- STAR ANIMATION ---
+        // --- STAR BACKGROUND ---
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -163,12 +152,11 @@
             requestAnimationFrame(animate);
         }
 
-        // Intersection Observer to show cards on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) entry.target.classList.add('show');
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.moment-card').forEach(card => observer.observe(card));
     </script>
