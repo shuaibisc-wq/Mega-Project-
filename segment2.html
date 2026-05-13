@@ -101,6 +101,18 @@
         const music = document.getElementById('bg-music');
         let stars = [];
 
+        // MUSIC AUTO-PLAY LOGIC
+        const playMusic = () => {
+            music.play().catch(() => {
+                console.log("Waiting for user interaction to play music...");
+            });
+        };
+
+        // Trigger music on any user action
+        ['click', 'touchstart', 'scroll', 'wheel'].forEach(evt => 
+            window.addEventListener(evt, playMusic, { once: true })
+        );
+
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -146,13 +158,11 @@
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
                     entry.target.classList.add('show');
-                    music.play().catch(() => {});
                 }
             });
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.memory-card').forEach(card => observer.observe(card));
-        document.body.addEventListener('click', () => music.play(), { once: true });
     </script>
 </body>
 </html>
