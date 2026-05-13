@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Chronicle | Timeline</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat:wght@300&display=swap');
+        
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000; color: white; font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        #starCanvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
+
+        .timeline-container {
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 100px 20px;
+        }
+
+        /* The vertical mathematical axis */
+        .timeline-line {
+            position: absolute; left: 50%; top: 100px; bottom: 100px;
+            width: 2px; background: linear-gradient(to bottom, transparent, #00d2ff, transparent);
+            transform: translateX(-50%);
+        }
+
+        .moment-card {
+            width: 85%; max-width: 320px; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            padding: 25px; border-radius: 15px; margin-bottom: 100px;
+            opacity: 0; transform: translateX(-40px); transition: 1.5s all ease;
+            backdrop-filter: blur(8px); position: relative;
+        }
+
+        .moment-card:nth-child(even) { transform: translateX(40px); }
+        .moment-card.show { opacity: 1; transform: translateX(0); }
+
+        /* Small dot on the timeline */
+        .moment-card::before {
+            content: ''; position: absolute; width: 12px; height: 12px;
+            background: #00d2ff; border-radius: 50%; top: 50%;
+            box-shadow: 0 0 10px #00d2ff;
+        }
+        .moment-card:nth-child(odd)::before { right: -56px; transform: translateY(-50%); }
+        .moment-card:nth-child(even)::before { left: -56px; transform: translateY(-50%); }
+
+        .date { font-family: 'Cinzel'; color: #00d2ff; font-size: 0.75rem; margin-bottom: 10px; letter-spacing: 2px; }
+        .moment-title { font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 12px; color: #fff; }
+        .moment-desc { font-size: 0.85rem; line-height: 1.6; color: #bbb; font-style: italic; }
+        
+        .next-btn {
+            z-index: 3; margin-top: 50px; padding: 15px 40px; 
+            background: transparent; border: 1px solid #00d2ff; 
+            color: #00d2ff; font-family: 'Cinzel'; cursor: pointer; 
+            border-radius: 30px; letter-spacing: 2px; transition: 0.5s;
+        }
+        .next-btn:hover { background: #00d2ff; color: #000; box-shadow: 0 0 20px #00d2ff; }
+
+        #bg-music { display: none; }
+    </style>
+</head>
+<body onload="initStars(); resumeMusic();">
+
+    <audio id="bg-music" loop>
+        <source src="music2.mp3" type="audio/mpeg">
+    </audio>
+
+    <canvas id="starCanvas"></canvas>
+
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
+
+        <div class="moment-card">
+            <div class="date">The Origin (0,0)</div>
+            <div class="moment-title">The First Intersection</div>
+            <p class="moment-desc">"Two parallel lines finally crossed paths. A simple notification that redefined my entire coordinate system."</p>
+        </div>
+
+        <div class="moment-card">
+            <div class="date">Constant Variables</div>
+            <div class="moment-title">The Late Night Talks</div>
+            <p class="moment-desc">"Time became a relative concept. Seconds felt like hours, and hours felt like seconds whenever we talked."</p>
+        </div>
+
+        <div class="moment-card">
+            <div class="date">The Perfect Curve</div>
+            <div class="moment-title">Finding Resonance</div>
+            <p class="moment-desc">"Every conversation added a new dimension to our story, building a geometry only we understand."</p>
+        </div>
+
+        <div class="moment-card">
+            <div class="date">The Limitless Function</div>
+            <div class="moment-title">Infinite Possibilities</div>
+            <p class="moment-desc">"I realized that no matter how far we scroll, our equation only grows stronger."</p>
+        </div>
+
+        <button class="next-btn" onclick="goToFinal()">
+            PROVE THE THEOREM
+        </button>
+    </div>
+
+    <script>
+        const music = document.getElementById('bg-music');
+
+        function resumeMusic() {
+            const savedTime = localStorage.getItem('audioTime');
+            if (savedTime) {
+                music.currentTime = parseFloat(savedTime);
+            }
+            
+            // Try to play
+            music.play().catch(() => {
+                // If browser blocks, play on first click/scroll
+                const playOnAction = () => {
+                    music.play();
+                    window.removeEventListener('click', playOnAction);
+                    window.removeEventListener('scroll', playOnAction);
+                };
+                window.addEventListener('click', playOnAction);
+                window.addEventListener('scroll', playOnAction);
+            });
+        }
+
+        function goToFinal() {
+            localStorage.setItem('audioTime', music.currentTime);
+            window.location.href = 'segment4.html';
+        }
+
+        // --- STAR ANIMATION ---
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function initStars() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for (let i = 0; i < 150; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.2,
+                    opacity: Math.random(),
+                    speed: Math.random() * 0.01 + 0.005
+                });
+            }
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            stars.forEach(s => {
+                s.opacity += s.speed;
+                if (s.opacity > 1 || s.opacity < 0.1) s.speed = -s.speed;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // Intersection Observer to show cards on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) entry.target.classList.add('show');
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.moment-card').forEach(card => observer.observe(card));
+    </script>
+</body>
+</html>
