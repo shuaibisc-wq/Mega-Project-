@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Chronicle | Timeline</title>
+    <title>The Chronicle | Our Galaxy</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat:wght@300&family=Dancing+Script:wght@600&display=swap');
         
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
@@ -23,39 +23,39 @@
 
         .timeline-line {
             position: absolute; left: 50%; top: 100px; bottom: 100px;
-            width: 2px; background: linear-gradient(to bottom, transparent, #00d2ff, transparent);
+            width: 2px; background: linear-gradient(to bottom, transparent, #00d2ff, #7000ff, transparent);
             transform: translateX(-50%);
         }
 
-        /* Moment Cards */
         .moment-card {
             width: 85%; max-width: 320px; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            padding: 20px; border-radius: 15px; margin-bottom: 80px;
-            opacity: 0; transform: translateY(30px); transition: 1.2s all ease;
-            backdrop-filter: blur(8px); position: relative;
-        }
-
-        /* Chat Screenshot Style */
-        .chat-ss {
-            width: 100%; border-radius: 10px; margin-top: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            padding: 25px; border-radius: 20px; margin-bottom: 90px;
+            opacity: 0; transform: translateY(40px); transition: 1.5s all cubic-bezier(0.19, 1, 0.22, 1);
+            backdrop-filter: blur(15px); position: relative;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.1);
         }
 
         .moment-card.show { opacity: 1; transform: translateY(0); }
 
-        .date { font-family: 'Cinzel'; color: #00d2ff; font-size: 0.7rem; margin-bottom: 8px; letter-spacing: 2px; }
-        .moment-title { font-family: 'Cinzel'; font-size: 1rem; margin-bottom: 10px; color: #fff; }
-        .moment-desc { font-size: 0.8rem; line-height: 1.5; color: #bbb; font-style: italic; }
+        .chat-ss {
+            width: 100%; border-radius: 12px; margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: 0.5s;
+        }
+        .chat-ss:hover { transform: scale(1.03); border-color: #00d2ff; }
+
+        .date { font-family: 'Cinzel'; color: #00d2ff; font-size: 0.7rem; margin-bottom: 8px; letter-spacing: 3px; font-weight: bold; }
+        .moment-title { font-family: 'Cinzel'; font-size: 1.1rem; margin-bottom: 12px; color: #fff; text-shadow: 0 0 10px rgba(0, 210, 255, 0.5); }
+        .moment-desc { font-family: 'Dancing Script', cursive; font-size: 1.1rem; line-height: 1.4; color: #e0e0e0; letter-spacing: 0.5px; }
         
         .next-btn {
-            z-index: 3; margin-top: 30px; padding: 15px 40px; 
-            background: transparent; border: 1px solid #00d2ff; 
+            z-index: 3; margin-top: 30px; padding: 18px 45px; 
+            background: rgba(0, 210, 255, 0.05); border: 1px solid #00d2ff; 
             color: #00d2ff; font-family: 'Cinzel'; cursor: pointer; 
-            border-radius: 30px; letter-spacing: 2px; transition: 0.5s;
+            border-radius: 40px; letter-spacing: 3px; transition: 0.5s;
         }
-        .next-btn:hover { background: #00d2ff; color: #000; box-shadow: 0 0 20px #00d2ff; }
+        .next-btn:hover { background: #00d2ff; color: #000; box-shadow: 0 0 30px #00d2ff; }
 
         #bg-music { display: none; }
     </style>
@@ -72,24 +72,24 @@
         <div class="timeline-line"></div>
 
         <div class="moment-card">
-            <div class="date">The First Convergence</div>
-            <div class="moment-title">Amader Shuru</div>
-            <p class="moment-desc">"Everything started with this simple text..."</p>
-            <img src="chat1.png" class="chat-ss" alt="Chat Screenshot">
+            <div class="date">The First Interaction</div>
+            <div class="moment-title">Shuru-r Shei Golpo</div>
+            <p class="moment-desc">"Ekta chotto message, ar amader duijon-er prithibi ek hoye gelo. Ke janto ei ekta text-i amar life-er shobcheye boro 'Constant' hoye jabe?"</p>
+            <img src="chat1.png" class="chat-ss">
         </div>
 
         <div class="moment-card">
-            <div class="date">Mathematical Resonance</div>
+            <div class="date">Infinite Resonance</div>
             <div class="moment-title">Late Night Chaos</div>
-            <p class="moment-desc">"Tokhon bujhi nai je ei manush tai amar mathar shob equation elomelo kore dibe."</p>
-            <img src="chat2.png" class="chat-ss" alt="Chat Screenshot">
+            <p class="moment-desc">"Ghum-hin raat, elomelo kotha, ar tomar paglami. Amader late night talks gulo na thakle bujhtami-i na je kauke eto beshi care kora jay."</p>
+            <img src="chat2.png" class="chat-ss">
         </div>
 
         <div class="moment-card">
-            <div class="date">Infinite Loop</div>
-            <div class="moment-title">The Sweetest Logic</div>
-            <p class="moment-desc">"Every time I re-read this, I smile like a fool."</p>
-            <img src="chat3.png" class="chat-ss" alt="Chat Screenshot">
+            <div class="date">The Gravity of Us</div>
+            <div class="moment-title">The Caring Heart</div>
+            <p class="moment-desc">"Tomar chotto chotto care gulo amar kache boro boro mathematical achievements-er cheyeo dami. Tumi thako bolei amar shob equation mile jay."</p>
+            <img src="chat3.png" class="chat-ss">
         </div>
 
         <button class="next-btn" onclick="goToFinal()">
@@ -104,13 +104,13 @@
             const savedTime = localStorage.getItem('audioTime');
             if (savedTime) music.currentTime = parseFloat(savedTime);
             
-            const startPlay = () => {
+            const triggerPlay = () => {
                 music.play();
-                window.removeEventListener('scroll', startPlay);
-                window.removeEventListener('touchstart', startPlay);
+                window.removeEventListener('scroll', triggerPlay);
+                window.removeEventListener('touchstart', triggerPlay);
             };
-            window.addEventListener('scroll', startPlay);
-            window.addEventListener('touchstart', startPlay);
+            window.addEventListener('scroll', triggerPlay);
+            window.addEventListener('touchstart', triggerPlay);
             music.play().catch(() => {});
         }
 
@@ -119,7 +119,7 @@
             window.location.href = 'segment4.html';
         }
 
-        // --- STAR BACKGROUND ---
+        // --- ENHANCED BLINKING STARS ---
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -127,13 +127,14 @@
         function initStars() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            for (let i = 0; i < 150; i++) {
+            for (let i = 0; i < 200; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    radius: Math.random() * 1.2,
+                    radius: Math.random() * 1.5,
                     opacity: Math.random(),
-                    speed: Math.random() * 0.01 + 0.005
+                    blinkSpeed: Math.random() * 0.02 + 0.005,
+                    color: Math.random() > 0.8 ? '#00d2ff' : '#ffffff' // Some stars are blue theme
                 });
             }
             animate();
@@ -142,11 +143,14 @@
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             stars.forEach(s => {
-                s.opacity += s.speed;
-                if (s.opacity > 1 || s.opacity < 0.1) s.speed = -s.speed;
+                s.opacity += s.blinkSpeed;
+                if (s.opacity > 1 || s.opacity < 0.1) s.blinkSpeed = -s.blinkSpeed;
+                
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+                ctx.fillStyle = s.color === '#ffffff' ? `rgba(255, 255, 255, ${s.opacity})` : `rgba(0, 210, 255, ${s.opacity})`;
+                ctx.shadowBlur = s.opacity * 10;
+                ctx.shadowColor = s.color;
                 ctx.fill();
             });
             requestAnimationFrame(animate);
@@ -159,6 +163,11 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.moment-card').forEach(card => observer.observe(card));
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     </script>
 </body>
 </html>
