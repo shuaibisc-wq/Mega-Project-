@@ -101,8 +101,8 @@
 </head>
 <body onload="initHyperEngine();">
 
-    <audio id="bg-music">
-        <source src="music3.mp3" type="audio/mpeg">
+    <audio id="bg-music" loop>
+        <source src="music2.mp3" type="audio/mpeg">
     </audio>
 
     <div class="aurora-bg"></div>
@@ -141,29 +141,28 @@
         let currentHeartProgress = 0; 
 
         function initHyperEngine() {
-            // Uninterrupted Continuous Music Logic
+            // Precise Continuous Playback Synchronization Logic
             const savedTime = localStorage.getItem('musicPlaybackTime');
             if (savedTime !== null) {
                 music.currentTime = parseFloat(savedTime);
             }
             
-            // Force play initialization
+            // Seamless play trigger without demanding tap
             const playPromise = music.play();
             if (playPromise !== undefined) {
                 playPromise.catch(() => {
-                    // Fallback to click listener if user gesture constraint hits
-                    document.body.addEventListener('click', () => {
-                        music.play();
-                    }, { once: true });
+                    // Fail-safe handler inside the global animation context
+                    window.addEventListener('mousemove', () => { music.play(); }, { once: true });
+                    window.addEventListener('touchstart', () => { music.play(); }, { once: true });
                 });
             }
 
-            // Continuously save music timestamp
+            // Realtime position matrix tracking pipeline
             setInterval(() => {
                 if (!music.paused) {
                     localStorage.setItem('musicPlaybackTime', music.currentTime);
                 }
-            }, 300);
+            }, 100);
 
             buildCosmos();
         }
@@ -176,7 +175,7 @@
                 const mainBox = document.getElementById('mainBox');
                 
                 msgText.classList.add('fade');
-                assembleHeart = true; // Command specialized layer to form the heart slow motion
+                assembleHeart = true; 
 
                 setTimeout(() => {
                     currentIndex++;
@@ -194,7 +193,7 @@
 
                     msgText.classList.remove('fade');
                     
-                    // Keep full heart visible, then slowly release back after 3.5 seconds
+                    // Display locked state for 3.5 seconds then dissolve back gracefully
                     setTimeout(() => { 
                         assembleHeart = false; 
                     }, 3500);
@@ -219,7 +218,7 @@
             }, 800);
         }
 
-        // --- SEPARATE LAYER IMMORTAL PHYSICS ENGINE ---
+        // --- LAYER SEPARATION ENGINE COGNITIVE PHYSICS ---
         const canvas = document.getElementById('universeCanvas');
         const ctx = canvas.getContext('2d');
         let backgroundStars = [];
@@ -234,7 +233,6 @@
             let centerY = canvas.height / 2;
             let sizeFactor = Math.min(canvas.width * 0.048, 15.5);
 
-            // Generate Precise Heart Geometries
             for (let t = 0; t < Math.PI * 2; t += 0.015) {
                 let x = 16 * Math.pow(Math.sin(t), 3);
                 let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
@@ -244,7 +242,7 @@
                 });
             }
 
-            // LAYER 1: 600 Permanent Independent Blinking Background Stars (Never Morph/Never Lock)
+            // LAYER 1: Permanent Independent Blinking Background Stars (Immortal layer)
             for (let i = 0; i < 600; i++) {
                 backgroundStars.push({
                     x: Math.random() * canvas.width,
@@ -256,7 +254,7 @@
                 });
             }
 
-            // LAYER 2: Dedicated Constellation Stars to draw the heart shape slowly
+            // LAYER 2: Specialized Morphing Star Matrix 
             for (let i = 0; i < heartPoints.length * 2; i++) {
                 heartStars.push({
                     x: Math.random() * canvas.width,
@@ -279,14 +277,14 @@
             let cx = canvas.width / 2;
             let cy = canvas.height / 2;
 
-            // Cinematic 5 to 6 Seconds Build-up Frame step adjustment (0.003)
+            // Slow-motion timeline mapping matrix (Creates the cinematic 5-6s build)
             if (assembleHeart && currentHeartProgress < 1) {
                 currentHeartProgress += 0.003; 
             } else if (!assembleHeart && currentHeartProgress > 0) {
                 currentHeartProgress -= 0.0045; 
             }
 
-            // DRAW LAYER 1: Eternal Background Stars (Always active & drifting downward)
+            // RENDERING LAYER 1: Background Layer (Always drifting, blinking & active)
             backgroundStars.forEach((s) => {
                 if (isWarping) {
                     ctx.beginPath(); ctx.moveTo(s.x, s.y);
@@ -308,15 +306,13 @@
                 ctx.fill();
             });
 
-            // DRAW LAYER 2: Slow-Motion Morphing Constellation Heart Stars
+            // RENDERING LAYER 2: Slow-Motion Morphing Heart Layer
             heartStars.forEach((s, idx) => {
                 if (isWarping) return;
 
-                // Drift the base background memory paths continuously 
                 s.origY += s.vy;
                 if (s.origY > canvas.height) { s.origY = 0; s.origX = Math.random() * canvas.width; }
 
-                // Blend/Interpolate smoothly between cosmic drift and structural heart coordinates
                 let target = heartPoints[s.targetIdx];
                 s.x = s.origX + (target.x - s.origX) * currentHeartProgress;
                 s.y = s.origY + (target.y - s.origY) * currentHeartProgress;
@@ -327,7 +323,6 @@
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
 
-                // Dynamically morph color scheme into the box boundary color
                 if (currentHeartProgress > 0.15) {
                     ctx.fillStyle = colorPalettes[currentIndex];
                 } else {
@@ -335,7 +330,6 @@
                 }
                 ctx.fill();
 
-                // Draw neon structural constellation web lines slowly 
                 if (currentHeartProgress > 0.4 && idx % 4 === 0) {
                     ctx.beginPath();
                     ctx.moveTo(s.x, s.y);
