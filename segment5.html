@@ -140,24 +140,30 @@
         let assembleHeart = false; 
         let currentHeartProgress = 0; 
 
-        function initHyperEngine() {
-            // Precise Continuous Playback Synchronization Logic
+        // Function to safely execute play state from the stored timeline
+        function syncAndPlayMusic() {
             const savedTime = localStorage.getItem('musicPlaybackTime');
             if (savedTime !== null) {
                 music.currentTime = parseFloat(savedTime);
             }
-            
-            // Seamless play trigger without demanding tap
-            const playPromise = music.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Fail-safe handler inside the global animation context
-                    window.addEventListener('mousemove', () => { music.play(); }, { once: true });
-                    window.addEventListener('touchstart', () => { music.play(); }, { once: true });
-                });
-            }
+            music.play().catch(err => console.log("Autoplay waiting for click interaction..."));
+        }
 
-            // Realtime position matrix tracking pipeline
+        function initHyperEngine() {
+            // First attempt to play directly
+            syncAndPlayMusic();
+            
+            // CRITICAL AUTOPLAY POLICY BYPASS:
+            // Jakhon e screen er jekono jaygay prothom click ba touch hobe, music play shuru hbe exact point theke
+            document.body.addEventListener('click', () => {
+                if (music.paused) { syncAndPlayMusic(); }
+            }, { once: false });
+
+            document.body.addEventListener('touchstart', () => {
+                if (music.paused) { syncAndPlayMusic(); }
+            }, { once: false });
+
+            // Continuously record time interval matrix data
             setInterval(() => {
                 if (!music.paused) {
                     localStorage.setItem('musicPlaybackTime', music.currentTime);
@@ -168,6 +174,9 @@
         }
 
         function triggerNextEpic() {
+            // Safe execution handler to ensure music triggers on button click too
+            if (music.paused) { syncAndPlayMusic(); }
+
             if (currentIndex < messages.length - 1) {
                 const msgText = document.getElementById('msgText');
                 const themeTag = document.getElementById('themeTag');
@@ -193,7 +202,7 @@
 
                     msgText.classList.remove('fade');
                     
-                    // Display locked state for 3.5 seconds then dissolve back gracefully
+                    // Display locked heart array state for 3.5 seconds then dissolve back gently
                     setTimeout(() => { 
                         assembleHeart = false; 
                     }, 3500);
@@ -218,7 +227,7 @@
             }, 800);
         }
 
-        // --- LAYER SEPARATION ENGINE COGNITIVE PHYSICS ---
+        // --- LAYER SEPARATION IMMORTAL ENGINE ---
         const canvas = document.getElementById('universeCanvas');
         const ctx = canvas.getContext('2d');
         let backgroundStars = [];
@@ -242,7 +251,7 @@
                 });
             }
 
-            // LAYER 1: Permanent Independent Blinking Background Stars (Immortal layer)
+            // LAYER 1: Permanent Background Active Layer (Always Blinking, Never Morphing)
             for (let i = 0; i < 600; i++) {
                 backgroundStars.push({
                     x: Math.random() * canvas.width,
@@ -254,7 +263,7 @@
                 });
             }
 
-            // LAYER 2: Specialized Morphing Star Matrix 
+            // LAYER 2: Specialized Constellation Star Matrix Layer
             for (let i = 0; i < heartPoints.length * 2; i++) {
                 heartStars.push({
                     x: Math.random() * canvas.width,
@@ -277,14 +286,14 @@
             let cx = canvas.width / 2;
             let cy = canvas.height / 2;
 
-            // Slow-motion timeline mapping matrix (Creates the cinematic 5-6s build)
+            // Slow-motion 5.5 Seconds assembly step speed path (0.003)
             if (assembleHeart && currentHeartProgress < 1) {
                 currentHeartProgress += 0.003; 
             } else if (!assembleHeart && currentHeartProgress > 0) {
                 currentHeartProgress -= 0.0045; 
             }
 
-            // RENDERING LAYER 1: Background Layer (Always drifting, blinking & active)
+            // RENDERING LAYER 1: Background Active Stars (Always Drifting & Twinkling)
             backgroundStars.forEach((s) => {
                 if (isWarping) {
                     ctx.beginPath(); ctx.moveTo(s.x, s.y);
@@ -306,7 +315,7 @@
                 ctx.fill();
             });
 
-            // RENDERING LAYER 2: Slow-Motion Morphing Heart Layer
+            // RENDERING LAYER 2: Slow-Motion Structural Matrix Heart Stars
             heartStars.forEach((s, idx) => {
                 if (isWarping) return;
 
@@ -330,6 +339,7 @@
                 }
                 ctx.fill();
 
+                // Draw neon connecting structural grid constellation web lines
                 if (currentHeartProgress > 0.4 && idx % 4 === 0) {
                     ctx.beginPath();
                     ctx.moveTo(s.x, s.y);
