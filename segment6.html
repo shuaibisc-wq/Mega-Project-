@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2: The Mystery Gift | Princess Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600;900&display=swap');
+        
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #ffe5ec; color: #ff4d6d; overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .cute-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 50%, #ffe5ec 100%);
+            z-index: 0;
+        }
+
+        /* Top Header Banner */
+        .intro-banner {
+            position: absolute; top: 10%; z-index: 100;
+            font-family: 'Fredoka One', cursive;
+            font-size: clamp(1.4rem, 6vw, 2.4rem);
+            color: #ff4d6d; text-align: center;
+            text-shadow: 3px 3px 0px #ffffff;
+            letter-spacing: 1px;
+            width: 90%; max-width: 600px;
+            animation: bounceTrack 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes bounceTrack {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-12px); }
+        }
+
+        /* Balanced Story Stage Arena Frame */
+        .story-stage {
+            position: relative; z-index: 10;
+            width: 100vw; max-width: 500px; height: 380px;
+            display: flex; justify-content: center; align-items: flex-end;
+            margin-bottom: 20px;
+        }
+
+        /* ==================== 1. BUBU (PEACH) FLOW ==================== */
+        .bubu-wrapper {
+            position: absolute; left: 16%; bottom: 35px;
+            display: flex; flex-direction: column; align-items: center;
+            transform: scale(0); opacity: 0; z-index: 50;
+            animation: bubuWalkIn 4s cubic-bezier(0.25, 1, 0.5, 1) 0.5s forwards; /* Starts immediately */
+        }
+
+        @keyframes bubuWalkIn {
+            0% { transform: scale(0.1) translateY(140px); opacity: 0; }
+            100% { transform: scale(1.05) translateY(0); opacity: 1; }
+        }
+
+        /* Bubu Speech - Triggers at 4.5s mark */
+        .speech-bubu-bubble {
+            position: relative; background: #ffffff;
+            border: 3px solid #ff758f; border-radius: 18px;
+            padding: 10px 16px; font-family: 'Fredoka One', cursive;
+            font-size: 0.9rem; color: #c9184a; text-align: center;
+            box-shadow: 0 6px 12px rgba(255, 77, 109, 0.12);
+            margin-bottom: 20px; opacity: 0; transform: scale(0.8);
+            animation: popBubble 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 4.5s forwards;
+        }
+
+        /* PEACH (BUBU) STRUCTURAL VECTOR */
+        .peach-bubu {
+            position: relative; width: 95px; height: 85px;
+            background: #ffffff; border-radius: 54% 54% 46% 46%;
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.05);
+        }
+        .peach-bubu::before, .peach-bubu::after {
+            content: ''; position: absolute; width: 26px; height: 26px;
+            background: #ffffff; border-radius: 50%; top: -6px;
+        }
+        .peach-bubu::before { left: -3px; }
+        .peach-bubu::after { right: -3px; }
+
+        .peach-face { position: absolute; top: 34px; width: 100%; height: 40px; }
+        .peach-eyes { display: flex; justify-content: space-around; padding: 0 22px; }
+        .peach-eyes::before, .peach-eyes::after {
+            content: ''; width: 8px; height: 8px; background: #3c2a21; border-radius: 50%;
+        }
+        .peach-blush { display: flex; justify-content: space-between; padding: 0 10px; margin-top: -2px; }
+        .peach-blush::before, .peach-blush::after {
+            content: ''; width: 16px; height: 10px; background: #ffb3c6; border-radius: 50%; opacity: 0.85;
+        }
+        .peach-snout { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 16px; height: 12px; text-align: center; }
+        .peach-snout::before { content: '▼'; font-size: 7px; color: #3c2a21; display: block; }
+
+        .bubu-hands { position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: space-between; padding: 0 4px; box-sizing: border-box; }
+        .bubu-hands::before, .bubu-hands::after { content: ''; width: 14px; height: 14px; background: #ffffff; border-radius: 50%; }
+        
+        .bubu-feet { position: absolute; bottom: -8px; width: 100%; display: flex; justify-content: space-around; padding: 0 12px; box-sizing: border-box; }
+        .bubu-feet::before, .bubu-feet::after {
+            content: ''; width: 18px; height: 14px; background: #ffffff; border-radius: 50% 50% 40% 40%;
+            animation: legSwingBubu 0.4s infinite alternate ease-in-out;
+        }
+        @keyframes legSwingBubu {
+            0% { transform: translateY(0) rotate(-4deg); }
+            100% { transform: translateY(-2px) rotate(4deg); }
+        }
+
+
+        /* ==================== 2. DUDU (GOMA) FLOW ==================== */
+        .dudu-wrapper {
+            position: absolute; right: 16%; bottom: 35px;
+            display: flex; flex-direction: column; align-items: center;
+            opacity: 0; transform: translateX(200px); z-index: 60;
+            animation: duduDelayedWalk 4s cubic-bezier(0.25, 1, 0.5, 1) 6s forwards; /* Triggers perfectly at 6s mark */
+        }
+
+        @keyframes duduDelayedWalk {
+            0% { transform: translateX(200px); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Dudu Speech - Triggers at 10.5s mark */
+        .speech-dudu-bubble {
+            position: relative; background: #ffffff;
+            border: 3px solid #ff758f; border-radius: 18px;
+            padding: 10px 16px; font-family: 'Fredoka One', cursive;
+            font-size: 0.9rem; color: #c9184a; text-align: center;
+            box-shadow: 0 6px 12px rgba(255, 77, 109, 0.12);
+            margin-bottom: 20px; opacity: 0; transform: scale(0.8);
+            animation: popBubble 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 10.5s forwards;
+        }
+
+        /* Speech Pointer Triangles common layout alignment */
+        .speech-bubu-bubble::after, .speech-dudu-bubble::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            border-width: 10px 10px 0; border-style: solid; border-color: #ffffff transparent; display: block; width: 0;
+        }
+        .speech-bubu-bubble::before, .speech-dudu-bubble::before {
+            content: ''; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
+            border-width: 11px 11px 0; border-style: solid; border-color: #ff758f transparent; display: block; width: 0;
+        }
+
+        @keyframes popBubble {
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* GOMA (DUDU) STRUCTURAL VECTOR */
+        .goma-dudu {
+            position: relative; width: 95px; height: 85px;
+            background: #e2e8f0; border-radius: 52% 52% 48% 48%;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+        }
+        .goma-dudu::before, .goma-dudu::after {
+            content: ''; position: absolute; width: 0; height: 0;
+            border-left: 14px solid transparent; border-right: 14px solid transparent;
+            border-bottom: 22px solid #e2e8f0; top: -10px;
+        }
+        .goma-dudu::before { left: 4px; transform: rotate(-12deg); }
+        .goma-dudu::after { right: 4px; transform: rotate(12deg); }
+
+        .goma-face { position: absolute; top: 34px; width: 100%; height: 40px; }
+        .goma-eyes { display: flex; justify-content: space-around; padding: 0 22px; }
+        .goma-eyes::before, .goma-eyes::after {
+            content: ''; width: 8px; height: 8px; background: #2d3748; border-radius: 50%;
+        }
+        .goma-snout { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); text-align: center; }
+        .goma-snout::before { content: '😽'; font-size: 11px; display: block; margin-top: -4px; }
+
+        .dudu-hands { position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: space-between; padding: 0 4px; box-sizing: border-box; }
+        .dudu-hands::before, .dudu-hands::after { content: ''; width: 14px; height: 14px; background: #e2e8f0; border-radius: 50%; }
+        
+        .dudu-feet { position: absolute; bottom: -8px; width: 100%; display: flex; justify-content: space-around; padding: 0 12px; box-sizing: border-box; }
+        .dudu-feet::before, .dudu-feet::after {
+            content: ''; width: 18px; height: 14px; background: #e2e8f0; border-radius: 50% 50% 40% 40%;
+            animation: legSwingDudu 0.4s infinite alternate ease-in-out;
+        }
+        @keyframes legSwingDudu {
+            0% { transform: translateY(0) rotate(-5deg); }
+            100% { transform: translateY(-2px) rotate(5deg); }
+        }
+
+        /* Gift Box Vector Asset */
+        .dudu-gift-box {
+            position: absolute; bottom: 12px; left: -16px;
+            width: 44px; height: 38px; background: #ff4d6d;
+            border-radius: 8px; border: 2.5px solid #ffffff;
+            box-shadow: 0 6px 12px rgba(217, 4, 41, 0.15);
+            animation: giftWobble 1.5s infinite alternate ease-in-out;
+            z-index: 90;
+        }
+        .dudu-gift-box::before { content: ''; position: absolute; left: 19px; top: 0; width: 6px; height: 100%; background: #ffffff; }
+        .dudu-gift-box::after { content: '🎀'; position: absolute; top: -15px; left: 9px; font-size: 16px; }
+
+        @keyframes giftWobble {
+            0% { transform: rotate(-8deg); }
+            100% { transform: rotate(8deg); }
+        }
+
+
+        /* ==================== 3. INTERACTIVE UI CONTROL FLOW ==================== */
+        .gift-action-container {
+            position: absolute; bottom: 10%; z-index: 100;
+            display: flex; flex-direction: column; align-items: center;
+            opacity: 0; transform: scale(0.9);
+            animation: fadeInUI 0.8s ease 12.5s forwards; /* Appears at 12.5 seconds mark */
+            width: 100%;
+        }
+
+        @keyframes fadeInUI {
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .action-label {
+            font-size: 1.1rem; font-weight: 900; color: #ff4d6d;
+            margin-bottom: 18px; text-transform: uppercase; letter-spacing: 1.5px;
+            text-align: center; text-shadow: 1px 1px 0 #fff;
+        }
+
+        .kawaii-btn {
+            padding: 15px 50px; font-family: 'Fredoka One', cursive; font-size: 1.15rem; 
+            cursor: pointer; border-radius: 50px; border: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            background: #ff4d6d; color: white;
+            box-shadow: 0 6px 0px #c9184a, 0 10px 25px rgba(217, 4, 41, 0.25);
+            letter-spacing: 0.5px; outline: none;
+        }
+
+        .kawaii-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 10px 0px #c9184a, 0 14px 30px rgba(217, 4, 41, 0.35);
+            background: #ff758f;
+        }
+
+        /* Final Jump Animation Classes */
+        .happy-jump {
+            animation: jumpAnimate 0.4s infinite alternate ease-in-out !important;
+        }
+        @keyframes jumpAnimate {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-35px); }
+        }
+    </style>
+</head>
+<body>
+
+    <iframe src="https://www.youtube.com/embed/9hk7Z9q4p-Y?autoplay=1&loop=1&playlist=9hk7Z9q4p-Y&mute=0" allow="autoplay" style="display:none;"></iframe>
+
+    <div class="cute-bg"></div>
+    
+    <div class="intro-banner">A LOT OF GIFTS FOR YOU! 🎁💖</div>
+
+    <div class="story-stage">
+        
+        <div class="bubu-wrapper" id="bubuNode">
+            <div class="speech-bubu-bubble" id="bubuSpeech">Where is my gift? 🥺</div>
+            <div class="peach-bubu">
+                <div class="bubu-hands"></div>
+                <div class="peach-face">
+                    <div class="peach-eyes"></div>
+                    <div class="peach-blush"></div>
+                    <div class="peach-snout"></div>
+                </div>
+                <div class="bubu-feet"></div>
+            </div>
+        </div>
+
+        <div class="dudu-wrapper" id="duduNode">
+            <div class="speech-dudu-bubble" id="duduSpeech">Here is your gift! 🎁✨</div>
+            <div class="goma-dudu">
+                <div class="dudu-hands"></div>
+                <div class="goma-face">
+                    <div class="goma-eyes"></div>
+                    <div class="goma-snout"></div>
+                </div>
+                <div class="dudu-feet"></div>
+                <div class="dudu-gift-box" id="giftBoxAsset"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="gift-action-container">
+        <div class="action-label" id="statusMessage">Let's open it together! 🥰</div>
+        <button class="kawaii-btn" id="openBoxBtn" onclick="executeGiftOpenSequence()">OPEN BOX! 🎁</button>
+    </div>
+
+    <script>
+        localStorage.removeItem('musicPlaybackTime');
+
+        function executeGiftOpenSequence() {
+            const btn = document.getElementById('openBoxBtn');
+            const statusMsg = document.getElementById('statusMessage');
+            const bubuNode = document.getElementById('bubuNode');
+            const duduNode = document.getElementById('duduNode');
+            const bubuSpeech = document.getElementById('bubuSpeech');
+            const duduSpeech = document.getElementById('duduSpeech');
+            const giftBox = document.getElementById('giftBoxAsset');
+
+            statusMsg.innerText = "YAYY!! Opening your cute gifts... 🎉";
+            bubuSpeech.innerText = "OMG THANK YOU! ❤️";
+            duduSpeech.innerText = "HEHE ENJOY! 🥰";
+            
+            bubuNode.classList.add('happy-jump');
+            duduNode.classList.add('happy-jump');
+            
+            giftBox.style.transform = "scale(2.5) translateY(-50px)";
+            giftBox.style.opacity = "0";
+            giftBox.style.transition = "all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+
+            btn.style.transform = "scale(0.92)";
+            btn.style.opacity = "0.4";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                window.location.href = 'segment7.html';
+            }, 2600);
+        }
+    </script>
+</body>
+</html>
