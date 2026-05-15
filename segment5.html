@@ -16,7 +16,6 @@
 
         canvas { position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
-        /* Aurora Blinking Glow Layers */
         .aurora-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: 
@@ -32,7 +31,6 @@
             100% { opacity: 1; transform: scale(1.05); }
         }
 
-        /* Message Box Center Box */
         .slider-box {
             position: relative; z-index: 2; text-align: center;
             width: 86vw; max-width: 410px;
@@ -101,7 +99,7 @@
 </head>
 <body onload="initHyperEngine();">
 
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="auto">
         <source src="music2.mp3" type="audio/mpeg">
     </audio>
 
@@ -140,42 +138,46 @@
         let assembleHeart = false; 
         let currentHeartProgress = 0; 
 
-        // Function to safely execute play state from the stored timeline
-        function syncAndPlayMusic() {
+        // Core execution script with safe loading matrix fallback
+        function forceSyncPlayback() {
             const savedTime = localStorage.getItem('musicPlaybackTime');
             if (savedTime !== null) {
                 music.currentTime = parseFloat(savedTime);
             }
-            music.play().catch(err => console.log("Autoplay waiting for click interaction..."));
+            
+            // Checking if the asset state is currently loading or playing
+            if (music.paused) {
+                let runPlay = music.play();
+                if (runPlay !== undefined) {
+                    runPlay.catch(error => {
+                        console.log("Waiting for global user trigger action matrix...");
+                    });
+                }
+            }
         }
 
         function initHyperEngine() {
-            // First attempt to play directly
-            syncAndPlayMusic();
+            // Step 1: Force baseline synchronization
+            forceSyncPlayback();
             
-            // CRITICAL AUTOPLAY POLICY BYPASS:
-            // Jakhon e screen er jekono jaygay prothom click ba touch hobe, music play shuru hbe exact point theke
-            document.body.addEventListener('click', () => {
-                if (music.paused) { syncAndPlayMusic(); }
-            }, { once: false });
+            // Step 2: Global structural event hooks
+            document.addEventListener('click', forceSyncPlayback, { once: false });
+            document.addEventListener('touchstart', forceSyncPlayback, { once: false });
+            document.getElementById('actionBtn').addEventListener('click', forceSyncPlayback);
 
-            document.body.addEventListener('touchstart', () => {
-                if (music.paused) { syncAndPlayMusic(); }
-            }, { once: false });
-
-            // Continuously record time interval matrix data
+            // Time keeping ticker tracking interval matrix data (Fast 50ms pulse)
             setInterval(() => {
-                if (!music.paused) {
+                if (music && !music.paused && music.currentTime > 0) {
                     localStorage.setItem('musicPlaybackTime', music.currentTime);
                 }
-            }, 100);
+            }, 50);
 
             buildCosmos();
         }
 
         function triggerNextEpic() {
-            // Safe execution handler to ensure music triggers on button click too
-            if (music.paused) { syncAndPlayMusic(); }
+            // Double fail-safe trigger point
+            forceSyncPlayback();
 
             if (currentIndex < messages.length - 1) {
                 const msgText = document.getElementById('msgText');
@@ -202,7 +204,6 @@
 
                     msgText.classList.remove('fade');
                     
-                    // Display locked heart array state for 3.5 seconds then dissolve back gently
                     setTimeout(() => { 
                         assembleHeart = false; 
                     }, 3500);
@@ -221,13 +222,15 @@
         let isWarping = false;
         function executeWarpExit() {
             isWarping = true;
-            localStorage.setItem('musicPlaybackTime', music.currentTime);
+            if (music) {
+                localStorage.setItem('musicPlaybackTime', music.currentTime);
+            }
             setTimeout(() => {
                 window.location.href = 'segment6.html';
             }, 800);
         }
 
-        // --- LAYER SEPARATION IMMORTAL ENGINE ---
+        // --- VISUAL SPACE PHYSICS CANVAS ENGINE ---
         const canvas = document.getElementById('universeCanvas');
         const ctx = canvas.getContext('2d');
         let backgroundStars = [];
@@ -245,35 +248,23 @@
             for (let t = 0; t < Math.PI * 2; t += 0.015) {
                 let x = 16 * Math.pow(Math.sin(t), 3);
                 let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-                heartPoints.push({
-                    x: centerX + x * sizeFactor,
-                    y: centerY + y * sizeFactor
-                });
+                heartPoints.push({ x: centerX + x * sizeFactor, y: centerY + y * sizeFactor });
             }
 
-            // LAYER 1: Permanent Background Active Layer (Always Blinking, Never Morphing)
             for (let i = 0; i < 600; i++) {
                 backgroundStars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: Math.random() * 1.3 + 0.1,
-                    vy: Math.random() * 0.2 + 0.05,
-                    opacity: Math.random(),
-                    pulse: Math.random() * 0.02 + 0.005
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.3 + 0.1, vy: Math.random() * 0.2 + 0.05,
+                    opacity: Math.random(), pulse: Math.random() * 0.02 + 0.005
                 });
             }
 
-            // LAYER 2: Specialized Constellation Star Matrix Layer
             for (let i = 0; i < heartPoints.length * 2; i++) {
                 heartStars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    origX: Math.random() * canvas.width,
-                    origY: Math.random() * canvas.height,
-                    radius: Math.random() * 1.6 + 0.4,
-                    vy: Math.random() * 0.3 + 0.1,
-                    opacity: Math.random(),
-                    pulse: Math.random() * 0.03 + 0.01,
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                    origX: Math.random() * canvas.width, origY: Math.random() * canvas.height,
+                    radius: Math.random() * 1.6 + 0.4, vy: Math.random() * 0.3 + 0.1,
+                    opacity: Math.random(), pulse: Math.random() * 0.03 + 0.01,
                     targetIdx: Math.floor(Math.random() * heartPoints.length)
                 });
             }
@@ -283,81 +274,46 @@
 
         function loopEngine() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            let cx = canvas.width / 2;
-            let cy = canvas.height / 2;
+            let cx = canvas.width / 2; let cy = canvas.height / 2;
 
-            // Slow-motion 5.5 Seconds assembly step speed path (0.003)
             if (assembleHeart && currentHeartProgress < 1) {
                 currentHeartProgress += 0.003; 
             } else if (!assembleHeart && currentHeartProgress > 0) {
                 currentHeartProgress -= 0.0045; 
             }
 
-            // RENDERING LAYER 1: Background Active Stars (Always Drifting & Twinkling)
             backgroundStars.forEach((s) => {
                 if (isWarping) {
                     ctx.beginPath(); ctx.moveTo(s.x, s.y);
                     let stretchX = s.x + (s.x - cx) * 0.15; let stretchY = s.y + (s.y - cy) * 0.15;
-                    ctx.lineTo(stretchX, stretchY);
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${s.opacity})`; ctx.lineWidth = s.radius; ctx.stroke();
+                    ctx.lineTo(stretchX, stretchY); ctx.strokeStyle = `rgba(255, 255, 255, ${s.opacity})`; ctx.lineWidth = s.radius; ctx.stroke();
                     s.x = stretchX; s.y = stretchY; return;
                 }
-
-                s.y += s.vy;
-                if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
-
-                s.opacity += s.pulse;
-                if (s.opacity > 1 || s.opacity < 0.15) s.pulse = -s.pulse;
-
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity * 0.75})`;
-                ctx.fill();
+                s.y += s.vy; if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+                s.opacity += s.pulse; if (s.opacity > 1 || s.opacity < 0.15) s.pulse = -s.pulse;
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2); ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity * 0.75})`; ctx.fill();
             });
 
-            // RENDERING LAYER 2: Slow-Motion Structural Matrix Heart Stars
             heartStars.forEach((s, idx) => {
                 if (isWarping) return;
-
-                s.origY += s.vy;
-                if (s.origY > canvas.height) { s.origY = 0; s.origX = Math.random() * canvas.width; }
-
+                s.origY += s.vy; if (s.origY > canvas.height) { s.origY = 0; s.origX = Math.random() * canvas.width; }
                 let target = heartPoints[s.targetIdx];
-                s.x = s.origX + (target.x - s.origX) * currentHeartProgress;
-                s.y = s.origY + (target.y - s.origY) * currentHeartProgress;
-
-                s.opacity += s.pulse;
-                if (s.opacity > 1 || s.opacity < 0.15) s.pulse = -s.pulse;
-
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-
-                if (currentHeartProgress > 0.15) {
-                    ctx.fillStyle = colorPalettes[currentIndex];
-                } else {
-                    ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
-                }
+                s.x = s.origX + (target.x - s.origX) * currentHeartProgress; s.y = s.origY + (target.y - s.origY) * currentHeartProgress;
+                s.opacity += s.pulse; if (s.opacity > 1 || s.opacity < 0.15) s.pulse = -s.pulse;
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                if (currentHeartProgress > 0.15) { ctx.fillStyle = colorPalettes[currentIndex]; } else { ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`; }
                 ctx.fill();
-
-                // Draw neon connecting structural grid constellation web lines
                 if (currentHeartProgress > 0.4 && idx % 4 === 0) {
-                    ctx.beginPath();
-                    ctx.moveTo(s.x, s.y);
-                    let nextStar = heartStars[(idx + 4) % heartStars.length];
-                    ctx.lineTo(nextStar.x, nextStar.y);
-                    ctx.strokeStyle = `${colorPalettes[currentIndex]}${Math.floor(currentHeartProgress * 26).toString(16)}`;
-                    ctx.lineWidth = 0.45;
-                    ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(s.x, s.y); let nextStar = heartStars[(idx + 4) % heartStars.length]; ctx.lineTo(nextStar.x, nextStar.y);
+                    ctx.strokeStyle = `${colorPalettes[currentIndex]}${Math.floor(currentHeartProgress * 26).toString(16)}`; ctx.lineWidth = 0.45; ctx.stroke();
                 }
             });
-
             requestAnimationFrame(loopEngine);
         }
 
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            backgroundStars = []; heartStars = []; heartPoints = [];
-            buildCosmos();
+            backgroundStars = []; heartStars = []; heartPoints = []; buildCosmos();
         });
     </script>
 </body>
