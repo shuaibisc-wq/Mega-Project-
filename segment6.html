@@ -20,7 +20,6 @@
             z-index: 0;
         }
 
-        /* Top Header Banner */
         .intro-banner {
             position: absolute; top: 10%; z-index: 100;
             font-family: 'Fredoka One', cursive;
@@ -37,7 +36,6 @@
             100% { transform: translateY(-12px); }
         }
 
-        /* Balanced Story Stage Arena Frame */
         .story-stage {
             position: relative; z-index: 10;
             width: 100vw; max-width: 500px; height: 380px;
@@ -58,7 +56,6 @@
             100% { transform: scale(1.05) translateY(0); opacity: 1; }
         }
 
-        /* Bubu Speech - Triggers at 4.5s mark */
         .speech-bubu-bubble {
             position: relative; background: #ffffff;
             border: 3px solid #ff758f; border-radius: 18px;
@@ -69,7 +66,6 @@
             animation: popBubble 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 4.5s forwards;
         }
 
-        /* PEACH (BUBU) STRUCTURAL VECTOR */
         .peach-bubu {
             position: relative; width: 95px; height: 85px;
             background: #ffffff; border-radius: 54% 54% 46% 46%;
@@ -120,7 +116,6 @@
             100% { transform: translateX(0); opacity: 1; }
         }
 
-        /* Dudu Speech - Triggers at 10.5s mark */
         .speech-dudu-bubble {
             position: relative; background: #ffffff;
             border: 3px solid #ff758f; border-radius: 18px;
@@ -144,7 +139,6 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        /* GOMA (DUDU) STRUCTURAL VECTOR */
         .goma-dudu {
             position: relative; width: 95px; height: 85px;
             background: #e2e8f0; border-radius: 52% 52% 48% 48%;
@@ -179,7 +173,6 @@
             100% { transform: translateY(-2px) rotate(5deg); }
         }
 
-        /* Gift Box Vector Asset */
         .dudu-gift-box {
             position: absolute; bottom: 12px; left: -16px;
             width: 44px; height: 38px; background: #ff4d6d;
@@ -280,19 +273,19 @@
     </div>
 
     <script>
-        // Automatic execution flow for native uninterrupted soundtrack playback
+        // Continuous Playback Controller Logic
         window.addEventListener('DOMContentLoaded', () => {
             const audio = document.getElementById('bgMusic');
             
-            // Check if there's a carried time from previous loops or just start fresh
+            // Previous segment template timestamp lookup 
             const savedTime = localStorage.getItem('musicPlaybackTime');
             if(savedTime) {
                 audio.currentTime = parseFloat(savedTime);
             }
 
-            // High-priority immediate trigger attempts
+            // Fire auto-play instantly on transition load
             audio.play().catch(() => {
-                // Safe fallback wrapper: plays instantly upon user's first screen tap interaction
+                // Fallback catch layer if browser holds the state
                 document.body.addEventListener('click', () => {
                     if (audio.paused) audio.play();
                 }, { once: true });
@@ -309,7 +302,7 @@
             const giftBox = document.getElementById('giftBoxAsset');
             const audio = document.getElementById('bgMusic');
 
-            // Save the exact current timestamp to continue playing seamlessly in segment7
+            // Pass current timestamp checkpoint state to Segment 7
             localStorage.setItem('musicPlaybackTime', audio.currentTime);
 
             statusMsg.innerText = "YAYY!! Opening your cute gifts... 🎉";
