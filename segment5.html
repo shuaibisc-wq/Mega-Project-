@@ -28,7 +28,7 @@
         .slider-box {
             position: relative; z-index: 2; text-align: center;
             width: 86vw; max-width: 410px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.61);
             border: 1px solid rgba(0, 210, 255, 0.25);
             padding: 35px 25px; border-radius: 28px;
             backdrop-filter: blur(25px);
@@ -54,7 +54,7 @@
             font-size: clamp(0.88rem, 3.8vw, 1.02rem);
             line-height: 1.68; color: rgba(255, 255, 255, 0.95);
             font-weight: 200; margin: 0;
-            transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s ease;
             opacity: 1; transform: scale(1); filter: blur(0px);
         }
 
@@ -93,7 +93,7 @@
 </head>
 <body onload="initHyperEngine();">
 
-    <audio id="bg-music" loop>
+    <audio id="bg-music">
         <source src="music3.mp3" type="audio/mpeg">
     </audio>
 
@@ -130,10 +130,22 @@
         const colorPalettes = ["#00d2ff", "#a855f7", "#00f5ff", "#ff2a85"];
         let currentIndex = 0;
         let assembleHeart = false; 
-        let currentHeartProgress = 0; // Control morph transition timing perfectly
+        let currentHeartProgress = 0; 
 
         function initHyperEngine() {
+            // Uninterrupted Music Continuance Engine Setup
+            if (localStorage.getItem('musicPlaybackTime')) {
+                music.currentTime = parseFloat(localStorage.getItem('musicPlaybackTime'));
+            }
             music.play().catch(() => {});
+
+            // Update playback time buffer every half second continuously
+            setInterval(() => {
+                if (!music.paused) {
+                    localStorage.setItem('musicPlaybackTime', music.currentTime);
+                }
+            }, 500);
+
             buildCosmos();
         }
 
@@ -145,7 +157,7 @@
                 const mainBox = document.getElementById('mainBox');
                 
                 msgText.classList.add('fade');
-                assembleHeart = true; // Turn on heart constellation system
+                assembleHeart = true; // Order stars to align into the mathematical grid
 
                 burstQuantumNebula();
 
@@ -165,17 +177,17 @@
 
                     msgText.classList.remove('fade');
                     
-                    // Keep the heart visible for 1.8 seconds, then morph back smoothly
+                    // Prolonged showcase: stars stay locked in the heart for 3.5 seconds
                     setTimeout(() => { 
                         assembleHeart = false; 
-                    }, 1800);
+                    }, 3500);
 
                     if (currentIndex === messages.length - 1) {
                         actionBtn.innerText = "CONTINUE";
                         actionBtn.className = "slider-btn continue-btn";
                         actionBtn.style.display = "inline-block";
                     }
-                }, 450);
+                }, 550);
             } else {
                 executeWarpExit();
             }
@@ -184,12 +196,14 @@
         let isWarping = false;
         function executeWarpExit() {
             isWarping = true;
+            // Capture audio timestamp right before redirecting to Segment 6
+            localStorage.setItem('musicPlaybackTime', music.currentTime);
             setTimeout(() => {
                 window.location.href = 'segment6.html';
             }, 800);
         }
 
-        // --- FIXED VECTOR COGNITIVE PHYSICS ENGINE ---
+        // --- MASTER VECTOR SLOW-MOTION PHYSICS ENGINE ---
         const canvas = document.getElementById('universeCanvas');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -204,7 +218,6 @@
             let centerY = canvas.height / 2;
             let sizeFactor = Math.min(canvas.width * 0.048, 15.5);
 
-            // Generate parametric mathematical heart coordinates
             for (let t = 0; t < Math.PI * 2; t += 0.012) {
                 let x = 16 * Math.pow(Math.sin(t), 3);
                 let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
@@ -214,15 +227,14 @@
                 });
             }
 
-            // Create Star System with double tracking vectors
             for (let i = 0; i < 1000; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    origX: Math.random() * canvas.width, // Memory X Vector
-                    origY: Math.random() * canvas.height, // Memory Y Vector
+                    origX: Math.random() * canvas.width,
+                    origY: Math.random() * canvas.height,
                     radius: Math.random() * 1.5 + 0.2,
-                    vy: Math.random() * 0.3 + 0.1, // Floating drift speed
+                    vy: Math.random() * 0.3 + 0.1, 
                     opacity: Math.random(),
                     pulse: Math.random() * 0.02 + 0.005,
                     targetIdx: Math.floor(Math.random() * heartPoints.length)
@@ -254,11 +266,11 @@
             let cx = canvas.width / 2;
             let cy = canvas.height / 2;
 
-            // Transition step interpolation control
+            // Step Speed altered to 0.0032 to enforce an elegant 5.5 Seconds slow-motion assembly path
             if (assembleHeart && currentHeartProgress < 1) {
-                currentHeartProgress += 0.05; // Line-up speed
+                currentHeartProgress += 0.0032; 
             } else if (!assembleHeart && currentHeartProgress > 0) {
-                currentHeartProgress -= 0.03; // Smooth disintegration/release speed
+                currentHeartProgress -= 0.0045; // Gentle smooth transition dissolution back to cosmos
             }
 
             stars.forEach((s, idx) => {
@@ -275,14 +287,12 @@
                     return;
                 }
 
-                // Update background float variables independently
                 s.origY += s.vy;
                 if (s.origY > canvas.height) {
                     s.origY = 0;
                     s.origX = Math.random() * canvas.width;
                 }
 
-                // Twin vector interpolation map matrix logic
                 let target = heartPoints[s.targetIdx];
                 s.x = s.origX + (target.x - s.origX) * currentHeartProgress;
                 s.y = s.origY + (target.y - s.origY) * currentHeartProgress;
@@ -293,7 +303,6 @@
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
                 
-                // Color morphing based on selection state
                 if (currentHeartProgress > 0.1) {
                     ctx.fillStyle = colorPalettes[currentIndex];
                 } else {
@@ -301,14 +310,13 @@
                 }
                 ctx.fill();
 
-                // Draw neon constellation lines dynamically
-                if (currentHeartProgress > 0.6 && idx % 12 === 0) {
+                if (currentHeartProgress > 0.5 && idx % 12 === 0) {
                     ctx.beginPath();
                     ctx.moveTo(s.x, s.y);
                     let nextStar = stars[(idx + 12) % stars.length];
                     ctx.lineTo(nextStar.x, nextStar.y);
-                    ctx.strokeStyle = `${colorPalettes[currentIndex]}${Math.floor(currentHeartProgress * 35).toString(16)}`;
-                    ctx.lineWidth = 0.6;
+                    ctx.strokeStyle = `${colorPalettes[currentIndex]}${Math.floor(currentHeartProgress * 28).toString(16)}`;
+                    ctx.lineWidth = 0.5;
                     ctx.stroke();
                 }
             });
