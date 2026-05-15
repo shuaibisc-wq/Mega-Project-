@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Theorem of Us | Constellation Matrix</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400&family=Dancing+Script:wght@700&display=swap');
+        
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: #000; color: white; overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        canvas { position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; }
+
+        .aurora-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.23), transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.23), transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 120, 0.05), transparent 60%);
+            z-index: 0; filter: blur(70px);
+        }
+
+        .slider-box {
+            position: relative; z-index: 2; text-align: center;
+            width: 86vw; max-width: 410px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(0, 210, 255, 0.25);
+            padding: 35px 25px; border-radius: 28px;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 25px rgba(0, 210, 255, 0.1);
+            box-sizing: border-box;
+            transition: border-color 0.6s ease, box-shadow 0.6s ease;
+        }
+
+        .theme-indicator {
+            font-family: 'Cinzel', serif; font-size: 0.78rem;
+            color: #00d2ff; letter-spacing: 4px; font-weight: bold;
+            margin-bottom: 20px; text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+            transition: color 0.6s ease;
+        }
+
+        .msg-container {
+            min-height: 190px; display: flex; align-items: center; justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .letter-msg {
+            font-family: 'Montserrat', sans-serif; 
+            font-size: clamp(0.88rem, 3.8vw, 1.02rem);
+            line-height: 1.68; color: rgba(255, 255, 255, 0.95);
+            font-weight: 200; margin: 0;
+            transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
+            opacity: 1; transform: scale(1); filter: blur(0px);
+        }
+
+        .letter-msg.fade {
+            opacity: 0; transform: scale(0.97); filter: blur(4px);
+        }
+
+        .slider-btn {
+            padding: 13px 45px; font-family: 'Cinzel', serif; font-size: 0.85rem; 
+            font-weight: bold; cursor: pointer; border-radius: 50px; 
+            letter-spacing: 2px; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); 
+            box-sizing: border-box; outline: none; background: transparent;
+        }
+
+        .next-btn {
+            color: #00d2ff; border: 1px solid #00d2ff;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.15);
+        }
+        .next-btn:hover {
+            background: #00d2ff; color: #000; box-shadow: 0 0 35px #00d2ff;
+            transform: translateY(-2px);
+        }
+
+        .continue-btn {
+            background: linear-gradient(45deg, #00d2ff, #7000ff); color: white; border: none;
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
+            display: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        }
+        .continue-btn:hover {
+            box-shadow: 0 0 45px rgba(112, 0, 255, 0.6); transform: scale(1.04);
+        }
+
+        #bg-music { display: none; }
+    </style>
+</head>
+<body onload="initHyperEngine();">
+
+    <audio id="bg-music" loop>
+        <source src="music3.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="aurora-bg"></div>
+    <canvas id="universeCanvas"></canvas>
+
+    <div class="slider-box" id="mainBox">
+        <div id="themeTag" class="theme-indicator">MY ABSOLUTE PRIORITY</div>
+        
+        <div class="msg-container">
+            <p id="msgText" class="letter-msg">
+                "In a world full of chaotic variables and constant noise, you are my only absolute truth, Prova. No matter where life takes me or how busy the days get, choosing you will always be the easiest, most natural decision I ever make. You aren't just a part of my life—you are the priority that anchors everything else."
+            </p>
+        </div>
+
+        <button id="actionBtn" class="slider-btn next-btn" onclick="triggerNextEpic()">NEXT</button>
+    </div>
+
+    <script>
+        const music = document.getElementById('bg-music');
+
+        const themes = [
+            "MY ABSOLUTE PRIORITY", "MY CONSTANT INSPIRATION",
+            "SAFE HAVEN IN BAD TIMES", "PURE, INFINITE LOVE"
+        ];
+
+        const messages = [
+            "\"In a world full of chaotic variables and constant noise, you are my only absolute truth, Prova. No matter where life takes me or how busy the days get, choosing you will always be the easiest, most natural decision I ever make. You aren't just a part of my life—you are the priority that anchors everything else.\"",
+            "\"You make me want to be a better version of myself every single day. Just knowing that I have you by my side gives me a strange, beautiful kind of strength. Your kindness, your smile, and the way you look at the world inspire me to build a future that is as wonderful as you are. You are the muse behind all my dreams.\"",
+            "\"When everything around me feels like it's crashing down and the nights get heavy, your voice is the only thing that brings me back to peace. Thank you for holding my hand when I feel lost, and for being my quiet sanctuary when the world gets too loud. Having you stand by me through my worst times is the greatest blessing I could ever ask for.\"",
+            "\"I love you not just for who you are, but for the beautiful universe I discover when I am with you. Loving you feels like finding the missing piece of an infinite puzzle. It's a quiet, deep, and steady flame that keeps me warm from the inside out. My heart chose you, Prova, and it will keep choosing you across every lifetime.\""
+        ];
+
+        const colorPalettes = ["#00d2ff", "#a855f7", "#00f5ff", "#ff2a85"];
+        let currentIndex = 0;
+        let assembleHeart = false; 
+        let currentHeartProgress = 0; // Control morph transition timing perfectly
+
+        function initHyperEngine() {
+            music.play().catch(() => {});
+            buildCosmos();
+        }
+
+        function triggerNextEpic() {
+            if (currentIndex < messages.length - 1) {
+                const msgText = document.getElementById('msgText');
+                const themeTag = document.getElementById('themeTag');
+                const actionBtn = document.getElementById('actionBtn');
+                const mainBox = document.getElementById('mainBox');
+                
+                msgText.classList.add('fade');
+                assembleHeart = true; // Turn on heart constellation system
+
+                burstQuantumNebula();
+
+                setTimeout(() => {
+                    currentIndex++;
+                    themeTag.innerText = themes[currentIndex];
+                    msgText.innerText = messages[currentIndex];
+                    
+                    themeTag.style.color = colorPalettes[currentIndex];
+                    mainBox.style.borderColor = colorPalettes[currentIndex];
+                    mainBox.style.boxShadow = `0 25px 60px rgba(0,0,0,0.9), 0 0 25px ${colorPalettes[currentIndex]}22`;
+                    
+                    if(currentIndex !== messages.length - 1) {
+                        actionBtn.style.color = colorPalettes[currentIndex];
+                        actionBtn.style.borderColor = colorPalettes[currentIndex];
+                    }
+
+                    msgText.classList.remove('fade');
+                    
+                    // Keep the heart visible for 1.8 seconds, then morph back smoothly
+                    setTimeout(() => { 
+                        assembleHeart = false; 
+                    }, 1800);
+
+                    if (currentIndex === messages.length - 1) {
+                        actionBtn.innerText = "CONTINUE";
+                        actionBtn.className = "slider-btn continue-btn";
+                        actionBtn.style.display = "inline-block";
+                    }
+                }, 450);
+            } else {
+                executeWarpExit();
+            }
+        }
+
+        let isWarping = false;
+        function executeWarpExit() {
+            isWarping = true;
+            setTimeout(() => {
+                window.location.href = 'segment6.html';
+            }, 800);
+        }
+
+        // --- FIXED VECTOR COGNITIVE PHYSICS ENGINE ---
+        const canvas = document.getElementById('universeCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        let heartPoints = [];
+        let explosions = [];
+
+        function buildCosmos() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let centerX = canvas.width / 2;
+            let centerY = canvas.height / 2;
+            let sizeFactor = Math.min(canvas.width * 0.048, 15.5);
+
+            // Generate parametric mathematical heart coordinates
+            for (let t = 0; t < Math.PI * 2; t += 0.012) {
+                let x = 16 * Math.pow(Math.sin(t), 3);
+                let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+                heartPoints.push({
+                    x: centerX + x * sizeFactor,
+                    y: centerY + y * sizeFactor
+                });
+            }
+
+            // Create Star System with double tracking vectors
+            for (let i = 0; i < 1000; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    origX: Math.random() * canvas.width, // Memory X Vector
+                    origY: Math.random() * canvas.height, // Memory Y Vector
+                    radius: Math.random() * 1.5 + 0.2,
+                    vy: Math.random() * 0.3 + 0.1, // Floating drift speed
+                    opacity: Math.random(),
+                    pulse: Math.random() * 0.02 + 0.005,
+                    targetIdx: Math.floor(Math.random() * heartPoints.length)
+                });
+            }
+
+            loopEngine();
+        }
+
+        function burstQuantumNebula() {
+            let cx = canvas.width / 2;
+            let cy = canvas.height / 2;
+            for(let i=0; i<65; i++){
+                let angle = Math.random() * Math.PI * 2;
+                let speed = Math.random() * 5 + 2;
+                explosions.push({
+                    x: cx, y: cy,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    radius: Math.random() * 2.2 + 0.6,
+                    alpha: 1,
+                    color: colorPalettes[currentIndex]
+                });
+            }
+        }
+
+        function loopEngine() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let cx = canvas.width / 2;
+            let cy = canvas.height / 2;
+
+            // Transition step interpolation control
+            if (assembleHeart && currentHeartProgress < 1) {
+                currentHeartProgress += 0.05; // Line-up speed
+            } else if (!assembleHeart && currentHeartProgress > 0) {
+                currentHeartProgress -= 0.03; // Smooth disintegration/release speed
+            }
+
+            stars.forEach((s, idx) => {
+                if (isWarping) {
+                    ctx.beginPath();
+                    ctx.moveTo(s.x, s.y);
+                    let stretchX = s.x + (s.x - cx) * 0.15;
+                    let stretchY = s.y + (s.y - cy) * 0.15;
+                    ctx.lineTo(stretchX, stretchY);
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${s.opacity})`;
+                    ctx.lineWidth = s.radius * 1.5;
+                    ctx.stroke();
+                    s.x = stretchX; s.y = stretchY;
+                    return;
+                }
+
+                // Update background float variables independently
+                s.origY += s.vy;
+                if (s.origY > canvas.height) {
+                    s.origY = 0;
+                    s.origX = Math.random() * canvas.width;
+                }
+
+                // Twin vector interpolation map matrix logic
+                let target = heartPoints[s.targetIdx];
+                s.x = s.origX + (target.x - s.origX) * currentHeartProgress;
+                s.y = s.origY + (target.y - s.origY) * currentHeartProgress;
+
+                s.opacity += s.pulse;
+                if (s.opacity > 1 || s.opacity < 0.15) s.pulse = -s.pulse;
+
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                
+                // Color morphing based on selection state
+                if (currentHeartProgress > 0.1) {
+                    ctx.fillStyle = colorPalettes[currentIndex];
+                } else {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+                }
+                ctx.fill();
+
+                // Draw neon constellation lines dynamically
+                if (currentHeartProgress > 0.6 && idx % 12 === 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(s.x, s.y);
+                    let nextStar = stars[(idx + 12) % stars.length];
+                    ctx.lineTo(nextStar.x, nextStar.y);
+                    ctx.strokeStyle = `${colorPalettes[currentIndex]}${Math.floor(currentHeartProgress * 35).toString(16)}`;
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
+                }
+            });
+
+            for (let i = explosions.length - 1; i >= 0; i--) {
+                let p = explosions[i];
+                p.x += p.vx; p.y += p.vy; p.alpha -= 0.025;
+                if (p.alpha <= 0) { explosions.splice(i, 1); continue; }
+                
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            }
+
+            requestAnimationFrame(loopEngine);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = []; heartPoints = [];
+            buildCosmos();
+        });
+    </script>
+</body>
+</html>
