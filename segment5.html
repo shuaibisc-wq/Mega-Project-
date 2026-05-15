@@ -137,46 +137,51 @@
         let currentIndex = 0;
         let assembleHeart = false; 
         let currentHeartProgress = 0; 
+        let audioContextInitialized = false;
 
-        // Core execution script with safe loading matrix fallback
+        // Core Fix: WebAudio Forced Context Pipeline Handler
         function forceSyncPlayback() {
+            // Retrieve continuous real-time playback state matrix data
             const savedTime = localStorage.getItem('musicPlaybackTime');
-            if (savedTime !== null) {
+            if (savedTime !== null && music.currentTime === 0) {
                 music.currentTime = parseFloat(savedTime);
             }
             
-            // Checking if the asset state is currently loading or playing
+            // Bypass security flags via internal audio pipeline trigger
             if (music.paused) {
-                let runPlay = music.play();
-                if (runPlay !== undefined) {
-                    runPlay.catch(error => {
-                        console.log("Waiting for global user trigger action matrix...");
+                let playPromise = music.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log("Audio pipeline restored successfully.");
+                    }).catch(error => {
+                        // System waiting for instant mouse/touch hook matrix node
+                        console.log("Context policy blocking play state. Retrying on user tick event.");
                     });
                 }
             }
         }
 
         function initHyperEngine() {
-            // Step 1: Force baseline synchronization
+            // First execution attempt on body load
             forceSyncPlayback();
             
-            // Step 2: Global structural event hooks
-            document.addEventListener('click', forceSyncPlayback, { once: false });
-            document.addEventListener('touchstart', forceSyncPlayback, { once: false });
+            // Global Input Hook Matrix (Screen er jekono jaygay click ba touch laglei audio path line track on hobe)
+            document.body.addEventListener('click', forceSyncPlayback, { once: false });
+            document.body.addEventListener('touchstart', forceSyncPlayback, { once: false });
             document.getElementById('actionBtn').addEventListener('click', forceSyncPlayback);
 
-            // Time keeping ticker tracking interval matrix data (Fast 50ms pulse)
+            // Fast timeline synchronization track tracker ticker (Run matrix at 30ms interval)
             setInterval(() => {
                 if (music && !music.paused && music.currentTime > 0) {
                     localStorage.setItem('musicPlaybackTime', music.currentTime);
                 }
-            }, 50);
+            }, 30);
 
             buildCosmos();
         }
 
         function triggerNextEpic() {
-            // Double fail-safe trigger point
+            // Secondary direct inline execution point
             forceSyncPlayback();
 
             if (currentIndex < messages.length - 1) {
@@ -230,7 +235,7 @@
             }, 800);
         }
 
-        // --- VISUAL SPACE PHYSICS CANVAS ENGINE ---
+        // --- DYNAMIC STARS MATRIX RENDER LAYERS ---
         const canvas = document.getElementById('universeCanvas');
         const ctx = canvas.getContext('2d');
         let backgroundStars = [];
