@@ -43,7 +43,7 @@
             margin-bottom: 20px;
         }
 
-        /* ==================== 1. BUBU (PEACH) FLOW ==================== */
+        /* ==================== BUBU (PEACH) FLOW ==================== */
         .bubu-wrapper {
             position: absolute; left: 16%; bottom: 35px;
             display: flex; flex-direction: column; align-items: center;
@@ -103,7 +103,7 @@
             100% { transform: translateY(-2px) rotate(4deg); }
         }
 
-        /* ==================== 2. DUDU (GOMA) FLOW ==================== */
+        /* ==================== DUDU (GOMA) FLOW ==================== */
         .dudu-wrapper {
             position: absolute; right: 16%; bottom: 35px;
             display: flex; flex-direction: column; align-items: center;
@@ -189,7 +189,7 @@
             100% { transform: rotate(8deg); }
         }
 
-        /* ==================== 3. INTERACTIVE UI CONTROL FLOW ==================== */
+        /* ==================== INTERACTIVE UI FLOW ==================== */
         .gift-action-container {
             position: absolute; bottom: 10%; z-index: 100;
             display: flex; flex-direction: column; align-items: center;
@@ -234,8 +234,6 @@
 </head>
 <body>
 
-    <audio id="bgMusic" src="music6.mp3" loop></audio>
-
     <div class="cute-bg"></div>
     <div class="intro-banner">A LOT OF GIFTS FOR YOU! 🎁💖</div>
 
@@ -273,25 +271,6 @@
     </div>
 
     <script>
-        // Continuous Playback Controller Logic
-        window.addEventListener('DOMContentLoaded', () => {
-            const audio = document.getElementById('bgMusic');
-            
-            // Previous segment template timestamp lookup 
-            const savedTime = localStorage.getItem('musicPlaybackTime');
-            if(savedTime) {
-                audio.currentTime = parseFloat(savedTime);
-            }
-
-            // Fire auto-play instantly on transition load
-            audio.play().catch(() => {
-                // Fallback catch layer if browser holds the state
-                document.body.addEventListener('click', () => {
-                    if (audio.paused) audio.play();
-                }, { once: true });
-            });
-        });
-
         function executeGiftOpenSequence() {
             const btn = document.getElementById('openBoxBtn');
             const statusMsg = document.getElementById('statusMessage');
@@ -300,10 +279,6 @@
             const bubuSpeech = document.getElementById('bubuSpeech');
             const duduSpeech = document.getElementById('duduSpeech');
             const giftBox = document.getElementById('giftBoxAsset');
-            const audio = document.getElementById('bgMusic');
-
-            // Pass current timestamp checkpoint state to Segment 7
-            localStorage.setItem('musicPlaybackTime', audio.currentTime);
 
             statusMsg.innerText = "YAYY!! Opening your cute gifts... 🎉";
             bubuSpeech.innerText = "OMG THANK YOU! ❤️";
@@ -320,6 +295,7 @@
             btn.style.opacity = "0.4";
             btn.disabled = true;
 
+            // Instantly transition to the next celebration page
             setTimeout(() => {
                 window.location.href = 'segment7.html';
             }, 2600);
