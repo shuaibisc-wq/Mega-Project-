@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Theorem of Us | Constellation Matrix</title>
+    <title>The Theorem of Us | Cosmic Heart</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400&family=Dancing+Script:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;400&display=swap');
         
         body, html { 
             margin: 0; padding: 0; width: 100%; height: 100%; 
@@ -16,6 +16,7 @@
 
         canvas { position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
+        /* Aurora Blinking Glow Layers */
         .aurora-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: 
@@ -23,12 +24,19 @@
                 radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.23), transparent 50%),
                 radial-gradient(circle at 50% 50%, rgba(0, 255, 120, 0.05), transparent 60%);
             z-index: 0; filter: blur(70px);
+            animation: auroraPulse 10s infinite alternate ease-in-out;
         }
 
+        @keyframes auroraPulse {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* Message Box Center Box */
         .slider-box {
             position: relative; z-index: 2; text-align: center;
             width: 86vw; max-width: 410px;
-            background: rgba(0, 0, 0, 0.61);
+            background: rgba(0, 0, 0, 0.65);
             border: 1px solid rgba(0, 210, 255, 0.25);
             padding: 35px 25px; border-radius: 28px;
             backdrop-filter: blur(25px);
@@ -133,18 +141,29 @@
         let currentHeartProgress = 0; 
 
         function initHyperEngine() {
-            // Uninterrupted Music Continuance Engine Setup
-            if (localStorage.getItem('musicPlaybackTime')) {
-                music.currentTime = parseFloat(localStorage.getItem('musicPlaybackTime'));
+            // Uninterrupted Continuous Music Logic
+            const savedTime = localStorage.getItem('musicPlaybackTime');
+            if (savedTime !== null) {
+                music.currentTime = parseFloat(savedTime);
             }
-            music.play().catch(() => {});
+            
+            // Force play initialization
+            const playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Fallback to click listener if user gesture constraint hits
+                    document.body.addEventListener('click', () => {
+                        music.play();
+                    }, { once: true });
+                });
+            }
 
-            // Update playback time buffer every half second continuously
+            // Continuously save music timestamp
             setInterval(() => {
                 if (!music.paused) {
                     localStorage.setItem('musicPlaybackTime', music.currentTime);
                 }
-            }, 500);
+            }, 300);
 
             buildCosmos();
         }
@@ -157,9 +176,7 @@
                 const mainBox = document.getElementById('mainBox');
                 
                 msgText.classList.add('fade');
-                assembleHeart = true; // Order stars to align into the mathematical grid
-
-                burstQuantumNebula();
+                assembleHeart = true; // Command specialized layer to form the heart slow motion
 
                 setTimeout(() => {
                     currentIndex++;
@@ -177,7 +194,7 @@
 
                     msgText.classList.remove('fade');
                     
-                    // Prolonged showcase: stars stay locked in the heart for 3.5 seconds
+                    // Keep full heart visible, then slowly release back after 3.5 seconds
                     setTimeout(() => { 
                         assembleHeart = false; 
                     }, 3500);
@@ -196,19 +213,18 @@
         let isWarping = false;
         function executeWarpExit() {
             isWarping = true;
-            // Capture audio timestamp right before redirecting to Segment 6
             localStorage.setItem('musicPlaybackTime', music.currentTime);
             setTimeout(() => {
                 window.location.href = 'segment6.html';
             }, 800);
         }
 
-        // --- MASTER VECTOR SLOW-MOTION PHYSICS ENGINE ---
+        // --- SEPARATE LAYER IMMORTAL PHYSICS ENGINE ---
         const canvas = document.getElementById('universeCanvas');
         const ctx = canvas.getContext('2d');
-        let stars = [];
+        let backgroundStars = [];
+        let heartStars = [];
         let heartPoints = [];
-        let explosions = [];
 
         function buildCosmos() {
             canvas.width = window.innerWidth;
@@ -218,7 +234,8 @@
             let centerY = canvas.height / 2;
             let sizeFactor = Math.min(canvas.width * 0.048, 15.5);
 
-            for (let t = 0; t < Math.PI * 2; t += 0.012) {
+            // Generate Precise Heart Geometries
+            for (let t = 0; t < Math.PI * 2; t += 0.015) {
                 let x = 16 * Math.pow(Math.sin(t), 3);
                 let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
                 heartPoints.push({
@@ -227,16 +244,29 @@
                 });
             }
 
-            for (let i = 0; i < 1000; i++) {
-                stars.push({
+            // LAYER 1: 600 Permanent Independent Blinking Background Stars (Never Morph/Never Lock)
+            for (let i = 0; i < 600; i++) {
+                backgroundStars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.3 + 0.1,
+                    vy: Math.random() * 0.2 + 0.05,
+                    opacity: Math.random(),
+                    pulse: Math.random() * 0.02 + 0.005
+                });
+            }
+
+            // LAYER 2: Dedicated Constellation Stars to draw the heart shape slowly
+            for (let i = 0; i < heartPoints.length * 2; i++) {
+                heartStars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     origX: Math.random() * canvas.width,
                     origY: Math.random() * canvas.height,
-                    radius: Math.random() * 1.5 + 0.2,
-                    vy: Math.random() * 0.3 + 0.1, 
+                    radius: Math.random() * 1.6 + 0.4,
+                    vy: Math.random() * 0.3 + 0.1,
                     opacity: Math.random(),
-                    pulse: Math.random() * 0.02 + 0.005,
+                    pulse: Math.random() * 0.03 + 0.01,
                     targetIdx: Math.floor(Math.random() * heartPoints.length)
                 });
             }
@@ -244,55 +274,49 @@
             loopEngine();
         }
 
-        function burstQuantumNebula() {
-            let cx = canvas.width / 2;
-            let cy = canvas.height / 2;
-            for(let i=0; i<65; i++){
-                let angle = Math.random() * Math.PI * 2;
-                let speed = Math.random() * 5 + 2;
-                explosions.push({
-                    x: cx, y: cy,
-                    vx: Math.cos(angle) * speed,
-                    vy: Math.sin(angle) * speed,
-                    radius: Math.random() * 2.2 + 0.6,
-                    alpha: 1,
-                    color: colorPalettes[currentIndex]
-                });
-            }
-        }
-
         function loopEngine() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             let cx = canvas.width / 2;
             let cy = canvas.height / 2;
 
-            // Step Speed altered to 0.0032 to enforce an elegant 5.5 Seconds slow-motion assembly path
+            // Cinematic 5 to 6 Seconds Build-up Frame step adjustment (0.003)
             if (assembleHeart && currentHeartProgress < 1) {
-                currentHeartProgress += 0.0032; 
+                currentHeartProgress += 0.003; 
             } else if (!assembleHeart && currentHeartProgress > 0) {
-                currentHeartProgress -= 0.0045; // Gentle smooth transition dissolution back to cosmos
+                currentHeartProgress -= 0.0045; 
             }
 
-            stars.forEach((s, idx) => {
+            // DRAW LAYER 1: Eternal Background Stars (Always active & drifting downward)
+            backgroundStars.forEach((s) => {
                 if (isWarping) {
-                    ctx.beginPath();
-                    ctx.moveTo(s.x, s.y);
-                    let stretchX = s.x + (s.x - cx) * 0.15;
-                    let stretchY = s.y + (s.y - cy) * 0.15;
+                    ctx.beginPath(); ctx.moveTo(s.x, s.y);
+                    let stretchX = s.x + (s.x - cx) * 0.15; let stretchY = s.y + (s.y - cy) * 0.15;
                     ctx.lineTo(stretchX, stretchY);
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${s.opacity})`;
-                    ctx.lineWidth = s.radius * 1.5;
-                    ctx.stroke();
-                    s.x = stretchX; s.y = stretchY;
-                    return;
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${s.opacity})`; ctx.lineWidth = s.radius; ctx.stroke();
+                    s.x = stretchX; s.y = stretchY; return;
                 }
 
+                s.y += s.vy;
+                if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+
+                s.opacity += s.pulse;
+                if (s.opacity > 1 || s.opacity < 0.15) s.pulse = -s.pulse;
+
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity * 0.75})`;
+                ctx.fill();
+            });
+
+            // DRAW LAYER 2: Slow-Motion Morphing Constellation Heart Stars
+            heartStars.forEach((s, idx) => {
+                if (isWarping) return;
+
+                // Drift the base background memory paths continuously 
                 s.origY += s.vy;
-                if (s.origY > canvas.height) {
-                    s.origY = 0;
-                    s.origX = Math.random() * canvas.width;
-                }
+                if (s.origY > canvas.height) { s.origY = 0; s.origX = Math.random() * canvas.width; }
 
+                // Blend/Interpolate smoothly between cosmic drift and structural heart coordinates
                 let target = heartPoints[s.targetIdx];
                 s.x = s.origX + (target.x - s.origX) * currentHeartProgress;
                 s.y = s.origY + (target.y - s.origY) * currentHeartProgress;
@@ -302,45 +326,33 @@
 
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                
-                if (currentHeartProgress > 0.1) {
+
+                // Dynamically morph color scheme into the box boundary color
+                if (currentHeartProgress > 0.15) {
                     ctx.fillStyle = colorPalettes[currentIndex];
                 } else {
                     ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
                 }
                 ctx.fill();
 
-                if (currentHeartProgress > 0.5 && idx % 12 === 0) {
+                // Draw neon structural constellation web lines slowly 
+                if (currentHeartProgress > 0.4 && idx % 4 === 0) {
                     ctx.beginPath();
                     ctx.moveTo(s.x, s.y);
-                    let nextStar = stars[(idx + 12) % stars.length];
+                    let nextStar = heartStars[(idx + 4) % heartStars.length];
                     ctx.lineTo(nextStar.x, nextStar.y);
-                    ctx.strokeStyle = `${colorPalettes[currentIndex]}${Math.floor(currentHeartProgress * 28).toString(16)}`;
-                    ctx.lineWidth = 0.5;
+                    ctx.strokeStyle = `${colorPalettes[currentIndex]}${Math.floor(currentHeartProgress * 26).toString(16)}`;
+                    ctx.lineWidth = 0.45;
                     ctx.stroke();
                 }
             });
-
-            for (let i = explosions.length - 1; i >= 0; i--) {
-                let p = explosions[i];
-                p.x += p.vx; p.y += p.vy; p.alpha -= 0.025;
-                if (p.alpha <= 0) { explosions.splice(i, 1); continue; }
-                
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color;
-                ctx.globalAlpha = p.alpha;
-                ctx.fill();
-                ctx.globalAlpha = 1.0;
-            }
 
             requestAnimationFrame(loopEngine);
         }
 
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            stars = []; heartPoints = [];
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            backgroundStars = []; heartStars = []; heartPoints = [];
             buildCosmos();
         });
     </script>
