@@ -156,7 +156,6 @@
             z-index: 3;
         }
 
-        /* Top Tier: Delicate Ivory Confectionery Asset */
         .cake-tier-top {
             width: 130px;
             height: 48px;
@@ -168,7 +167,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15), inset 0 -3px 10px rgba(0,0,0,0.06);
         }
 
-        /* Bottom Tier: Grand Ivory & Gold Base Assembly */
         .cake-tier-bottom {
             width: 194px;
             height: 78px;
@@ -179,7 +177,6 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.45), inset 0 -5px 15px rgba(0,0,0,0.08);
         }
 
-        /* Re-engineered High-End Polished Gold Satin Bands & Purple Detailing */
         .luxury-gold-band {
             position: absolute;
             bottom: 14px;
@@ -296,20 +293,38 @@
     </div>
 
     <script>
-        // --- 1. SEAMLESS AUDIO RUNTIME CONTROLLER ---
+        // --- 1. DIRECT IMMEDIATE AUTOPLAY PIPELINE WITH SWIFT BYPASS ENGINE ---
         const audio = document.getElementById('bgMusic');
         let audioActive = false;
+        
+        // 💡 CONFIGURATION SCALE: 
+        // 14 = Love Story-er main dynamic drum beats/intro start entry.
+        // 41 = Direct core chorus hook ("Romeo, take me somewhere..."). 
+        // Joto second chao, ekhane shudhu shei number bashiye nio!
+        const songStartTimestamp = 14; 
 
-        function initializeAudioSystem() {
+        function forceAutoplayEngine() {
             if (!audioActive) {
+                // Instantly inject the specific timestamp token bypass
+                audio.currentTime = songStartTimestamp; 
+                
                 audio.play().then(() => {
                     audioActive = true;
-                }).catch(() => {});
+                }).catch((error) => {
+                    console.log("Autoplay context holding, waiting for interaction hook window.");
+                });
             }
         }
 
-        window.addEventListener('click', initializeAudioSystem, true);
-        window.addEventListener('touchstart', initializeAudioSystem, true);
+        // Trigger chain tracking sequence across loading matrices
+        document.addEventListener('DOMContentLoaded', forceAutoplayEngine);
+        window.addEventListener('pageshow', forceAutoplayEngine);
+        window.addEventListener('load', forceAutoplayEngine);
+
+        // Explicit fallback gestures
+        window.addEventListener('click', forceAutoplayEngine, true);
+        window.addEventListener('touchstart', forceAutoplayEngine, true);
+
 
         // --- 2. AMBIENT SHOCKWAVE & GRAND CELEBRATION CELESTIAL ENGINE ---
         const canvas = document.getElementById('worldCanvas');
@@ -339,33 +354,29 @@
             }
         }
 
-        // Hyper Velocity Grand Celebration Celebration Exploder Logic
         function triggerSovereignFoilExplosion() {
-            // Highly vivid, royal celebration palette matrix
             const eliteCelebrationPalette = ['#d4af37', '#f4ebd0', '#ffffff', '#aa841b', '#ff7675', '#74b9ff', '#fdcb6e', '#a29bfe'];
             
-            // Triple density burst execution for premium festive feeling
             for (let i = 0; i < 280; i++) {
                 fineFoilParticles.push({
                     x: canvas.width / 2 + (Math.random() - 0.5) * 140,
                     y: canvas.height / 2 + 30,
-                    vx: (Math.random() - 0.5) * 14, // Boosted lateral blast expansion radius
-                    vy: -Math.random() * 16 - 6,   // Massive vertical overhead projection velocity
+                    vx: (Math.random() - 0.5) * 14, 
+                    vy: -Math.random() * 16 - 6,   
                     radius: 1.5 + Math.random() * 3.5,
                     color: eliteCelebrationPalette[Math.floor(Math.random() * eliteCelebrationPalette.length)],
                     alpha: 1,
-                    decay: 0.004 + Math.random() * 0.006, // Longer ambient lifespan retention
-                    gravity: 0.22, // Crisp arc falling response physics
+                    decay: 0.004 + Math.random() * 0.006, 
+                    gravity: 0.22, 
                     rotation: Math.random() * Math.PI * 2,
                     rotSpeed: (Math.random() - 0.5) * 0.25
                 });
             }
         }
 
-        // Heavy Dynamic Ongoing Stardust Cascade Overrides
         function streamFineGoldRain() {
             const elitePalette = ['#d4af37', '#ffffff', '#f4ebd0', '#ff7675', '#74b9ff'];
-            for (let i = 0; i < 6; i++) { // Double volume cascading streams
+            for (let i = 0; i < 6; i++) { 
                 fineFoilParticles.push({
                     x: Math.random() * canvas.width,
                     y: -15,
@@ -396,7 +407,6 @@
         function executionGraphicsPipeline() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Space Star Field
             ctx.fillStyle = "#ffffff";
             for (let s of backgroundStars) {
                 s.alpha += s.speed;
@@ -407,7 +417,6 @@
                 ctx.fill();
             }
 
-            // Aesthetic Concentric Touch Ring Loop
             for (let i = organicWaves.length - 1; i >= 0; i--) {
                 let w = organicWaves[i];
                 w.radius += w.speed;
@@ -428,7 +437,6 @@
                 ctx.restore();
             }
 
-            // High Fidelity Particle Physics Render Updates
             for (let i = fineFoilParticles.length - 1; i >= 0; i--) {
                 let p = fineFoilParticles[i];
                 p.x += p.vx;
@@ -463,6 +471,7 @@
         resizeGraphicsMatrix();
         requestAnimationFrame(executionGraphicsPipeline);
 
+
         // --- 3. ARC ALIGNMENT GENERATION FOR 18 CLASSY CANDLES ---
         const gridContainer = document.getElementById('candlesContainer');
         const TotalEliteTapers = 18;
@@ -493,6 +502,7 @@
             gridContainer.appendChild(taper);
         }
 
+
         // --- 4. CINEMATIC DANCING EXTINGUISH & GRAND CELEBRATION CONTROLLER ---
         let masterStateBlown = false;
 
@@ -510,32 +520,28 @@
         }, true);
 
         function dispatchSovereignExtinguish() {
-            initializeAudioSystem();
+            forceAutoplayEngine();
             if (masterStateBlown) return;
             masterStateBlown = true;
 
-            // Sequential stagger animation injection for the dancing extinguish sway effect
             for (let i = 0; i < TotalEliteTapers; i++) {
                 const targetFire = document.getElementById(`flameCore-${i}`);
                 if (targetFire) {
                     setTimeout(() => {
                         targetFire.classList.add('flame-dying-dance');
-                    }, i * 40); // Organic sequential sway cascade response timing
+                    }, i * 40); 
                 }
             }
 
-            // Fade ambient cake core glow vignette smoothly
             document.getElementById('cakeGlow').style.opacity = '0';
 
-            // Launch huge grand celebration particle burst exactly as the dance settles
             setTimeout(() => {
                 triggerSovereignFoilExplosion();
                 permanentGoldRainActive = true;
             }, 750);
 
-            // Elegantly transform copywriting content layout
             setTimeout(() => {
-                document.getElementById('message').innerHTML = "Wishing you a magnificent <span class='highlight'>18th Solstice</span>, Queen Prova. <br>May your sovereign reign over happiness be eternal. 👑🏛️";
+                document.getElementById('message').innerHTML = "Wishing you a magnificent <span class='highlight'>18th Solstice</span>, Queen Prova. <br>It's a love story, baby, just say, \"Yes\". 👑🏰";
                 
                 const feedbackText = document.getElementById('hint');
                 feedbackText.innerText = "‖ Your royal decree has been sealed in the stars ‖";
@@ -543,7 +549,6 @@
                 feedbackText.style.fontFamily = "'Playfair Display', serif";
                 feedbackText.style.fontStyle = "italic";
 
-                // Fade minimal luxury navigation layout button live safely
                 const coreBtn = document.getElementById('nextBtn');
                 coreBtn.style.display = 'inline-block';
                 setTimeout(() => {
