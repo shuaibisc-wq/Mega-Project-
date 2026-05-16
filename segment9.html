@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Segment 9 - Romantic Floral Gift</title>
+    <title>Segment 9 - Romantic Floral Gift Box</title>
     <style>
         * {
             margin: 0;
@@ -15,8 +15,8 @@
             height: 100%;
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Jasmine, Rose & Lily themed romantic color palette background */
-            background: linear-gradient(135deg, #fffcf5 0%, #ffe3ec 50%, #f3e5f5 100%);
+            /* Premium Jasmine, Rose & Lily color palette background */
+            background: linear-gradient(135deg, #fffdf6 0%, #ffeef2 50%, #f5ebf7 100%);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,81 +38,152 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            max-width: 360px; /* Perfect for Samsung A06 viewport */
+            max-width: 360px; /* Perfectly structured for Samsung A06 viewport */
             padding: 20px;
             text-align: center;
         }
         .card-container {
-            background: rgba(255, 255, 255, 0.75);
-            border-radius: 20px;
-            padding: 25px 20px;
-            box-shadow: 0 10px 30px rgba(224, 134, 166, 0.3);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            padding: 35px 20px;
+            box-shadow: 0 12px 35px rgba(224, 134, 166, 0.25);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             width: 100%;
             transform: scale(0.95);
-            animation: containerAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: containerAppear 1s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         @keyframes containerAppear {
             to { transform: scale(1); }
         }
-        .flower-image-wrap {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 20px auto;
+
+        /* Premium Interactive Gift Box - Clean Minimal Aesthetic */
+        .gift-box-wrapper {
+            width: 140px;
+            height: 140px;
+            cursor: pointer;
             position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 25px;
+        }
+        .gift-box-wrapper:active {
+            transform: scale(0.9);
+        }
+        .gift-box {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff4081, #ec407a);
+            border-radius: 16px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(236, 64, 122, 0.4);
             display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Elegant Gold Ribbon Cross-over */
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 100%;
+            background: #ffeb3b;
+            border-radius: 2px;
+        }
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background: #ffeb3b;
+            border-radius: 2px;
+        }
+        .gift-bow {
+            position: absolute;
+            top: -15px;
+            width: 44px;
+            height: 25px;
+            background: #ffeb3b;
+            border-radius: 50% 50% 0 0;
+            box-shadow: 0 -3px 8px rgba(0,0,0,0.1);
+            z-index: 6;
+        }
+        /* Replaced baje text with a premium glowing heart icon */
+        .gift-heart-icon {
+            position: absolute;
+            font-size: 2.2rem;
+            z-index: 7;
+            animation: pulseHeart 1.4s ease-in-out infinite;
+            pointer-events: none;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+        }
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.18); }
+        }
+
+        /* Flower Frame Layout Wrapper */
+        .flower-image-wrap {
+            width: 190px;
+            height: 190px;
+            position: relative;
+            display: none; /* Triggered dynamically via JavaScript unwrap */
             justify-content: center;
             align-items: center;
             animation: floatingMotion 4s ease-in-out infinite;
             cursor: pointer;
+            margin-bottom: 25px;
         }
         @keyframes floatingMotion {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(2deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
         }
         .flower-image-wrap img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 8px 15px rgba(219, 72, 116, 0.4));
+            filter: drop-shadow(0 10px 22px rgba(219, 72, 116, 0.45));
         }
-        /* Fallback graphic if image path has cross-origin or storage delay */
         .image-fallback {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, #fff0f5, #ffb6c1);
+            background: radial-gradient(circle, #fffdf0, #ffe1eb);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 40px;
-            box-shadow: inset 0 0 20px rgba(255,192,203,0.5);
+            font-size: 55px;
+            box-shadow: inset 0 0 25px rgba(255,182,193,0.6);
             z-index: -1;
         }
+
         h2 {
             color: #d81b60;
             font-size: 1.4rem;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
         p {
-            color: #6d4c41;
+            color: #5d4037;
             font-size: 0.95rem;
-            line-height: 1.4;
+            line-height: 1.5;
+            padding: 0 5px;
         }
         .next-btn {
-            margin-top: 20px;
-            padding: 10px 25px;
+            margin-top: 25px;
+            padding: 12px 32px;
             background: linear-gradient(45deg, #ff4081, #ec407a);
             color: #fff;
             border: none;
             border-radius: 25px;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(236, 64, 122, 0.4);
+            box-shadow: 0 5px 18px rgba(236, 64, 122, 0.4);
             cursor: pointer;
+            display: none; /* Appears after unwrap */
             transition: transform 0.2s;
         }
         .next-btn:active {
@@ -126,20 +197,28 @@
 
     <div class="wrapper-stage">
         <div class="card-container">
+            <div class="gift-box-wrapper" id="giftBoxContainer" onclick="unwrapGift()">
+                <div class="gift-bow"></div>
+                <div class="gift-box"></div>
+                <div class="gift-heart-icon">💝</div>
+            </div>
+
             <div class="flower-image-wrap" id="flowerGift">
                 <div class="image-fallback">🌸</div>
-                <img src="flower9.jpg" alt="Jasmine Bouquet Gift" onerror="this.style.display='none';">
+                <img src="flower9.jpg" alt="Jasmine & Rose Bouquet" onerror="this.style.display='none';">
             </div>
-            <h2>For You, My Jaan...</h2>
-            <p>A beautiful bouquet tailored with your favorite Jasmine, mixed with timeless Roses and elegant Lilies. Touch it to see the magic unfold!</p>
-            <button class="next-btn" onclick="navigateToNext()">Next Surprise 🚀</button>
+
+            <h2 id="stageTitle">A Secret Gift For You...</h2>
+            <p id="stageDesc">Every step of this journey holds a reflection of my love. Open this box to reveal a little piece of my heart, My Jaan!</p>
+            
+            <button class="next-btn" id="nextBtn" onclick="navigateToNext()">Next Surprise 🚀</button>
         </div>
     </div>
 
     <script>
-        // --- SEAMLESS AUDIO CONTINUITY LOGIC ---
+        // --- PERFECT MUSIC CONTINUITY SYNC SYSTEM ---
         const audio = new Audio();
-        audio.src = 'music7.mp3'; // Continuous audio mapping trace
+        audio.src = 'music7.mp3'; 
         audio.loop = true;
 
         function syncAudio() {
@@ -147,19 +226,16 @@
             if (savedTime) {
                 audio.currentTime = parseFloat(savedTime);
             }
-            
-            // Sync play state to prevent browser permission block
             const isPlaying = localStorage.getItem('audio_playing') !== 'false';
             if (isPlaying) {
                 audio.play().catch(() => {
-                    // Force interaction fallback interaction injection
+                    // Fail-safe gesture handler mapping to ensure bypass of browser audio block policy
                     document.addEventListener('click', () => { audio.play(); }, { once: true });
                     document.addEventListener('touchstart', () => { audio.play(); }, { once: true });
                 });
             }
         }
 
-        // Track and continuous save execution interval loop
         audio.addEventListener('timeupdate', () => {
             localStorage.setItem('audio_current_time', audio.currentTime);
         });
@@ -168,12 +244,44 @@
 
         function navigateToNext() {
             localStorage.setItem('audio_current_time', audio.currentTime);
-            // Dynamic routing pipeline to Segment 10
-            window.location.href = 'segment10.html';
+            window.location.href = 'segment10.html'; 
         }
 
 
-        // --- ADVANCED PALETTE MICRO-PETAL CANVAS PHYSICS ENGINE ---
+        // --- BOX UNWRAP LAYER CONTROLLER ---
+        let isGiftOpened = false;
+        
+        function unwrapGift() {
+            if (isGiftOpened) return;
+            isGiftOpened = true;
+
+            const boxContainer = document.getElementById('giftBoxContainer');
+            boxContainer.style.transform = 'scale(0) rotate(540deg)';
+            
+            // Generate full radial canvas burst around the gift package center
+            const rect = boxContainer.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            for (let i = 0; i < 75; i++) {
+                petals.push(new Petal(centerX, centerY, true));
+            }
+
+            setTimeout(() => {
+                boxContainer.style.display = 'none';
+                
+                // Inject flower frame elements
+                const flowerElement = document.getElementById('flowerGift');
+                flowerElement.style.display = 'flex';
+                
+                // Updated copy text to clearly direct Prova that tapping ANYWHERE generates flowers
+                document.getElementById('stageTitle').innerText = "For You, My Jaan...";
+                document.getElementById('stageDesc').innerText = "A collection of beautiful Jasmine (Beli), mixed with timeless Roses and soft Lilies. Touch anywhere on the screen to watch them dance!";
+                document.getElementById('nextBtn').style.display = 'inline-block';
+            }, 500);
+        }
+
+
+        // --- PALETTE MATRIX PETAL PHYSICS EMULATOR ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
@@ -185,13 +293,13 @@
         resizeCanvas();
 
         const petals = [];
-        // Theme Colors: Jasmine (Cream/White), Rose (Crimson Red/Deep Pink), Lily (Soft Pastel Pink/Blush)
+        // Color Profiles: Jasmine (Cream Milk White), Rose (Velvet Red/Deep Pink), Lily (Soft Blush Pink)
         const paletteColors = [
-            { r: 255, g: 254, b: 245, a: 0.9 }, // Jasmine White
-            { r: 255, g: 240, b: 245, a: 0.85 }, // Soft Lily Pink
-            { r: 224, g: 18, b: 79, a: 0.9 },   // Velvet Rose Red
-            { r: 244, g: 143, b: 177, a: 0.85 }, // Rose Pink
-            { r: 255, g: 253, b: 208, a: 0.9 }  // Soft Cream Stardust
+            { r: 255, g: 254, b: 242, a: 0.95 }, // Jasmine Cream White
+            { r: 255, g: 240, b: 245, a: 0.9 },  // Soft Lily Pink
+            { r: 228, g: 26, b: 76, a: 0.95 },   // Velvet Crimson Rose
+            { r: 240, g: 98, b: 146, a: 0.85 },  // Pastel Rose Pink
+            { r: 255, g: 252, b: 215, a: 0.9 }   // Pure Jasmine Core Hue
         ];
 
         class Petal {
@@ -202,19 +310,19 @@
                 this.size = Math.random() * 8 + 6;
                 
                 if (isBurst) {
-                    // High-velocity dynamic dispersion parameters
+                    // High explosion blast velocity modifiers
                     const angle = Math.random() * Math.PI * 2;
-                    const speed = Math.random() * 5 + 2;
+                    const speed = Math.random() * 6 + 2.5;
                     this.vx = Math.cos(angle) * speed;
                     this.vy = Math.sin(angle) * speed;
                 } else {
-                    // Standard ambient floating drift parameters
-                    this.vx = Math.random() * 1.5 - 0.75;
-                    this.vy = Math.random() * 1 + 0.8;
+                    // Ambient wind drop falling vectors
+                    this.vx = Math.random() * 1.6 - 0.8;
+                    this.vy = Math.random() * 1.2 + 0.6;
                 }
                 
                 this.rotation = Math.random() * Math.PI;
-                this.rotationSpeed = Math.random() * 0.04 - 0.02;
+                this.rotationSpeed = Math.random() * 0.05 - 0.025;
                 this.opacity = this.color.a;
                 this.fade = Math.random() * 0.005 + 0.003;
             }
@@ -224,8 +332,8 @@
                 this.y += this.vy;
                 this.rotation += this.rotationSpeed;
                 
-                // Dynamic environmental gravity drop/sway variables
-                this.vx += Math.sin(this.y / 30) * 0.02; 
+                // Pure sine-wave air drift simulation structure
+                this.vx += Math.sin(this.y / 40) * 0.025; 
                 
                 if (this.opacity > 0) {
                     this.opacity -= this.fade;
@@ -237,62 +345,69 @@
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation);
                 
-                // Draw organic dual-curve curved micro-petal structures
+                // Double curved organic petal shape engine mapping
                 ctx.beginPath();
                 ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity})`;
                 ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(-this.size, -this.size/2, -this.size, this.size/2, 0, this.size);
-                ctx.bezierCurveTo(this.size, this.size/2, this.size, -this.size/2, 0, 0);
+                ctx.bezierCurveTo(-this.size, -this.size/1.8, -this.size, this.size/1.8, 0, this.size);
+                ctx.bezierCurveTo(this.size, this.size/1.8, this.size, -this.size/1.8, 0, 0);
                 ctx.fill();
                 
-                // Add soft glowing core to petals
+                // Soft glow inner core mapping
                 ctx.beginPath();
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity * 0.4})`;
-                ctx.arc(0, this.size/3, this.size/4, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity * 0.45})`;
+                ctx.arc(0, this.size/3, this.size/3.8, 0, Math.PI * 2);
                 ctx.fill();
                 
                 ctx.restore();
             }
         }
 
-        // Ambient continuous spawning logic for organic life feel
+        // Ambient Spawner for natural constant flower falling atmosphere
         function spawnAmbientPetals() {
-            if (petals.length < 40 && Math.random() < 0.1) {
+            if (petals.length < 45 && Math.random() < 0.12) {
                 petals.push(new Petal(Math.random() * canvas.width, -20, false));
             }
         }
 
-        // Tap/Touch burst engine trigger setup
-        function createPetalBurst(e) {
-            let clickX, clickY;
+        // Interaction touch response generator logic
+        function triggerTouchBurst(e) {
+            let posX, posY;
             if (e.touches) {
-                clickX = e.touches[0].clientX;
-                clickY = e.touches[0].clientY;
+                posX = e.touches[0].clientX;
+                posY = e.touches[0].clientY;
             } else {
-                clickX = e.clientX;
-                clickY = e.clientY;
+                posX = e.clientX;
+                posY = e.clientY;
             }
 
-            // Spawn 60+ micro petals in a perfect radial burst matrix
+            // Spawns 65 micro petals instantly at the target position coordinate matrix
             for (let i = 0; i < 65; i++) {
-                petals.push(new Petal(clickX, clickY, true));
+                petals.push(new Petal(posX, posY, true));
             }
         }
 
-        // Event listeners mapping
-        const flowerGiftElement = document.getElementById('flowerGift');
-        flowerGiftElement.addEventListener('click', createPetalBurst);
-        flowerGiftElement.addEventListener('touchstart', createPetalBurst, { passive: true });
-        
-        // Background layer screen tap mapping for interactive fun
+        // Trigger burst on tapping anywhere on the background or card layers
         window.addEventListener('click', (e) => {
-            if(e.target.tagName !== 'BUTTON' && !flowerGiftElement.contains(e.target)) {
-                createPetalBurst(e);
+            if (e.target.tagName === 'BUTTON') return; // Bypass step navigation button 
+            
+            const giftBoxEl = document.getElementById('giftBoxContainer');
+            // Allow tap explosion only if box is opened or clicking outside the active box bounds
+            if (isGiftOpened || (!giftBoxEl || !giftBoxEl.contains(e.target))) {
+                triggerTouchBurst(e);
             }
         });
 
-        // Main high-performance render animation loop
-        function animate() {
+        window.addEventListener('touchstart', (e) => {
+            if (e.target.tagName === 'BUTTON') return;
+            const giftBoxEl = document.getElementById('giftBoxContainer');
+            if (isGiftOpened || (!giftBoxEl || !giftBoxEl.contains(e.target))) {
+                triggerTouchBurst(e);
+            }
+        }, { passive: true });
+
+        // Main Animation Pipeline Render Loop
+        function renderLoop() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
             spawnAmbientPetals();
@@ -301,14 +416,14 @@
                 petals[i].update();
                 petals[i].draw();
                 
-                // Clear boundaries out or faded petals out of memory array mapping
+                // Performance safeguard boundary deletion check
                 if (petals[i].opacity <= 0 || petals[i].y > canvas.height + 20 || petals[i].x < -20 || petals[i].x > canvas.width + 20) {
                     petals.splice(i, 1);
                 }
             }
-            requestAnimationFrame(animate);
+            requestAnimationFrame(renderLoop);
         }
-        animate();
+        renderLoop();
     </script>
 </body>
 </html>
