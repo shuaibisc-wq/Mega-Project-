@@ -2,116 +2,113 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Massive Firework Celebration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queen Prova's 18th Birthday - Celebration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;1,400&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --royal-purple: #0f051d;
+            --velvet-glow: #240b36;
+            --gold-metallic: #d4af37;
+            --rose-gold: #b76e79;
+            --champagne: #f9f6f0;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             user-select: none;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
         }
 
         body, html {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #020208;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, var(--royal-purple), var(--velvet-glow));
+            font-family: 'Montserrat', sans-serif;
         }
 
+        /* High-performance canvas container */
         canvas {
             display: block;
-            width: 100%;
-            height: 100%;
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 1;
         }
 
-        /* Glassmorphism UI Container optimized for Samsung A06 viewports */
-        .ui-wrapper {
+        /* Glassmorphism Dynamic UI Wrapper optimized for Samsung A06 */
+        .celebration-container {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 88%;
-            max-width: 340px;
-            padding: 24px;
-            background: rgba(255, 255, 255, 0.04);
+            z-index: 10;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px 20px;
+            background: rgba(15, 5, 29, 0.65);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.25);
             border-radius: 20px;
             text-align: center;
-            z-index: 10;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            pointer-events: auto;
-            animation: fadeIn 1.5s ease-out forwards;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
+                        0 0 30px rgba(183, 110, 121, 0.15);
+            animation: containerFadeIn 1.5s ease-out forwards;
         }
 
-        h1 {
-            font-size: 1.6rem;
-            color: #ffffff;
-            font-weight: 600;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-
-        .typewriter-box {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.85);
-            line-height: 1.5;
-            min-height: 48px;
-            margin-bottom: 20px;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            background-color: #ff3366;
-            margin-left: 3px;
-            animation: blink 0.8s infinite;
-        }
-
-        .next-btn {
-            display: inline-block;
-            width: 100%;
-            padding: 12px 24px;
-            background: linear-gradient(135deg, #ff3366, #ff6699);
-            border: none;
-            border-radius: 25px;
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            opacity: 0;
-            transform: translateY(10px);
-            animation: slideUpButton 0.5s cubic-bezier(0.16, 1, 0.3, 1) 4s forwards;
-        }
-
-        .next-btn:active {
-            transform: scale(0.98);
-            box-shadow: 0 2px 8px rgba(255, 51, 102, 0.2);
-        }
-
-        @keyframes fadeIn {
+        @keyframes containerFadeIn {
             from { opacity: 0; transform: translate(-50%, -45%); }
             to { opacity: 1; transform: translate(-50%, -50%); }
         }
 
-        @keyframes slideUpButton {
-            to { opacity: 1; transform: translateY(0); }
+        .royal-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-metallic);
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
         }
 
-        @keyframes blink {
-            50% { opacity: 0; }
+        .romantic-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--champagne);
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* Premium Next Button */
+        .next-btn {
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--royal-purple);
+            background: linear-gradient(45deg, var(--gold-metallic), #f3e5ab);
+            padding: 14px 35px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .next-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
         }
     </style>
 </head>
@@ -119,78 +116,86 @@
 
     <canvas id="fireworksCanvas"></canvas>
 
-    <div class="ui-wrapper">
-        <h1 id="title">Happy Birthday, Prova!</h1>
-        <div class="typewriter-box">
-            <span id="text-target"></span><span class="cursor">|</span>
-        </div>
-        <button class="next-btn" onclick="navigateToNextSegment()">Continue Our Journey</button>
+    <div class="celebration-container">
+        <h1 class="royal-title">A Grand Symphony</h1>
+        <p class="romantic-text">
+            "Look up at the illuminated heavens, Prova. Every single starburst carries a wish meant only for you on this magnificent night."
+        </p>
+        <a href="javascript:void(0);" class="next-btn" onclick="navigateToNext()">Proceed</a>
     </div>
 
-    <audio id="bgMusic" src="music7.mp3" loop preload="auto"></audio>
-
     <script>
-        // --- SEAMLESS AUDIO PIPELINE ---
-        const audio = document.getElementById('bgMusic');
+        // --- HIGH-PRECISION AUDIO CONTINUITY ENGINE ---
+        let audio = new Audio();
+        audio.src = 'music7.mp3';
+        audio.loop = true;
 
-        function synchronizeAndPlayAudio() {
-            // Retrieve last recorded timestamp from Segment 7
+        function syncAndPlayAudio() {
             const savedTime = localStorage.getItem('music7_time');
-            if (savedTime) {
+            
+            if (savedTime !== null) {
                 audio.currentTime = parseFloat(savedTime);
             }
-            
-            // Trigger playback instantly
-            audio.play().catch(() => {
-                // Fallback catch block for aggressive browser autoplay policies
-                window.addEventListener('click', () => {
-                    audio.play();
-                }, { once: true });
-                window.addEventListener('touchstart', () => {
-                    audio.play();
-                }, { once: true });
-            });
+
+            // Continuous Real-time Audio Sync Loop
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Force seamless override upon any structural viewport touch state
+                    const forceSyncPlay = () => {
+                        const activeTime = localStorage.getItem('music7_time');
+                        if (activeTime !== null && audio.paused) {
+                            audio.currentTime = parseFloat(activeTime);
+                        }
+                        audio.play();
+                        window.removeEventListener('click', forceSyncPlay);
+                        window.removeEventListener('touchstart', forceSyncPlay);
+                    };
+                    window.addEventListener('click', forceSyncPlay);
+                    window.addEventListener('touchstart', forceSyncPlay);
+                });
+            }
         }
 
-        // Continuously cache runtime position to keep accuracy for any reload or link transitions
-        setInterval(() => {
+        // Live high-speed tracking frame injection
+        audio.addEventListener('timeupdate', () => {
             if (!audio.paused) {
                 localStorage.setItem('music7_time', audio.currentTime);
             }
-        }, 300);
+        });
 
-        window.addEventListener('DOMContentLoaded', synchronizeAndPlayAudio);
-
-
-        // --- DYNAMIC TYPEWRITER ENGINE ---
-        const romanticMessage = "May your beautiful smile light up the world forever. Watch the skies dance just for you tonight...";
-        let messageIndex = 0;
-        const targetElement = document.getElementById('text-target');
-
-        function startTypewriter() {
-            if (messageIndex < romanticMessage.length) {
-                targetElement.textContent += romanticMessage.charAt(messageIndex);
-                messageIndex++;
-                setTimeout(startTypewriter, 45);
-            }
+        function navigateToNext() {
+            localStorage.setItem('music7_time', audio.currentTime);
+            // Dynamic routing target to next phase segment
+            window.location.href = 'segment9.html'; 
         }
-        setTimeout(startTypewriter, 1000);
+
+        window.addEventListener('DOMContentLoaded', syncAndPlayAudio);
+        window.addEventListener('pageshow', syncAndPlayAudio);
 
 
-        // --- PERFORMANCE OPTIMIZED CANVAS FIREWORKS ENGINE ---
+        // --- HYPER-MASSIVE FIREWORKS ENGINE ---
         const canvas = document.getElementById('fireworksCanvas');
         const ctx = canvas.getContext('2d');
 
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
+        let fireworks = [];
+        let particles = [];
 
-        const fireworks = [];
-        const particles = [];
+        const colorPalette = [
+            'rgba(214, 175, 87, ',  
+            'rgba(183, 110, 121, ',  
+            'rgba(249, 246, 240, ',  
+            'rgba(155, 89, 182, ',   
+            'rgba(231, 76, 60, ',    
+            'rgba(52, 152, 219, '    
+        ];
 
         class Firework {
             constructor(sx, sy, tx, ty) {
@@ -208,24 +213,22 @@
                     this.coordinates.push([this.x, this.y]);
                 }
                 this.angle = Math.atan2(ty - sy, tx - sx);
-                this.speed = 2.5;
+                this.speed = 12; 
                 this.acceleration = 1.03;
-                this.brightness = randomRange(50, 70);
-                this.hue = randomRange(0, 360);
+                this.color = colorPalette[Math.floor(Math.random() * colorPalette.length)] + '1)';
             }
 
             update(index) {
                 this.coordinates.pop();
                 this.coordinates.unshift([this.x, this.y]);
-                
                 this.speed *= this.acceleration;
                 
                 let vx = Math.cos(this.angle) * this.speed;
                 let vy = Math.sin(this.angle) * this.speed;
                 this.distanceTraveled = calculateDistance(this.sx, this.sy, this.x + vx, this.y + vy);
-                
+
                 if(this.distanceTraveled >= this.distanceToTarget) {
-                    createParticles(this.tx, this.ty, this.hue);
+                    createExplosion(this.tx, this.ty, this.color);
                     fireworks.splice(index, 1);
                 } else {
                     this.x += vx;
@@ -237,14 +240,14 @@
                 ctx.beginPath();
                 ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
                 ctx.lineTo(this.x, this.y);
-                ctx.strokeStyle = `hsl(${this.hue}, 100%, ${this.brightness}%)`;
+                ctx.strokeStyle = this.color;
                 ctx.lineWidth = 2;
                 ctx.stroke();
             }
         }
 
         class Particle {
-            constructor(x, y, hue) {
+            constructor(x, y, baseColor) {
                 this.x = x;
                 this.y = y;
                 this.coordinates = [];
@@ -253,13 +256,12 @@
                     this.coordinates.push([this.x, this.y]);
                 }
                 this.angle = randomRange(0, Math.PI * 2);
-                this.speed = randomRange(1, 10);
-                this.friction = 0.95;
-                this.gravity = 0.98; // Natural downward fall pull 
-                this.hue = randomRange(hue - 20, hue + 20);
-                this.brightness = randomRange(50, 80);
+                this.speed = randomRange(1, 12); 
+                this.friction = 0.95; 
+                this.gravity = 0.18; 
+                this.baseColor = baseColor.split(',')[0] + ',' + baseColor.split(',')[1] + ',' + baseColor.split(',')[2] + ',';
                 this.alpha = 1;
-                this.decay = randomRange(0.015, 0.03);
+                this.decay = randomRange(0.008, 0.02); 
             }
 
             update(index) {
@@ -269,8 +271,8 @@
                 this.x += Math.cos(this.angle) * this.speed;
                 this.y += Math.sin(this.angle) * this.speed + this.gravity;
                 this.alpha -= this.decay;
-                
-                if(this.alpha <= this.decay) {
+
+                if(this.alpha <= 0) {
                     particles.splice(index, 1);
                 }
             }
@@ -279,8 +281,8 @@
                 ctx.beginPath();
                 ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
                 ctx.lineTo(this.x, this.y);
-                ctx.strokeStyle = `rgba(${hslToRgb(this.hue / 360, 1, this.brightness / 100)}, ${this.alpha})`;
-                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = this.baseColor + this.alpha + ')';
+                ctx.lineWidth = randomRange(1, 3); 
                 ctx.stroke();
             }
         }
@@ -293,84 +295,58 @@
             return Math.random() * (max - min) + min;
         }
 
-        function createParticles(x, y, hue) {
-            let particleCount = 75; // Heavy dense burst logic
+        function createExplosion(x, y, color) {
+            let particleCount = 200; 
             while(particleCount--) {
-                particles.push(new Particle(x, y, hue));
+                particles.push(new Particle(x, y, color));
             }
         }
 
-        // Helper conversion utility to support transparent structural alphas seamlessly
-        function hslToRgb(h, s, l) {
-            let r, g, b;
-            if (s == 0) {
-                r = g = b = l;
-            } else {
-                const hue2rgb = (p, q, t) => {
-                    if (t < 0) t += 1;
-                    if (t > 1) t -= 1;
-                    if (t < 1/6) return p + (q - p) * 6 * t;
-                    if (t < 1/2) return q;
-                    if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-                    return p;
-                }
-                let q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-                let p = 2 * l - q;
-                r = hue2rgb(p, q, h + 1/3);
-                g = hue2rgb(p, q, h);
-                b = hue2rgb(p, q, h - 1/3);
-            }
-            return `${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}`;
-        }
-
-        // --- TICK / LOOP CONTROLLER ---
         let timerTick = 0;
-        let timerTotal = 25; // Continuous rapid auto rockets
+        let timerTotal = 6; 
 
         function loop() {
             requestAnimationFrame(loop);
             
-            // Blend effect creates glowing trails
             ctx.globalCompositeOperation = 'source-over';
-            ctx.fillStyle = 'rgba(2, 2, 8, 0.15)';
-            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(15, 5, 29, 0.25)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.globalCompositeOperation = 'lighter';
-            
+
             let i = fireworks.length;
             while(i--) {
                 fireworks[i].draw();
                 fireworks[i].update(i);
             }
-            
+
             let j = particles.length;
             while(j--) {
                 particles[j].draw();
                 particles[j].update(j);
             }
-            
+
             if(timerTick >= timerTotal) {
-                // Rocket launches from random bottom position to random top half screen location
-                fireworks.push(new Firework(randomRange(20, width - 20), height, randomRange(20, width - 20), randomRange(50, height / 2)));
+                fireworks.push(new Firework(
+                    canvas.width / 2 + randomRange(-100, 100), 
+                    canvas.height, 
+                    randomRange(50, canvas.width - 50), 
+                    randomRange(50, canvas.height / 2)
+                ));
                 timerTick = 0;
             } else {
                 timerTick++;
             }
         }
 
-        // --- INTERACTIVE TAP LISTENER ---
         window.addEventListener('pointerdown', (e) => {
-            // Prevent interference if she clicks UI buttons directly
-            if (e.target.closest('.ui-wrapper')) return;
-            fireworks.push(new Firework(width / 2, height, e.clientX, e.clientY));
+            if(e.target.tagName !== 'A') { 
+                fireworks.push(new Firework(e.clientX, canvas.height, e.clientX, e.clientY));
+                fireworks.push(new Firework(e.clientX, canvas.height, e.clientX - 60, e.clientY - 30));
+                fireworks.push(new Firework(e.clientX, canvas.height, e.clientX + 60, e.clientY - 30));
+            }
         });
 
-        // Initialize display loop execution
         loop();
-
-        // --- NAVIGATION CONTROLLER ---
-        function navigateToNextSegment() {
-            window.location.href = "segment9.html";
-        }
     </script>
 </body>
 </html>
