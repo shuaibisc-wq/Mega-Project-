@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Massive Firework Celebration</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #020208;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Glassmorphism UI Container optimized for Samsung A06 viewports */
+        .ui-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 88%;
+            max-width: 340px;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            pointer-events: auto;
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .typewriter-box {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+            min-height: 48px;
+            margin-bottom: 20px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: #ff3366;
+            margin-left: 3px;
+            animation: blink 0.8s infinite;
+        }
+
+        .next-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #ff3366, #ff6699);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideUpButton 0.5s cubic-bezier(0.16, 1, 0.3, 1) 4s forwards;
+        }
+
+        .next-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px rgba(255, 51, 102, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -45%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        @keyframes slideUpButton {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="fireworksCanvas"></canvas>
+
+    <div class="ui-wrapper">
+        <h1 id="title">Happy Birthday, Prova!</h1>
+        <div class="typewriter-box">
+            <span id="text-target"></span><span class="cursor">|</span>
+        </div>
+        <button class="next-btn" onclick="navigateToNextSegment()">Continue Our Journey</button>
+    </div>
+
+    <audio id="bgMusic" src="music7.mp3" loop preload="auto"></audio>
+
+    <script>
+        // --- SEAMLESS AUDIO PIPELINE ---
+        const audio = document.getElementById('bgMusic');
+
+        function synchronizeAndPlayAudio() {
+            // Retrieve last recorded timestamp from Segment 7
+            const savedTime = localStorage.getItem('music7_time');
+            if (savedTime) {
+                audio.currentTime = parseFloat(savedTime);
+            }
+            
+            // Trigger playback instantly
+            audio.play().catch(() => {
+                // Fallback catch block for aggressive browser autoplay policies
+                window.addEventListener('click', () => {
+                    audio.play();
+                }, { once: true });
+                window.addEventListener('touchstart', () => {
+                    audio.play();
+                }, { once: true });
+            });
+        }
+
+        // Continuously cache runtime position to keep accuracy for any reload or link transitions
+        setInterval(() => {
+            if (!audio.paused) {
+                localStorage.setItem('music7_time', audio.currentTime);
+            }
+        }, 300);
+
+        window.addEventListener('DOMContentLoaded', synchronizeAndPlayAudio);
+
+
+        // --- DYNAMIC TYPEWRITER ENGINE ---
+        const romanticMessage = "May your beautiful smile light up the world forever. Watch the skies dance just for you tonight...";
+        let messageIndex = 0;
+        const targetElement = document.getElementById('text-target');
+
+        function startTypewriter() {
+            if (messageIndex < romanticMessage.length) {
+                targetElement.textContent += romanticMessage.charAt(messageIndex);
+                messageIndex++;
+                setTimeout(startTypewriter, 45);
+            }
+        }
+        setTimeout(startTypewriter, 1000);
+
+
+        // --- PERFORMANCE OPTIMIZED CANVAS FIREWORKS ENGINE ---
+        const canvas = document.getElementById('fireworksCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const fireworks = [];
+        const particles = [];
+
+        class Firework {
+            constructor(sx, sy, tx, ty) {
+                this.x = sx;
+                this.y = sy;
+                this.sx = sx;
+                this.sy = sy;
+                this.tx = tx;
+                this.ty = ty;
+                this.distanceToTarget = calculateDistance(sx, sy, tx, ty);
+                this.distanceTraveled = 0;
+                this.coordinates = [];
+                this.coordinateCount = 3;
+                while(this.coordinateCount--) {
+                    this.coordinates.push([this.x, this.y]);
+                }
+                this.angle = Math.atan2(ty - sy, tx - sx);
+                this.speed = 2.5;
+                this.acceleration = 1.03;
+                this.brightness = randomRange(50, 70);
+                this.hue = randomRange(0, 360);
+            }
+
+            update(index) {
+                this.coordinates.pop();
+                this.coordinates.unshift([this.x, this.y]);
+                
+                this.speed *= this.acceleration;
+                
+                let vx = Math.cos(this.angle) * this.speed;
+                let vy = Math.sin(this.angle) * this.speed;
+                this.distanceTraveled = calculateDistance(this.sx, this.sy, this.x + vx, this.y + vy);
+                
+                if(this.distanceTraveled >= this.distanceToTarget) {
+                    createParticles(this.tx, this.ty, this.hue);
+                    fireworks.splice(index, 1);
+                } else {
+                    this.x += vx;
+                    this.y += vy;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+                ctx.lineTo(this.x, this.y);
+                ctx.strokeStyle = `hsl(${this.hue}, 100%, ${this.brightness}%)`;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+
+        class Particle {
+            constructor(x, y, hue) {
+                this.x = x;
+                this.y = y;
+                this.coordinates = [];
+                this.coordinateCount = 5;
+                while(this.coordinateCount--) {
+                    this.coordinates.push([this.x, this.y]);
+                }
+                this.angle = randomRange(0, Math.PI * 2);
+                this.speed = randomRange(1, 10);
+                this.friction = 0.95;
+                this.gravity = 0.98; // Natural downward fall pull 
+                this.hue = randomRange(hue - 20, hue + 20);
+                this.brightness = randomRange(50, 80);
+                this.alpha = 1;
+                this.decay = randomRange(0.015, 0.03);
+            }
+
+            update(index) {
+                this.coordinates.pop();
+                this.coordinates.unshift([this.x, this.y]);
+                this.speed *= this.friction;
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed + this.gravity;
+                this.alpha -= this.decay;
+                
+                if(this.alpha <= this.decay) {
+                    particles.splice(index, 1);
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
+                ctx.lineTo(this.x, this.y);
+                ctx.strokeStyle = `rgba(${hslToRgb(this.hue / 360, 1, this.brightness / 100)}, ${this.alpha})`;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+        }
+
+        function calculateDistance(p1x, p1y, p2x, p2y) {
+            return Math.sqrt(Math.pow(p1x - p2x, 2) + Math.pow(p1y - p2y, 2));
+        }
+
+        function randomRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function createParticles(x, y, hue) {
+            let particleCount = 75; // Heavy dense burst logic
+            while(particleCount--) {
+                particles.push(new Particle(x, y, hue));
+            }
+        }
+
+        // Helper conversion utility to support transparent structural alphas seamlessly
+        function hslToRgb(h, s, l) {
+            let r, g, b;
+            if (s == 0) {
+                r = g = b = l;
+            } else {
+                const hue2rgb = (p, q, t) => {
+                    if (t < 0) t += 1;
+                    if (t > 1) t -= 1;
+                    if (t < 1/6) return p + (q - p) * 6 * t;
+                    if (t < 1/2) return q;
+                    if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                    return p;
+                }
+                let q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                let p = 2 * l - q;
+                r = hue2rgb(p, q, h + 1/3);
+                g = hue2rgb(p, q, h);
+                b = hue2rgb(p, q, h - 1/3);
+            }
+            return `${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}`;
+        }
+
+        // --- TICK / LOOP CONTROLLER ---
+        let timerTick = 0;
+        let timerTotal = 25; // Continuous rapid auto rockets
+
+        function loop() {
+            requestAnimationFrame(loop);
+            
+            // Blend effect creates glowing trails
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.fillStyle = 'rgba(2, 2, 8, 0.15)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'lighter';
+            
+            let i = fireworks.length;
+            while(i--) {
+                fireworks[i].draw();
+                fireworks[i].update(i);
+            }
+            
+            let j = particles.length;
+            while(j--) {
+                particles[j].draw();
+                particles[j].update(j);
+            }
+            
+            if(timerTick >= timerTotal) {
+                // Rocket launches from random bottom position to random top half screen location
+                fireworks.push(new Firework(randomRange(20, width - 20), height, randomRange(20, width - 20), randomRange(50, height / 2)));
+                timerTick = 0;
+            } else {
+                timerTick++;
+            }
+        }
+
+        // --- INTERACTIVE TAP LISTENER ---
+        window.addEventListener('pointerdown', (e) => {
+            // Prevent interference if she clicks UI buttons directly
+            if (e.target.closest('.ui-wrapper')) return;
+            fireworks.push(new Firework(width / 2, height, e.clientX, e.clientY));
+        });
+
+        // Initialize display loop execution
+        loop();
+
+        // --- NAVIGATION CONTROLLER ---
+        function navigateToNextSegment() {
+            window.location.href = "segment9.html";
+        }
+    </script>
+</body>
+</html>
