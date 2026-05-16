@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Chapter II: The Sovereign Wish (Segment 7)</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #110319 0%, #030106 100%); /* Deep Imperial Velvet Sky */
+            overflow: hidden;
+            font-family: 'Cormorant Garamond', serif;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Ambient Cosmic Background Canvas */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Luxury Exhibition Card Frame */
+        .main-container {
+            position: relative;
+            z-index: 5;
+            width: 90%;
+            max-width: 410px;
+            padding: 45px 30px;
+            background: rgba(12, 4, 18, 0.55);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border-radius: 28px;
+            border: 1px solid rgba(212, 175, 55, 0.2); 
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.75), inset 0 0 40px rgba(212, 175, 55, 0.03);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 35px;
+        }
+
+        /* Sovereign Level Typography */
+        .romantic-msg {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: clamp(1.2rem, 4.5vw, 1.5rem);
+            color: #fcfbfe;
+            line-height: 1.65;
+            letter-spacing: 0.5px;
+            transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .romantic-msg .highlight {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: #d4af37; /* Matte Gold Accent */
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+        }
+
+        /* --- THE ARCHITECTURAL HIGH-CONTRAST CAKE STAGE --- */
+        .cake-stage {
+            position: relative;
+            width: 280px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        /* Geometric Alignment Matrix for 18 Royal Tapers */
+        .candles-grid {
+            position: absolute;
+            bottom: 122px;
+            width: 170px;
+            height: 40px;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .candle-unit {
+            position: absolute;
+            width: 4px;
+            height: 38px;
+            background: linear-gradient(to top, #4a0e4e, #9b59b6, #e0c879); /* Royal Violet Taper Columns */
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transform-origin: bottom center;
+        }
+
+        /* Refined, Calm Ambient Flames */
+        .flame-core {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 7.5px;
+            height: 18px;
+            background: radial-gradient(ellipse at bottom, #ffffff 35%, #ffdf85 65%, #e67e22 95%, transparent 100%);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px #e67e22, 0 0 22px #f1c40f, 0 0 35px rgba(241,196,15,0.45);
+            animation: elegantCalmFlicker 0.25s infinite alternate ease-in-out;
+            transform-origin: bottom center;
+            opacity: 1;
+        }
+
+        @keyframes elegantCalmFlicker {
+            0% { transform: translateX(-50%) scale(0.95) rotate(-0.8deg); }
+            100% { transform: translateX(-50%) scale(1.05) rotate(0.8deg); }
+        }
+
+        /* The Dancing Extinguish Sway Transformation Matrix */
+        .flame-dying-dance {
+            animation: dancingSwayExtinguish 1.5s forwards cubic-bezier(0.445, 0.05, 0.55, 0.95) !important;
+        }
+
+        @keyframes dancingSwayExtinguish {
+            0% { transform: translateX(-50%) scale(1) rotate(0deg); opacity: 1; }
+            20% { transform: translateX(-50%) scale(0.9, 1.1) rotate(-18deg); filter: blur(0.2px); }
+            40% { transform: translateX(-50%) scale(0.7, 1.2) rotate(22deg); }
+            60% { transform: translateX(-50%) scale(0.5, 0.8) rotate(-28deg); opacity: 0.7; }
+            80% { transform: translateX(-50%) scale(0.3, 0.5) rotate(15deg); opacity: 0.3; }
+            100% { transform: translateX(-50%) scale(0) rotate(0deg); opacity: 0; filter: blur(2px); }
+        }
+
+        /* Double Tier High-Contrast Premium Ivory & Gold Cake Structure */
+        .cake-body-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 3;
+        }
+
+        /* Top Tier: Delicate Ivory Confectionery Asset */
+        .cake-tier-top {
+            width: 130px;
+            height: 48px;
+            background: linear-gradient(135deg, #fffdf9 0%, #f4eee1 100%); /* Solid Luminous Royal Ivory */
+            border-radius: 8px 8px 3px 3px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            position: relative;
+            margin-bottom: -3px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15), inset 0 -3px 10px rgba(0,0,0,0.06);
+        }
+
+        /* Bottom Tier: Grand Ivory & Gold Base Assembly */
+        .cake-tier-bottom {
+            width: 194px;
+            height: 78px;
+            background: linear-gradient(135deg, #fefbf4 0%, #ede5d0 100%); /* Highly Distinguished Contrast Layer */
+            border-radius: 10px 10px 5px 5px;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.45), inset 0 -5px 15px rgba(0,0,0,0.08);
+        }
+
+        /* Re-engineered High-End Polished Gold Satin Bands & Purple Detailing */
+        .luxury-gold-band {
+            position: absolute;
+            bottom: 14px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #b8932d, #d4af37, #f7ebb8, #d4af37, #b8932d);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .luxury-royal-piping {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #2c123d; /* Elegant deep purple piping line to give elite pop contrast */
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* High-End Polished Metallic Gold Base Pedestal Plate */
+        .cake-plate {
+            width: 242px;
+            height: 10px;
+            background: linear-gradient(to right, #6e552a, #d4af37, #f7ebb8, #d4af37, #6e552a);
+            border-radius: 30px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+            z-index: 2;
+        }
+
+        /* Radiant Golden Glow Anchor */
+        .ambient-glow {
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 75%);
+            top: -45px;
+            z-index: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease-out;
+        }
+
+        /* Subtle Luxury Prompt Font */
+        .hint-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(212, 175, 55, 0.55);
+            letter-spacing: 4px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        /* Haute-Couture Minimalist Action Trigger Button */
+        .next-btn {
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 16px 44px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .next-btn:hover {
+            background: #d4af37;
+            color: #030106;
+            border-color: #d4af37;
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="worldCanvas"></canvas>
+
+    <audio id="bgMusic" src="music7.mp3" loop preload="auto"></audio>
+
+    <div class="main-container" id="interactionCore">
+        <div class="romantic-msg" id="message">
+            Make a silent wish amid the starlit sky, Prova... <br><span class="highlight">and gently tap the screen to release it.</span> ✨
+        </div>
+        
+        <div class="cake-stage">
+            <div class="ambient-glow" id="cakeGlow"></div>
+            
+            <div class="candles-grid" id="candlesContainer">
+                </div>
+
+            <div class="cake-body-container">
+                <div class="cake-tier-top">
+                    <div class="luxury-royal-piping"></div>
+                    <div class="luxury-gold-band"></div>
+                </div>
+                <div class="cake-tier-bottom">
+                    <div class="luxury-royal-piping"></div>
+                    <div class="luxury-gold-band"></div>
+                </div>
+            </div>
+            <div class="cake-plate"></div>
+        </div>
+
+        <div class="hint-text" id="hint">Gently touch the canvas</div>
+
+        <button class="next-btn" id="nextBtn" onclick="goToNextSegment(event)">Proceed to Her Majesty's Suite →</button>
+    </div>
+
+    <script>
+        // --- 1. SEAMLESS AUDIO RUNTIME CONTROLLER ---
+        const audio = document.getElementById('bgMusic');
+        let audioActive = false;
+
+        function initializeAudioSystem() {
+            if (!audioActive) {
+                audio.play().then(() => {
+                    audioActive = true;
+                }).catch(() => {});
+            }
+        }
+
+        window.addEventListener('click', initializeAudioSystem, true);
+        window.addEventListener('touchstart', initializeAudioSystem, true);
+
+        // --- 2. AMBIENT SHOCKWAVE & GRAND CELEBRATION CELESTIAL ENGINE ---
+        const canvas = document.getElementById('worldCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let backgroundStars = [];
+        let fineFoilParticles = [];
+        let organicWaves = [];
+        let permanentGoldRainActive = false;
+
+        function resizeGraphicsMatrix() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            generateDistantStars();
+        }
+
+        function generateDistantStars() {
+            backgroundStars = [];
+            for (let i = 0; i < 95; i++) {
+                backgroundStars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.1,
+                    alpha: Math.random(),
+                    speed: 0.004 + Math.random() * 0.01
+                });
+            }
+        }
+
+        // Hyper Velocity Grand Celebration Celebration Exploder Logic
+        function triggerSovereignFoilExplosion() {
+            // Highly vivid, royal celebration palette matrix
+            const eliteCelebrationPalette = ['#d4af37', '#f4ebd0', '#ffffff', '#aa841b', '#ff7675', '#74b9ff', '#fdcb6e', '#a29bfe'];
+            
+            // Triple density burst execution for premium festive feeling
+            for (let i = 0; i < 280; i++) {
+                fineFoilParticles.push({
+                    x: canvas.width / 2 + (Math.random() - 0.5) * 140,
+                    y: canvas.height / 2 + 30,
+                    vx: (Math.random() - 0.5) * 14, // Boosted lateral blast expansion radius
+                    vy: -Math.random() * 16 - 6,   // Massive vertical overhead projection velocity
+                    radius: 1.5 + Math.random() * 3.5,
+                    color: eliteCelebrationPalette[Math.floor(Math.random() * eliteCelebrationPalette.length)],
+                    alpha: 1,
+                    decay: 0.004 + Math.random() * 0.006, // Longer ambient lifespan retention
+                    gravity: 0.22, // Crisp arc falling response physics
+                    rotation: Math.random() * Math.PI * 2,
+                    rotSpeed: (Math.random() - 0.5) * 0.25
+                });
+            }
+        }
+
+        // Heavy Dynamic Ongoing Stardust Cascade Overrides
+        function streamFineGoldRain() {
+            const elitePalette = ['#d4af37', '#ffffff', '#f4ebd0', '#ff7675', '#74b9ff'];
+            for (let i = 0; i < 6; i++) { // Double volume cascading streams
+                fineFoilParticles.push({
+                    x: Math.random() * canvas.width,
+                    y: -15,
+                    vx: (Math.random() - 0.5) * 3,
+                    vy: 2.5 + Math.random() * 4.5,
+                    radius: 1.2 + Math.random() * 3,
+                    color: elitePalette[Math.floor(Math.random() * elitePalette.length)],
+                    alpha: 0.9,
+                    decay: 0.002 + Math.random() * 0.004,
+                    gravity: 0.04,
+                    rotation: Math.random() * Math.PI,
+                    rotSpeed: 0.06
+                });
+            }
+        }
+
+        function launchSubtleShockwave(cx, cy) {
+            organicWaves.push({
+                x: cx,
+                y: cy,
+                radius: 4,
+                maxRadius: 210,
+                alpha: 1,
+                speed: 5
+            });
+        }
+
+        function executionGraphicsPipeline() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Space Star Field
+            ctx.fillStyle = "#ffffff";
+            for (let s of backgroundStars) {
+                s.alpha += s.speed;
+                if (s.alpha <= 0 || s.alpha >= 1) s.speed = -s.speed;
+                ctx.globalAlpha = Math.max(0, s.alpha);
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Aesthetic Concentric Touch Ring Loop
+            for (let i = organicWaves.length - 1; i >= 0; i--) {
+                let w = organicWaves[i];
+                w.radius += w.speed;
+                w.alpha = 1 - (w.radius / w.maxRadius);
+                
+                if (w.radius >= w.maxRadius) {
+                    organicWaves.splice(i, 1);
+                    continue;
+                }
+
+                ctx.save();
+                ctx.globalAlpha = w.alpha;
+                ctx.strokeStyle = "rgba(212, 175, 55, 0.45)";
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.arc(w.x, w.y, w.radius, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // High Fidelity Particle Physics Render Updates
+            for (let i = fineFoilParticles.length - 1; i >= 0; i--) {
+                let p = fineFoilParticles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += p.gravity;
+                p.rotation += p.rotSpeed;
+                p.alpha -= p.decay;
+
+                if (p.alpha <= 0 || p.y > canvas.height + 10) {
+                    fineFoilParticles.splice(i, 1);
+                    continue;
+                }
+
+                ctx.save();
+                ctx.globalAlpha = p.alpha;
+                ctx.fillStyle = p.color;
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation);
+                ctx.fillRect(-p.radius, -p.radius, p.radius * 2, p.radius * 2);
+                ctx.restore();
+            }
+
+            if (permanentGoldRainActive) {
+                streamFineGoldRain();
+            }
+
+            ctx.globalAlpha = 1.0;
+            requestAnimationFrame(executionGraphicsPipeline);
+        }
+
+        window.addEventListener('resize', resizeGraphicsMatrix);
+        resizeGraphicsMatrix();
+        requestAnimationFrame(executionGraphicsPipeline);
+
+        // --- 3. ARC ALIGNMENT GENERATION FOR 18 CLASSY CANDLES ---
+        const gridContainer = document.getElementById('candlesContainer');
+        const TotalEliteTapers = 18;
+
+        for (let i = 0; i < TotalEliteTapers; i++) {
+            const taper = document.createElement('div');
+            taper.className = 'candle-unit';
+            
+            const layoutRatio = i / (TotalEliteTapers - 1);
+            const polarAngle = Math.PI * 0.16 + layoutRatio * (Math.PI * 0.68); 
+            
+            const radiusHorizontal = 74; 
+            const radiusVertical = 10; 
+            
+            const finalPositionX = 170 / 2 + Math.cos(polarAngle) * radiusHorizontal - 2;
+            const finalPositionY = 15 - Math.sin(polarAngle) * radiusVertical;
+
+            taper.style.left = `${finalPositionX}px`;
+            taper.style.bottom = `${finalPositionY}px`;
+            taper.style.zIndex = Math.floor(finalPositionY);
+
+            const fireCore = document.createElement('div');
+            fireCore.className = 'flame-core';
+            fireCore.id = `flameCore-${i}`;
+            fireCore.style.animationDelay = `${i * 0.05}s`;
+
+            taper.appendChild(fireCore);
+            gridContainer.appendChild(taper);
+        }
+
+        // --- 4. CINEMATIC DANCING EXTINGUISH & GRAND CELEBRATION CONTROLLER ---
+        let masterStateBlown = false;
+
+        window.addEventListener('click', function(e) {
+            if (e.target.id === 'nextBtn') return;
+            launchSubtleShockwave(e.clientX, e.clientY);
+            dispatchSovereignExtinguish();
+        }, true);
+
+        window.addEventListener('touchstart', function(e) {
+            if (e.target.id === 'nextBtn') return;
+            const t = e.touches[0];
+            launchSubtleShockwave(t.clientX, t.clientY);
+            dispatchSovereignExtinguish();
+        }, true);
+
+        function dispatchSovereignExtinguish() {
+            initializeAudioSystem();
+            if (masterStateBlown) return;
+            masterStateBlown = true;
+
+            // Sequential stagger animation injection for the dancing extinguish sway effect
+            for (let i = 0; i < TotalEliteTapers; i++) {
+                const targetFire = document.getElementById(`flameCore-${i}`);
+                if (targetFire) {
+                    setTimeout(() => {
+                        targetFire.classList.add('flame-dying-dance');
+                    }, i * 40); // Organic sequential sway cascade response timing
+                }
+            }
+
+            // Fade ambient cake core glow vignette smoothly
+            document.getElementById('cakeGlow').style.opacity = '0';
+
+            // Launch huge grand celebration particle burst exactly as the dance settles
+            setTimeout(() => {
+                triggerSovereignFoilExplosion();
+                permanentGoldRainActive = true;
+            }, 750);
+
+            // Elegantly transform copywriting content layout
+            setTimeout(() => {
+                document.getElementById('message').innerHTML = "Wishing you a magnificent <span class='highlight'>18th Solstice</span>, Queen Prova. <br>May your sovereign reign over happiness be eternal. 👑🏛️";
+                
+                const feedbackText = document.getElementById('hint');
+                feedbackText.innerText = "‖ Your royal decree has been sealed in the stars ‖";
+                feedbackText.style.color = "#d4af37";
+                feedbackText.style.fontFamily = "'Playfair Display', serif";
+                feedbackText.style.fontStyle = "italic";
+
+                // Fade minimal luxury navigation layout button live safely
+                const coreBtn = document.getElementById('nextBtn');
+                coreBtn.style.display = 'inline-block';
+                setTimeout(() => {
+                    coreBtn.style.opacity = '1';
+                    coreBtn.style.transform = 'translateY(0)';
+                }, 50);
+            }, 950);
+        }
+
+        // --- 5. SYSTEM PIPELINE REDIRECTION ROUTING ---
+        function goToNextSegment(event) {
+            event.stopPropagation();
+            window.location.href = "segment8.html";
+        }
+    </script>
+</body>
+</html>
