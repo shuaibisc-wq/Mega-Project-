@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Queen Prova's 18th Birthday - Celebration</title>
+    <title>My Jaan's 18th Birthday - Celebration</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,600;1,400&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
     
     <style>
@@ -119,7 +119,7 @@
     <div class="celebration-container">
         <h1 class="royal-title">A Grand Symphony</h1>
         <p class="romantic-text">
-            "Look up at the illuminated heavens, Prova. Every single starburst and floating lantern carries a wish meant only for you on this magnificent night."
+            "Look up at the illuminated heavens, My Jaan. Every single starburst and floating lantern carries a wish meant only for you on this magnificent night."
         </p>
         <a href="javascript:void(0);" class="next-btn" onclick="navigateToNext()">Proceed</a>
     </div>
@@ -169,7 +169,7 @@
         window.addEventListener('pageshow', syncAndPlayAudio);
 
 
-        // --- FIREWORKS & FANUS CELESTIAL ENGINE ---
+        // --- BALANCED FIREWORKS & FANUS CELESTIAL ENGINE ---
         const canvas = document.getElementById('fireworksCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -182,7 +182,7 @@
 
         let fireworks = [];
         let particles = [];
-        let lanterns = []; // Fanus Array
+        let lanterns = []; 
 
         const colorPalette = [
             'rgba(214, 175, 87, ',  
@@ -199,7 +199,7 @@
                 this.x = randomRange(20, canvas.width - 20);
                 this.y = canvas.height + randomRange(10, 100);
                 this.speedX = randomRange(-0.2, 0.2);
-                this.speedY = randomRange(-0.4, -0.9); // Gentle slow upward floating speed
+                this.speedY = randomRange(-0.4, -0.9); 
                 this.size = randomRange(8, 16);
                 this.glow = randomRange(0.5, 0.9);
                 this.oscillateSpeed = randomRange(0.01, 0.03);
@@ -211,7 +211,6 @@
                 this.y += this.speedY;
                 this.degree += this.oscillateSpeed;
 
-                // Remove when out of upper frame bounds
                 if (this.y < -50) {
                     lanterns.splice(index, 1);
                 }
@@ -220,12 +219,10 @@
             draw() {
                 ctx.save();
                 ctx.shadowBlur = this.size * 1.5;
-                ctx.shadowColor = 'rgba(230, 126, 34, 0.8)'; // Golden Amber fire glow
+                ctx.shadowColor = 'rgba(230, 126, 34, 0.8)'; 
 
-                // Soft dynamic transparency mapping
                 ctx.fillStyle = `rgba(243, 156, 18, ${this.glow})`;
                 
-                // Draw custom diamond-like paper lantern shape
                 ctx.beginPath();
                 ctx.moveTo(this.x, this.y - this.size);
                 ctx.lineTo(this.x + this.size * 0.7, this.y - this.size * 0.2);
@@ -235,7 +232,6 @@
                 ctx.closePath();
                 ctx.fill();
 
-                // Core intense bottom heat burner light
                 ctx.beginPath();
                 ctx.fillStyle = `rgba(255, 255, 255, ${this.glow + 0.1})`;
                 ctx.arc(this.x, this.y + this.size * 0.6, this.size * 0.2, 0, Math.PI * 2);
@@ -245,7 +241,7 @@
             }
         }
 
-        // --- OPTIMIZED SLOWED FIREWORKS ENGINE ---
+        // --- PERFECTLY BALANCED FIREWORKS ENGINE ---
         class Firework {
             constructor(sx, sy, tx, ty) {
                 this.x = sx;
@@ -262,8 +258,8 @@
                     this.coordinates.push([this.x, this.y]);
                 }
                 this.angle = Math.atan2(ty - sy, tx - sx);
-                this.speed = 6; // SLOWED DOWN rocket speed (was 12)
-                this.acceleration = 1.015; // Smooth slow curve lift (was 1.03)
+                this.speed = 9; // BALANCED SPEED (Optimized between 6 and 12)
+                this.acceleration = 1.02; // Smooth steady liftoff (Optimized between 1.015 and 1.03)
                 this.color = colorPalette[Math.floor(Math.random() * colorPalette.length)] + '1)';
             }
 
@@ -305,12 +301,12 @@
                     this.coordinates.push([this.x, this.y]);
                 }
                 this.angle = randomRange(0, Math.PI * 2);
-                this.speed = randomRange(1, 6); // SLOWED dispersion burst velocity (was 12)
-                this.friction = 0.96; // Linger longer inside atmosphere
-                this.gravity = 0.08; // Delicate elegant drag falling weight (was 0.18)
+                this.speed = randomRange(1, 9); // BALANCED burst velocity dispersion
+                this.friction = 0.955; 
+                this.gravity = 0.13; // Balanced physics gravity falling drop weight
                 this.baseColor = baseColor.split(',')[0] + ',' + baseColor.split(',')[1] + ',' + baseColor.split(',')[2] + ',';
                 this.alpha = 1;
-                this.decay = randomRange(0.005, 0.012); // Extends fading visibility time frame
+                this.decay = randomRange(0.006, 0.015); 
             }
 
             update(index) {
@@ -331,7 +327,7 @@
                 ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
                 ctx.lineTo(this.x, this.y);
                 ctx.strokeStyle = this.baseColor + this.alpha + ')';
-                ctx.lineWidth = randomRange(1, 2.5); 
+                ctx.lineWidth = randomRange(1, 2.8); 
                 ctx.stroke();
             }
         }
@@ -345,58 +341,58 @@
         }
 
         function createExplosion(x, y, color) {
-            let particleCount = 140; // Balanced high-payload glitter count
+            let particleCount = 170; // High-payload glittering particles
             while(particleCount--) {
                 particles.push(new Particle(x, y, color));
             }
         }
 
         let timerTick = 0;
-        let timerTotal = 18; // More elegant spaced timing intervals (was 6)
+        let timerTotal = 10; // BALANCED TIMING LAUNCH FREQUENCY (Optimized between 6 and 18)
         let lanternTick = 0;
 
         function loop() {
             requestAnimationFrame(loop);
             
             ctx.globalCompositeOperation = 'source-over';
-            ctx.fillStyle = 'rgba(15, 5, 29, 0.22)'; // Slightly deeper trails overlay mapping
+            ctx.fillStyle = 'rgba(15, 5, 29, 0.24)'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.globalCompositeOperation = 'lighter';
 
-            // 1. Process Lanterns (Fanus) Render Loop Layer
+            // 1. Lanterns (Fanus) Render Layer
             let l = lanterns.length;
             while(l--) {
                 lanterns[l].draw();
                 lanterns[l].update(l);
             }
 
-            // 2. Process Fireworks Lift Rocket Render
+            // 2. Fireworks Lift Rockets
             let i = fireworks.length;
             while(i--) {
                 fireworks[i].draw();
                 fireworks[i].update(i);
             }
 
-            // 3. Process Burst Explosion Sparks
+            // 3. Burst Explosion Sparks
             let j = particles.length;
             while(j--) {
                 particles[j].draw();
                 particles[j].update(j);
             }
 
-            // Continuous background fanus spawning tracking
+            // Background fanus auto spawn tracker
             lanternTick++;
-            if(lanternTick % 45 === 0 && lanterns.length < 25) { // Maintains max safe ambient count
+            if(lanternTick % 40 === 0 && lanterns.length < 25) { 
                 lanterns.push(new Lantern());
             }
 
-            // Automatic elegant timed rocket launches
+            // Balanced automatic timed rocket launches
             if(timerTick >= timerTotal) {
                 fireworks.push(new Firework(
                     canvas.width / 2 + randomRange(-120, 120), 
                     canvas.height, 
                     randomRange(60, canvas.width - 60), 
-                    randomRange(60, canvas.height / 1.8)
+                    randomRange(60, canvas.height / 1.9)
                 ));
                 timerTick = 0;
             } else {
@@ -407,16 +403,15 @@
         window.addEventListener('pointerdown', (e) => {
             if(e.target.tagName !== 'A') { 
                 fireworks.push(new Firework(e.clientX, canvas.height, e.clientX, e.clientY));
-                // Side cluster triggers tuned to slow luxury response
-                fireworks.push(new Firework(e.clientX, canvas.height, e.clientX - 50, e.clientY - 25));
-                fireworks.push(new Firework(e.clientX, canvas.height, e.clientX + 50, e.clientY - 25));
+                fireworks.push(new Firework(e.clientX, canvas.height, e.clientX - 55, e.clientY - 28));
+                fireworks.push(new Firework(e.clientX, canvas.height, e.clientX + 55, e.clientY - 28));
             }
         });
 
-        // Seed early ambient lanterns layout on mount
+        // Seed early ambient lanterns on load
         for(let initial = 0; initial < 8; initial++) {
             let earlyLantern = new Lantern();
-            earlyLantern.y = randomRange(100, canvas.height); // Prefills heights beautifully
+            earlyLantern.y = randomRange(100, canvas.height); 
             lanterns.push(earlyLantern);
         }
 
