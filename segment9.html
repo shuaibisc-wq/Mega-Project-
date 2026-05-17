@@ -15,7 +15,7 @@
             height: 100%;
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Premium Jasmine, Rose & Lily color palette background */
+            /* Jasmine, Rose & Lily custom matched premium aesthetic background */
             background: linear-gradient(135deg, #fffdf6 0%, #ffeef2 50%, #f5ebf7 100%);
             display: flex;
             justify-content: center;
@@ -38,7 +38,7 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            max-width: 360px; /* Perfectly structured for Samsung A06 viewport */
+            max-width: 360px; /* Tailored perfectly for Samsung A06 Viewport */
             padding: 20px;
             text-align: center;
         }
@@ -60,7 +60,7 @@
             to { transform: scale(1); }
         }
 
-        /* Premium Interactive Gift Box - Clean Minimal Aesthetic */
+        /* Interactive Gift Box Layout - No Ugliness, Just Premium Design */
         .gift-box-wrapper {
             width: 140px;
             height: 140px;
@@ -84,7 +84,7 @@
             justify-content: center;
             align-items: center;
         }
-        /* Elegant Gold Ribbon Cross-over */
+        /* Elegant Gold Ribbon Wrapper */
         .gift-box::before {
             content: '';
             position: absolute;
@@ -111,7 +111,7 @@
             box-shadow: 0 -3px 8px rgba(0,0,0,0.1);
             z-index: 6;
         }
-        /* Replaced baje text with a premium glowing heart icon */
+        /* Glowing Pulsing Heart instead of ugly text */
         .gift-heart-icon {
             position: absolute;
             font-size: 2.2rem;
@@ -125,12 +125,12 @@
             50% { transform: scale(1.18); }
         }
 
-        /* Flower Frame Layout Wrapper */
+        /* Flower Image Core Layer Wrapper */
         .flower-image-wrap {
             width: 190px;
             height: 190px;
             position: relative;
-            display: none; /* Triggered dynamically via JavaScript unwrap */
+            display: none; /* Appears dynamically upon unwrap code trigger */
             justify-content: center;
             align-items: center;
             animation: floatingMotion 4s ease-in-out infinite;
@@ -166,12 +166,14 @@
             font-size: 1.4rem;
             margin-bottom: 12px;
             font-weight: 600;
+            transition: opacity 0.3s;
         }
         p {
             color: #5d4037;
             font-size: 0.95rem;
             line-height: 1.5;
             padding: 0 5px;
+            transition: opacity 0.3s;
         }
         .next-btn {
             margin-top: 25px;
@@ -183,7 +185,7 @@
             font-weight: bold;
             box-shadow: 0 5px 18px rgba(236, 64, 122, 0.4);
             cursor: pointer;
-            display: none; /* Appears after unwrap */
+            display: none; /* Injected after gift open */
             transition: transform 0.2s;
         }
         .next-btn:active {
@@ -205,18 +207,18 @@
 
             <div class="flower-image-wrap" id="flowerGift">
                 <div class="image-fallback">🌸</div>
-                <img src="flower9.jpg" alt="Jasmine & Rose Bouquet" onerror="this.style.display='none';">
+                <img src="flower9.jpg" alt="Romantic Bouquet" onerror="this.style.display='none';">
             </div>
 
-            <h2 id="stageTitle">A Secret Gift For You...</h2>
-            <p id="stageDesc">Every step of this journey holds a reflection of my love. Open this box to reveal a little piece of my heart, My Jaan!</p>
+            <h2 id="stageTitle">A Gift from My Heart...</h2>
+            <p id="stageDesc">Every step of this journey holds a reflection of my endless love for you. Open this box to reveal a little piece of my soul, My Jaan!</p>
             
             <button class="next-btn" id="nextBtn" onclick="navigateToNext()">Next Surprise 🚀</button>
         </div>
     </div>
 
     <script>
-        // --- PERFECT MUSIC CONTINUITY SYNC SYSTEM ---
+        // --- PERFECT SEAMLESS BACKGROUND AUDIO ENGINE ---
         const audio = new Audio();
         audio.src = 'music7.mp3'; 
         audio.loop = true;
@@ -229,7 +231,7 @@
             const isPlaying = localStorage.getItem('audio_playing') !== 'false';
             if (isPlaying) {
                 audio.play().catch(() => {
-                    // Fail-safe gesture handler mapping to ensure bypass of browser audio block policy
+                    // Safe browser security standards override parameters
                     document.addEventListener('click', () => { audio.play(); }, { once: true });
                     document.addEventListener('touchstart', () => { audio.play(); }, { once: true });
                 });
@@ -248,7 +250,7 @@
         }
 
 
-        // --- BOX UNWRAP LAYER CONTROLLER ---
+        // --- BOX UNWRAP MECHANICS & ACTION SYSTEM ---
         let isGiftOpened = false;
         
         function unwrapGift() {
@@ -258,7 +260,7 @@
             const boxContainer = document.getElementById('giftBoxContainer');
             boxContainer.style.transform = 'scale(0) rotate(540deg)';
             
-            // Generate full radial canvas burst around the gift package center
+            // Kinetic burst response mapping around the opened coordinate center
             const rect = boxContainer.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
@@ -269,19 +271,19 @@
             setTimeout(() => {
                 boxContainer.style.display = 'none';
                 
-                // Inject flower frame elements
+                // Show flower bouquet frame smoothly
                 const flowerElement = document.getElementById('flowerGift');
                 flowerElement.style.display = 'flex';
                 
-                // Updated copy text to clearly direct Prova that tapping ANYWHERE generates flowers
-                document.getElementById('stageTitle').innerText = "For You, My Jaan...";
-                document.getElementById('stageDesc').innerText = "A collection of beautiful Jasmine (Beli), mixed with timeless Roses and soft Lilies. Touch anywhere on the screen to watch them dance!";
+                // Injected Deeply Romantic Text without any raw flower names & with clear interaction guide
+                document.getElementById('stageTitle').innerText = "Forever Yours, My Jaan...";
+                document.getElementById('stageDesc').innerText = "You make my world bloom in the most beautiful colors. Touch anywhere on the screen to watch my love dance all around you!";
                 document.getElementById('nextBtn').style.display = 'inline-block';
             }, 500);
         }
 
 
-        // --- PALETTE MATRIX PETAL PHYSICS EMULATOR ---
+        // --- DYNAMIC FLOWER PALETTE PHYSICS SIMULATOR ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
@@ -293,13 +295,13 @@
         resizeCanvas();
 
         const petals = [];
-        // Color Profiles: Jasmine (Cream Milk White), Rose (Velvet Red/Deep Pink), Lily (Soft Blush Pink)
+        // Soft romantic blend matching Jasmine (White), Rose (Crimson) & Lily (Blush Pink) hues elegantly
         const paletteColors = [
-            { r: 255, g: 254, b: 242, a: 0.95 }, // Jasmine Cream White
-            { r: 255, g: 240, b: 245, a: 0.9 },  // Soft Lily Pink
-            { r: 228, g: 26, b: 76, a: 0.95 },   // Velvet Crimson Rose
-            { r: 240, g: 98, b: 146, a: 0.85 },  // Pastel Rose Pink
-            { r: 255, g: 252, b: 215, a: 0.9 }   // Pure Jasmine Core Hue
+            { r: 255, g: 254, b: 242, a: 0.95 }, // Creamy Jasmine White
+            { r: 255, g: 240, b: 245, a: 0.9 },  // Velvet Lily Light Pink
+            { r: 228, g: 26, b: 76, a: 0.95 },   // Royal Deep Rose Red
+            { r: 240, g: 98, b: 146, a: 0.85 },  // Pastel Blush Pink
+            { r: 255, g: 252, b: 215, a: 0.9 }   // Tender Soft Core Light Glow
         ];
 
         class Petal {
@@ -310,13 +312,13 @@
                 this.size = Math.random() * 8 + 6;
                 
                 if (isBurst) {
-                    // High explosion blast velocity modifiers
+                    // Velocity mapping vectors for explosive touch event response
                     const angle = Math.random() * Math.PI * 2;
                     const speed = Math.random() * 6 + 2.5;
                     this.vx = Math.cos(angle) * speed;
                     this.vy = Math.sin(angle) * speed;
                 } else {
-                    // Ambient wind drop falling vectors
+                    // Safe idle falling ambient drift variables
                     this.vx = Math.random() * 1.6 - 0.8;
                     this.vy = Math.random() * 1.2 + 0.6;
                 }
@@ -332,7 +334,7 @@
                 this.y += this.vy;
                 this.rotation += this.rotationSpeed;
                 
-                // Pure sine-wave air drift simulation structure
+                // Fine air drift sine-wave calculation matrix
                 this.vx += Math.sin(this.y / 40) * 0.025; 
                 
                 if (this.opacity > 0) {
@@ -345,7 +347,7 @@
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation);
                 
-                // Double curved organic petal shape engine mapping
+                // Fluid organic dual bezels mapped petal curvature algorithm
                 ctx.beginPath();
                 ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.opacity})`;
                 ctx.moveTo(0, 0);
@@ -353,7 +355,7 @@
                 ctx.bezierCurveTo(this.size, this.size/1.8, this.size, -this.size/1.8, 0, 0);
                 ctx.fill();
                 
-                // Soft glow inner core mapping
+                // Subtle inner reflective glow core layer
                 ctx.beginPath();
                 ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity * 0.45})`;
                 ctx.arc(0, this.size/3, this.size/3.8, 0, Math.PI * 2);
@@ -363,14 +365,14 @@
             }
         }
 
-        // Ambient Spawner for natural constant flower falling atmosphere
+        // Spawns ambient falling petals gently for a live floating experience
         function spawnAmbientPetals() {
             if (petals.length < 45 && Math.random() < 0.12) {
                 petals.push(new Petal(Math.random() * canvas.width, -20, false));
             }
         }
 
-        // Interaction touch response generator logic
+        // Tap/Touch burst processing unit
         function triggerTouchBurst(e) {
             let posX, posY;
             if (e.touches) {
@@ -381,18 +383,18 @@
                 posY = e.clientY;
             }
 
-            // Spawns 65 micro petals instantly at the target position coordinate matrix
+            // Injects 65 dynamic flower particles instantly on touch focus
             for (let i = 0; i < 65; i++) {
                 petals.push(new Petal(posX, posY, true));
             }
         }
 
-        // Trigger burst on tapping anywhere on the background or card layers
+        // Global viewport layout listeners to allow tapping ANYWHERE on the screen
         window.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON') return; // Bypass step navigation button 
+            if (e.target.tagName === 'BUTTON') return; // Do not interrupt next button path
             
             const giftBoxEl = document.getElementById('giftBoxContainer');
-            // Allow tap explosion only if box is opened or clicking outside the active box bounds
+            // Trigger particle burst if gift is already opened or click is outside the un-opened box container
             if (isGiftOpened || (!giftBoxEl || !giftBoxEl.contains(e.target))) {
                 triggerTouchBurst(e);
             }
@@ -416,7 +418,7 @@
                 petals[i].update();
                 petals[i].draw();
                 
-                // Performance safeguard boundary deletion check
+                // Memory array leak prevention sweep bounds check
                 if (petals[i].opacity <= 0 || petals[i].y > canvas.height + 20 || petals[i].x < -20 || petals[i].x > canvas.width + 20) {
                     petals.splice(i, 1);
                 }
