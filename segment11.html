@@ -1,121 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Cosmic Playlist ❤️</title>
     <style>
-        /* Global Reset & Body */
-        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
-        body {
-            background-color: #0c0914;
-            background-image: radial-gradient(circle at 50% 50%, #171126 0%, #05030a 100%);
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: radial-gradient(circle at 50% 50%, #1a0b2e 0%, #05030a 100%);
             font-family: 'Segoe UI', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 25px 15px 105px 15px;
-            transition: background 1.5s ease;
+            min-height: 100vh; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; padding: 20px;
+        }
+        
+        /* Starry Aurora Background */
+        #star-layer { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.6; animation: twinkle infinite; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+
+        /* Jukebox Container */
+        .jukebox-container { 
+            z-index: 1; width: 100%; max-width: 400px; 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 50px;
         }
 
-        /* Header */
-        header { text-align: center; margin-bottom: 30px; z-index: 10; }
-        header h1 { font-size: 1.6rem; color: #fff; margin-bottom: 6px; }
-        header p { font-size: 0.82rem; color: rgba(255,255,255,0.6); font-style: italic; }
-
-        /* Jukebox Grid */
-        .jukebox-grid {
-            width: 100%;
-            max-width: 370px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+        .song-card { 
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px; padding: 10px;
+            transition: all 0.4s ease; cursor: pointer;
         }
-
-        .song-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 9px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+        .song-card:hover { border-color: #ff758c; transform: translateY(-5px); }
+        .poster-frame { 
+            width: 100%; aspect-ratio: 1/1; border-radius: 15px; 
+            overflow: hidden; border: 2px solid #333;
         }
-
-        .song-card:active { transform: scale(0.95); }
-
-        .poster-frame {
-            width: 100%;
-            aspect-ratio: 3/4;
-            border-radius: 11px;
-            overflow: hidden;
-            background: #151122;
-        }
-
         .poster-img { width: 100%; height: 100%; object-fit: cover; }
 
-        .song-info { margin-top: 10px; text-align: center; }
-        .song-title { font-size: 0.85rem; font-weight: 600; color: #fff; }
-
-        /* Footer */
-        .footer-navigation {
-            position: fixed; bottom: 0; width: 100%; padding: 20px;
-            display: flex; justify-content: center;
-        }
-        .next-seg-btn {
-            background: #ff758c; border: none; padding: 14px 40px;
-            border-radius: 25px; color: #fff; font-weight: 600; text-decoration: none;
+        .btn-next { 
+            position: fixed; bottom: 30px; padding: 15px 40px;
+            background: linear-gradient(90deg, #ff758c, #8e44ad);
+            border: none; border-radius: 30px; color: white; font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>Our Cosmic Playlist ❤️</h1>
-        <p>Choose a melody, let the vibe take over.</p>
-    </header>
-
-    <div class="jukebox-grid" id="jukeboxGrid">
-        <div class="song-card" onclick="playSong(0, '#39ff14', 'radial-gradient(circle at 50% 50%, #082911 0%, #030a05 100%)')">
+    <div id="star-layer"></div>
+    
+    <div class="jukebox-container">
+        <div class="song-card" onclick="playTrack(1)">
             <div class="poster-frame"><img src="poster1.jpg" class="poster-img"></div>
-            <div class="song-info"><div class="song-title">1. Tumi</div></div>
         </div>
-        <div class="song-card" onclick="playSong(1, '#00e5ff', 'radial-gradient(circle at 50% 50%, #0b283f 0%, #030b12 100%)')">
-            <div class="poster-frame"><img src="poster2.jpg" class="poster-img"></div>
-            <div class="song-info"><div class="song-title">2. Here With Me</div></div>
         </div>
-        <div class="song-card" onclick="playSong(2, '#ffaa00', 'radial-gradient(circle at 50% 50%, #3e2406 0%, #12010b 100%)')">
-            <div class="poster-frame"><img src="poster3.jpg" class="poster-img"></div>
-            <div class="song-info"><div class="song-title">3. Tum Se Hi</div></div>
-        </div>
-        <div class="song-card" onclick="playSong(3, '#ff007f', 'radial-gradient(circle at 50% 50%, #400624 0%, #12010a 100%)')">
-            <div class="poster-frame"><img src="poster4.jpg" class="poster-img"></div>
-            <div class="song-info"><div class="song-title">4. Starboy</div></div>
-        </div>
-        <div class="song-card" onclick="playSong(4, '#b57edc', 'radial-gradient(circle at 50% 50%, #25133d 0%, #0b0414 100%)')">
-            <div class="poster-frame"><img src="poster5.jpg" class="poster-img"></div>
-            <div class="song-info"><div class="song-title">5. Wanna Be Yours</div></div>
-        </div>
-        <div class="song-card" onclick="playSong(5, '#ff4d4d', 'radial-gradient(circle at 50% 50%, #3a0a0a 0%, #140202 100%)')">
-            <div class="poster-frame"><img src="poster6.jpg" class="poster-img"></div>
-            <div class="song-info"><div class="song-title">6. Perfect</div></div>
-        </div>
-    </div>
 
-    <div class="footer-navigation">
-        <a href="segment12.html" class="next-seg-btn">Continue Our Journey ❤️</a>
-    </div>
-
-    <audio id="globalAudioPlayer" loop></audio>
+    <button class="btn-next">Continue Our Journey ❤️</button>
 
     <script>
-        const audioPlayer = document.getElementById('globalAudioPlayer');
-        const songFiles = ["song1.mp3", "song2.mp3", "song3.mp3", "song4.mp3", "song5.mp3", "song6.mp3"];
+        // 700 Stars Engine
+        const starLayer = document.getElementById('star-layer');
+        for(let i=0; i<700; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = star.style.height = Math.random()*2 + 'px';
+            star.style.left = Math.random()*100 + '%';
+            star.style.top = Math.random()*100 + '%';
+            star.style.animationDuration = (Math.random()*3 + 1) + 's';
+            starLayer.appendChild(star);
+        }
 
-        function playSong(index, color, bg) {
-            audioPlayer.src = songFiles[index];
-            audioPlayer.play();
-            document.body.style.background = bg;
+        function playTrack(id) {
+            // Beat Logic & Aurora Shift
+            document.body.style.transition = "background 2s ease";
+            document.body.style.background = "radial-gradient(circle at 50% 50%, #2c003e 0%, #000 100%)";
+            // Trigger audio logic here
         }
     </script>
 </body>
