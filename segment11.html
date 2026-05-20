@@ -2,414 +2,632 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Cosmic Playlist ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Cosmic Playlist - Segment 11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
-        /* CSS Core Architecture: Samsung A06 Viewport Specially Calibrated */
-        :root {
-            --primary-glow: #ff758c;
-            --accent-gold: #ffd700;
-            --bg-glow: radial-gradient(circle at center, #15092a 0%, #030305 100%);
-        }
-
+        /* Base Architecture Reset */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            width: 100vw;
-            height: 100vh;
-            background: var(--bg-glow);
+            background: #06040a;
             color: #ffffff;
             font-family: 'Poppins', sans-serif;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            padding: 20px 14px;
-            transition: background 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            padding: 20px 15px;
         }
 
-        /* 800+ High-Visibility Blinking Celestial Particles Layer */
+        /* 700+ Blinking Stellar Starfield Overlay Canvas */
         #starfield {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 2; /* Brought upward for high visibility */
+            z-index: 1;
             pointer-events: none;
         }
 
-        /* Responsive Layout Containers avoiding top/bottom phone safe-zones */
-        .header-zone {
-            z-index: 5;
+        /* Ambient Fluid Aurora Dynamic Mesh Injection Overlay */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.45;
+            transition: background 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+            background: radial-gradient(circle at 50% 20%, #2c1654 0%, #06040a 70%);
+            pointer-events: none;
+        }
+
+        /* Top Stage Master Header Panel */
+        .header-panel {
             text-align: center;
-            width: 100%;
-            margin-top: 5px;
-        }
-
-        .header-zone h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.3rem;
-            font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 0 15px var(--primary-glow), 0 0 30px rgba(255, 117, 140, 0.6);
-            letter-spacing: 0.5px;
-        }
-
-        .header-zone p {
-            font-size: 0.85rem;
-            color: #ffccd5;
-            opacity: 0.9;
-            margin-top: 2px;
-            font-style: italic;
-            letter-spacing: 0.3px;
-        }
-
-        /* Center Stage Grid for Visualizer */
-        .stage-zone {
             z-index: 5;
+            margin-top: 10px;
+            margin-bottom: 15px;
             width: 100%;
-            max-width: 350px;
-            height: 60px;
+        }
+
+        .header-panel h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(214, 51, 132, 0.4);
+            margin-bottom: 5px;
+        }
+
+        .header-panel p {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: #bfaecf;
+            letter-spacing: 1px;
+        }
+
+        /* Center Stage Stage Wrapper */
+        .center-stage-container {
+            width: 100%;
+            max-width: 400px;
+            z-index: 5;
+            margin-bottom: 15px;
+        }
+
+        /* Glassmorphism Interactive Stage Framework */
+        .glass-lyrics-stage {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            min-height: 110px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            justify-content: center;
+            text-align: center;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            position: relative;
+            overflow: hidden;
         }
 
-        .soundwave {
+        .lyrics-display-text {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #f3e8ff;
+            min-height: 24px;
+            transition: color 0.3s ease;
+        }
+
+        /* Integrated High-Fidelity Audio Neon Soundwave Equalizer Bars */
+        .equalizer-container {
             display: flex;
             align-items: flex-end;
-            gap: 5px;
-            height: 32px;
+            justify-content: center;
+            gap: 4px;
+            height: 25px;
+            margin-top: 12px;
+            opacity: 0.8;
         }
 
-        .wave-bar {
-            width: 5px;
-            height: 4px;
-            background: linear-gradient(to top, var(--primary-glow), #ffffff);
-            border-radius: 3px;
-            transition: height 0.1s ease;
-            box-shadow: 0 0 8px var(--primary-glow);
+        .eq-bar {
+            width: 3px;
+            height: 3px;
+            background: #a855f7;
+            border-radius: 2px;
+            transition: height 0.1s ease, background-color 1s ease;
         }
 
-        /* Premium Large 2x3 Grid Layout without overlapping */
-        .jukebox-matrix {
-            z-index: 5;
-            width: 100%;
-            max-width: 355px;
+        /* Elite 3x2 Matrix Structural Grid Configuration Layout Layer */
+        .jukebox-matrix-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            justify-content: center;
-            align-content: center;
-            flex-grow: 1;
-            margin: 15px 0;
+            width: 100%;
+            max-width: 410px;
+            z-index: 5;
+            margin-bottom: 20px;
         }
 
-        .poster-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1.5px solid rgba(255, 215, 0, 0.3); /* Premium Luxury Gold Border */
+        /* Luxury Gold/Neon Adaptive Poster Card Engine Bounds */
+        .poster-wrapper-card {
+            background: rgba(15, 10, 25, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
-            padding: 10px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-
-        .image-frame {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            border-radius: 12px;
+            cursor: pointer;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), border-radius 0.6s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .image-frame img {
+        /* Vinyl Spin Fluid Keyframe Structural Mapping Layer */
+        .poster-frame-container {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: border-radius 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .poster-frame-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .track-metadata {
-            font-size: 0.78rem;
-            font-weight: 500;
-            color: #f0f0f0;
+        /* Metadata Information Card Footer */
+        .track-meta-data {
+            margin-top: 8px;
             text-align: center;
+            width: 100%;
+            padding: 0 4px;
+        }
+
+        .track-title {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #ffffff;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 100%;
-            padding: 0 2px;
-            transition: color 0.3s;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
 
-        /* Enhanced Interactive Active Track Effects */
-        .poster-card.active-track {
-            border-color: var(--accent-gold);
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.45);
-            transform: scale(1.04);
+        .track-artist {
+            font-size: 0.65rem;
+            color: #a0aec0;
+            margin-top: 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .poster-card.active-track .image-frame {
+        /* Active Sequence Trigger Engine States */
+        .poster-wrapper-card.is-playing {
+            border-color: var(--theme-glow, #a855f7);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+            transform: scale(1.02);
+        }
+
+        .poster-wrapper-card.is-playing .poster-frame-container {
             border-radius: 50%;
-            animation: spinVinyl 5.5s linear infinite;
-            border: 2.5px solid var(--accent-gold);
-            box-shadow: 0 0 15px var(--accent-gold);
+            animation: vinylSpin 6s linear infinite;
         }
 
-        .poster-card.active-track .track-metadata {
-            color: var(--accent-gold);
-            font-weight: 600;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+        @keyframes vinylSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        @keyframes spinVinyl {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Fixed Bottom Safe Navigation Layer */
-        .navigation-zone {
-            z-index: 5;
+        /* Highly Elegant Romantic Next Segment Button Layer */
+        .next-segment-navigation {
             width: 100%;
-            max-width: 350px;
+            max-width: 360px;
+            z-index: 10;
+            text-align: center;
+            margin-top: 5px;
             margin-bottom: 5px;
         }
 
-        .romantic-btn {
+        .cosmic-ribbon-btn {
             width: 100%;
-            background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
-            border: none;
-            outline: none;
-            padding: 15px;
+            padding: 14px 28px;
+            background: linear-gradient(45deg, #1f1137, rgba(168, 85, 247, 0.2), #1f1137);
+            border: 1px solid rgba(168, 85, 247, 0.4);
             border-radius: 30px;
-            color: white;
+            color: #ffffff;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            display: flex;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.5);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            animation: buttonPulse 2s infinite alternate;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes buttonPulse {
-            0% { box-shadow: 0 6px 20px rgba(255, 117, 140, 0.5); }
-            100% { box-shadow: 0 6px 30px rgba(255, 117, 140, 0.8), 0 0 10px rgba(255, 255, 255, 0.3); }
+        .cosmic-ribbon-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.7s ease;
         }
 
-        .romantic-btn:active {
-            transform: scale(0.96);
-            background: linear-gradient(135deg, #ff5e7e 0%, #ff6b9d 100%);
+        .cosmic-ribbon-btn:hover::before, .cosmic-ribbon-btn:active::before {
+            left: 100%;
+        }
+
+        .cosmic-ribbon-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .heart-pulse-icon {
+            color: #ef4444;
+            animation: iconPulse 1.4s infinite ease-in-out;
+            display: inline-block;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px rgba(239, 68, 68, 0.5)); }
+            50% { transform: scale(1.25); filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.8)); }
         }
     </style>
 </head>
 <body>
 
     <canvas id="starfield"></canvas>
+    
+    <div class="aurora-bg" id="aurora-layer"></div>
 
-    <div class="header-zone">
-        <h1>Our Cosmic Playlist ❤️</h1>
-        <p>Every melody is a heartbeat meant only for you...</p>
+    <div class="header-panel">
+        <h1>Our Cosmic Playlist</h1>
+        <p>Each melody is a heartbeat meant only for you</p>
     </div>
 
-    <div class="stage-zone">
-        <div class="soundwave" id="waveContainer">
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-        </div>
-    </div>
-
-    <div class="jukebox-matrix">
-        <div class="poster-card" onclick="triggerCosmicEngine(0, this)">
-            <div class="image-frame"><img src="poster1.jpg" alt="Tumi Level Five"></div>
-            <div class="track-metadata">Tumi Level Five</div>
-        </div>
-        <div class="poster-card" onclick="triggerCosmicEngine(1, this)">
-            <div class="image-frame"><img src="poster2.jpg" alt="Here With Me"></div>
-            <div class="track-metadata">Here With Me</div>
-        </div>
-        <div class="poster-card" onclick="triggerCosmicEngine(2, this)">
-            <div class="image-frame"><img src="poster3.jpg" alt="Tum Se Hi"></div>
-            <div class="track-metadata">Tum Se Hi</div>
-        </div>
-        <div class="poster-card" onclick="triggerCosmicEngine(3, this)">
-            <div class="image-frame"><img src="poster4.jpg" alt="Starboy"></div>
-            <div class="track-metadata">Starboy</div>
-        </div>
-        <div class="poster-card" onclick="triggerCosmicEngine(4, this)">
-            <div class="image-frame"><img src="poster5.jpg" alt="I Wanna Be Yours"></div>
-            <div class="track-metadata">I Wanna Be Yours</div>
-        </div>
-        <div class="poster-card" onclick="triggerCosmicEngine(5, this)">
-            <div class="image-frame"><img src="poster6.jpg" alt="Die With A Smile"></div>
-            <div class="track-metadata">Die With A Smile</div>
+    <div class="center-stage-container">
+        <div class="glass-lyrics-stage">
+            <div class="lyrics-display-text" id="lyrics-wrapper">Select a track to hear my heart...</div>
+            
+            <div class="equalizer-container" id="eq-wrapper">
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+                <div class="eq-bar"></div>
+            </div>
         </div>
     </div>
 
-    <div class="navigation-zone">
-        <button class="romantic-btn" onclick="nextSegment()">
+    <div class="jukebox-matrix-grid">
+        
+        <div class="poster-wrapper-card" onclick="playSelectedTrack(0, this, '#0d4022', '#10b981')">
+            <div class="poster-frame-container">
+                <img src="poster1.jpg" alt="Tumi">
+            </div>
+            <div class="track-meta-data">
+                <div class="track-title">Tumi</div>
+                <div class="track-artist">Artcell</div>
+            </div>
+        </div>
+
+        <div class="poster-wrapper-card" onclick="playSelectedTrack(1, this, '#1a1f3c', '#3b82f6')">
+            <div class="poster-frame-container">
+                <img src="poster2.jpg" alt="Here With Me">
+            </div>
+            <div class="track-meta-data">
+                <div class="track-title">Here With Me</div>
+                <div class="track-artist">d4vd</div>
+            </div>
+        </div>
+
+        <div class="poster-wrapper-card" onclick="playSelectedTrack(2, this, '#3c162f', '#ec4899')">
+            <div class="poster-frame-container">
+                <img src="poster3.jpg" alt="Tum Se Hi">
+            </div>
+            <div class="track-meta-data">
+                <div class="track-title">Tum Se Hi</div>
+                <div class="track-artist">Mohit Chauhan</div>
+            </div>
+        </div>
+
+        <div class="poster-wrapper-card" onclick="playSelectedTrack(3, this, '#420d13', '#ef4444')">
+            <div class="poster-frame-container">
+                <img src="poster4.jpg" alt="Starboy">
+            </div>
+            <div class="track-meta-data">
+                <div class="track-title">Starboy</div>
+                <div class="track-artist">The Weeknd</div>
+            </div>
+        </div>
+
+        <div class="poster-wrapper-card" onclick="playSelectedTrack(4, this, '#311042', '#a855f7')">
+            <div class="poster-frame-container">
+                <img src="poster5.jpg" alt="Wanna Be Yours">
+            </div>
+            <div class="track-meta-data">
+                <div class="track-title">Wanna Be Yours</div>
+                <div class="track-artist">Arctic Monkeys</div>
+            </div>
+        </div>
+
+        <div class="poster-wrapper-card" onclick="playSelectedTrack(5, this, '#47320a', '#f59e0b')">
+            <div class="poster-frame-container">
+                <img src="poster6.jpg" alt="Perfect">
+            </div>
+            <div class="track-meta-data">
+                <div class="track-title">Perfect</div>
+                <div class="track-artist">Ed Sheeran</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="next-segment-navigation">
+        <a href="segment12.html" class="cosmic-ribbon-btn" id="next-seg-trigger">
             <span>Continue Our Journey</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.5 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-        </button>
+            <span class="heart-pulse-icon">❤️</span>
+        </a>
     </div>
+
+    <audio id="global-audio-player" preload="auto"></audio>
 
     <script>
-        // Global Audio Handler Engine
-        let activeAudio = null;
-        let visualizerInterval = null;
-
-        // Dynamic Rich Space Ambient Backgrounds Mapped for Instant Contrast
-        const cosmicTracks = [
-            { src: 'song1.mp3', bg: 'radial-gradient(circle at center, #072a18 0%, #010402 100%)' }, // Neon Green
-            { src: 'song2.mp3', bg: 'radial-gradient(circle at center, #101c33 0%, #02040a 100%)' }, // Cosmic Blue
-            { src: 'song3.mp3', bg: 'radial-gradient(circle at center, #2d1111 0%, #050101 100%)' }, // Deep Crimson
-            { src: 'song4.mp3', bg: 'radial-gradient(circle at center, #240c23 0%, #040104 100%)' }, // Luxury Purple
-            { src: 'song5.mp3', bg: 'radial-gradient(circle at center, #241f0a 0%, #040301 100%)' }, // Vintage Amber
-            { src: 'song6.mp3', bg: 'radial-gradient(circle at center, #0a2124 0%, #010405 100%)' }  // Ocean Cyan
-        ];
-
-        // Canvas 800+ Crystal Bright Blinking Starfield Engine
+        /* 700+ Blinking Stellar Starfield Mathematical Simulation Vector Engine Framework */
         const canvas = document.getElementById('starfield');
         const ctx = canvas.getContext('2d');
-        let stars = [];
+        let starsArray = [];
+        const totalStars = 720;
 
-        function initStars() {
+        function resizeCanvasEngine() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            stars = [];
-            for (let i = 0; i < 850; i++) { // Increased density
-                stars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: Math.random() * 1.3 + 0.4, // Made slightly bigger for high visibility
-                    alpha: Math.random() * 0.8 + 0.2, // Higher base alpha so they don't fade out completely
-                    speed: Math.random() * 0.015 + 0.004,
-                    direction: Math.random() > 0.5 ? 1 : -1
-                });
-            }
         }
+        window.addEventListener('resize', resizeCanvasEngine);
+        resizeCanvasEngine();
 
-        function animateStars() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < stars.length; i++) {
-                let s = stars[i];
-                s.alpha += s.speed * s.direction;
-                if (s.alpha >= 1) { s.alpha = 1; s.direction = -1; }
-                else if (s.alpha <= 0.2) { s.alpha = 0.2; s.direction = 1; }
-
+        class CosmicStar {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.4 + 0.3;
+                this.baseOpacity = Math.random() * 0.6 + 0.2;
+                this.opacity = this.baseOpacity;
+                this.blinkSpeed = Math.random() * 0.03 + 0.008;
+                this.factor = Math.random() > 0.5 ? 1 : -1;
+            }
+            updateStarState() {
+                this.opacity += this.blinkSpeed * this.factor;
+                if (this.opacity >= 1 || this.opacity <= 0.1) {
+                    this.factor *= -1;
+                }
+            }
+            drawStellarPoint() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.shadowBlur = this.size * 4;
+                ctx.shadowColor = '#ffffff';
                 ctx.beginPath();
-                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                
-                // Added high glow style for star visible enhancement
-                ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
-                ctx.shadowBlur = s.radius * 4;
-                ctx.shadowColor = "#ffffff";
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
-            // Reset shadow blur for other items
-            ctx.shadowBlur = 0;
-            requestAnimationFrame(animateStars);
         }
 
-        window.addEventListener('resize', initStars);
-        initStars();
-        animateStars();
+        function initStellarMatrix() {
+            starsArray = [];
+            for (let i = 0; i < totalStars; i++) {
+                starsArray.push(new CosmicStar());
+            }
+        }
+        initStellarMatrix();
 
-        // High-fidelity Touch Handling Core Routing Logic
-        function triggerCosmicEngine(index, element) {
-            // If the clicked track is already playing, do nothing
-            if (element.classList.contains('active-track')) return;
+        function renderStarfieldLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.shadowBlur = 0; 
+            for (let i = 0; i < starsArray.length; i++) {
+                starsArray[i].updateStarState();
+                starsArray[i].drawStellarPoint();
+            }
+            requestAnimationFrame(renderStarfieldLoop);
+        }
+        renderStarfieldLoop();
 
-            // Remove previous active track classes instantly
-            document.querySelectorAll('.poster-card').forEach(card => {
-                card.classList.remove('active-track');
-            });
+        /* High Fidelity Database Array Mapping Structure Map */
+        const songsDatabase = [
+            {
+                src: "song1.mp3",
+                lyrics: [
+                    { time: 0.5, text: "In this quiet cosmic night..." },
+                    { time: 4.0, text: "A amar ekti khub shundor prithibi" },
+                    { time: 9.0, text: "Jekhane sudhu tumi r ami thaki Prova ❤️" }
+                ]
+            },
+            {
+                src: "song2.mp3",
+                lyrics: [
+                    { time: 0.5, text: "I don't want to lose you now..." },
+                    { time: 4.5, text: "Cosmic skies echo your smile." },
+                    { time: 8.5, text: "Hold my hand, stay right here with me." }
+                ]
+            },
+            {
+                src: "song3.mp3",
+                lyrics: [
+                    { time: 0.5, text: "Jab se tum mil gaye ho..." },
+                    { time: 5.0, text: "Tum se hi din hota hai mera..." },
+                    { time: 10.0, text: "Har lamha har pal tumhare sath!" }
+                ]
+            },
+            {
+                src: "song4.mp3",
+                lyrics: [
+                    { time: 0.5, text: "Look what you've done..." },
+                    { time: 4.0, text: "I'm a starboy dancing in your nebulae." },
+                    { time: 8.0, text: "You illuminate my entire universe." }
+                ]
+            },
+            {
+                src: "song5.mp3",
+                lyrics: [
+                    { time: 0.5, text: "I wanna be yours..." },
+                    { time: 4.5, text: "Secrets shared underneath cosmic dust." },
+                    { time: 9.0, text: "Forever belongs directly to us." }
+                ]
+            },
+            {
+                src: "song6.mp3",
+                lyrics: [
+                    { time: 0.5, text: "Baby, I'm dancing in the dark..." },
+                    { time: 5.2, text: "With you between my arms..." },
+                    { time: 9.5, text: "You look perfect tonight, my love." }
+                ]
+            }
+        ];
 
-            // Stop track if already playing to avoid overlap
-            if (activeAudio) {
-                activeAudio.pause();
-                activeAudio.currentTime = 0;
-                clearInterval(visualizerInterval);
-                resetVisualizerBars();
+        /* Real-Time Millisecond Perfect Engine Framework Core */
+        const audioPlayer = document.getElementById('global-audio-player');
+        const lyricsWrapper = document.getElementById('lyrics-wrapper');
+        const auroraLayer = document.getElementById('aurora-layer');
+        const nextSegTrigger = document.getElementById('next-seg-trigger');
+        const eqBars = document.querySelectorAll('.eq-bar');
+        
+        let currentActiveTrackIndex = null;
+        let animationFrameTrackingId = null;
+        let typewriterTimeoutId = null;
+        let lastDisplayedLyricText = "";
+
+        function playSelectedTrack(trackIndex, elementReference, backgroundHexCode, accentNeonGlowHex) {
+            // Check if user clicked the same track that is currently playing
+            if (currentActiveTrackIndex === trackIndex) {
+                if (!audioPlayer.paused) {
+                    audioPlayer.pause();
+                    elementReference.classList.remove('is-playing');
+                    stopEqualizerAnimation();
+                } else {
+                    audioPlayer.play();
+                    elementReference.classList.add('is-playing');
+                    startEqualizerAnimation(accentNeonGlowHex);
+                }
+                return;
             }
 
-            // Assign and play selected module
-            element.classList.add('active-track');
-            document.body.style.background = cosmicTracks[index].bg;
+            // Reset previous track layout configuration state variables
+            if (typewriterTimeoutId) clearTimeout(typewriterTimeoutId);
+            cancelAnimationFrame(animationFrameTrackingId);
+            document.querySelectorAll('.poster-wrapper-card').forEach(card => {
+                card.classList.remove('is-playing');
+                card.style.removeAttribute ? card.style.removeAttribute('--theme-glow') : card.style.removeProperty('--theme-glow');
+            });
 
-            activeAudio = new Audio(cosmicTracks[index].src);
-            activeAudio.play().then(() => {
-                startVisualizerAnimation();
-            }).catch(error => console.log("Audio play deferred for interaction validation."));
+            // Lock current selection data pointers safely
+            currentActiveTrackIndex = trackIndex;
+            const chosenTrackData = songsDatabase[trackIndex];
+            
+            // Apply Dynamic Color Scheme Matrix Overlay Instantly
+            auroraLayer.style.background = `radial-gradient(circle at 50% 30%, ${backgroundHexCode} 0%, #06040a 75%)`;
+            elementReference.style.setProperty('--theme-glow', accentNeonGlowHex);
+            elementReference.classList.add('is-playing');
+            
+            // Adjust Next Segment Button Highlight Border Based on Active Song Vibe
+            nextSegTrigger.style.borderColor = accentNeonGlowHex;
+            nextSegTrigger.style.boxShadow = `0 4px 25px rgba(0,0,0,0.5), 0 0 10px ${accentNeonGlowHex}40`;
 
-            // Auto-reset when track finishes running bounds
-            activeAudio.onended = () => {
-                element.classList.remove('active-track');
-                clearInterval(visualizerInterval);
-                resetVisualizerBars();
-            };
+            // Audio Core Stream Mapping Realignment Sequence
+            audioPlayer.src = chosenTrackData.src;
+            audioPlayer.load();
+            
+            // Browser Interaction Audio Handshake Play Prompts Validation Engine
+            audioPlayer.play().then(() => {
+                startEqualizerAnimation(accentNeonGlowHex);
+                lastDisplayedLyricText = "";
+                executeRealtimeLyricsSyncEngine(chosenTrackData.lyrics);
+            }).catch(err => {
+                lyricsWrapper.textContent = "Tap screen/poster once again to trigger playback!";
+                console.log("Audio handshakes block bypassed: ", err);
+            });
         }
 
-        // Pulse Synchronized Bar Generator Mapping
-        function startVisualizerAnimation() {
-            const bars = document.querySelectorAll('.wave-bar');
-            clearInterval(visualizerInterval);
-            visualizerInterval = setInterval(() => {
-                bars.forEach(bar => {
-                    let activeHeight = Math.floor(Math.random() * 26) + 6;
-                    bar.style.height = `${activeHeight}px`;
+        /* High Precision RequestAnimationFrame Synchronization Real-Time Matrix Loop */
+        function executeRealtimeLyricsSyncEngine(lyricsTimelineArray) {
+            function syncLoop() {
+                if (!audioPlayer.paused) {
+                    const currentPlaybackTimestamp = audioPlayer.currentTime;
+                    
+                    // Trace coordinates matching active time bounds array sequence
+                    let activeLyricNode = null;
+                    for (let i = 0; i < lyricsTimelineArray.length; i++) {
+                        if (currentPlaybackTimestamp >= lyricsTimelineArray[i].time) {
+                            activeLyricNode = lyricsTimelineArray[i];
+                        }
+                    }
+
+                    if (activeLyricNode && lastDisplayedLyricText !== activeLyricNode.text) {
+                        lastDisplayedLyricText = activeLyricNode.text;
+                        triggerTypewriterAnimationEffect(activeLyricNode.text);
+                    }
+                }
+                animationFrameTrackingId = requestAnimationFrame(syncLoop);
+            }
+            animationFrameTrackingId = requestAnimationFrame(syncLoop);
+        }
+
+        /* Micro Character Array Iterative Typewriter Animation Logic */
+        function triggerTypewriterAnimationEffect(targetStringMessage) {
+            if (typewriterTimeoutId) clearTimeout(typewriterTimeoutId);
+            lyricsWrapper.textContent = "";
+            let characterPointer = 0;
+            
+            function typeNextCharacter() {
+                if (characterPointer < targetStringMessage.length) {
+                    lyricsWrapper.textContent += targetStringMessage.charAt(characterPointer);
+                    characterPointer++;
+                    typewriterTimeoutId = setTimeout(typeNextCharacter, 45); // Hyper fluid 45ms step transition latency
+                }
+            }
+            typeNextCharacter();
+        }
+
+        /* Music Beat Audio Simulation Visualizer Animation Control Elements */
+        let equalizerIntervalLoopId = null;
+        function startEqualizerAnimation(barHexColorTheme) {
+            stopEqualizerAnimation();
+            eqBars.forEach(bar => bar.style.backgroundColor = barHexColorTheme);
+            
+            equalizerIntervalLoopId = setInterval(() => {
+                eqBars.forEach(bar => {
+                    // Random scale vector simulation calculations mimicking music amplitude frequencies
+                    const dynamicRandomHeightScale = Math.floor(Math.random() * 22) + 4;
+                    bar.style.height = `${dynamicRandomHeightScale}px`;
                 });
-            }, 80);
+            }, 100);
         }
 
-        function resetVisualizerBars() {
-            document.querySelectorAll('.wave-bar').forEach(bar => {
-                bar.style.height = '4px';
+        function stopEqualizerAnimation() {
+            if (equalizerIntervalLoopId) clearInterval(equalizerIntervalLoopId);
+            eqBars.forEach(bar => {
+                bar.style.height = '3px';
             });
         }
 
-        function nextSegment() {
-            if (activeAudio) {
-                activeAudio.pause();
-            }
-            // Transition interface execution mapping
-            alert("Moving beautifully into the next phase of our journey... ❤️");
-        }
+        // Global Audio Playback End Interception Hooks Safe Cleanup Routine 
+        audioPlayer.addEventListener('ended', () => {
+            stopEqualizerAnimation();
+            document.querySelectorAll('.poster-wrapper-card').forEach(card => card.classList.remove('is-playing'));
+            lyricsWrapper.textContent = "Journey continues! Feel free to choose another track or proceed ❤️";
+        });
     </script>
 </body>
 </html>
