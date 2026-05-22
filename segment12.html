@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prova & Shuaib's Official World Tour Passport</title>
+    
+    <!-- Premium Google Fonts Injection Layer -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght=0,600;1,400&family=Great+Vibes&family=Montserrat:wght@400;600&family=Pinyon+Script&family=Playfair+Display:ital,wght=0,500;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background: #030105;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Dynamic Background Images Changer */
+        .bg-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            transition: all 1.2s ease-in-out;
+            filter: brightness(0.22) saturate(0.85);
+        }
+
+        .theme-paris { background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1200'); }
+        .theme-kyoto { background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200'); }
+        .theme-santorini { background-image: url('https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200'); }
+        .theme-venice { background-image: url('https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1200'); }
+        .theme-maldives { background-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200'); }
+        .theme-swiss { background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200'); }
+        .theme-borabora { background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200'); }
+
+        /* Gatekeeper Welcome Cover Window Setup Overlay */
+        .welcome-gate {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0d0614;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
+        .gate-card {
+            text-align: center;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(15px);
+        }
+        .gate-card h2 {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #ffd700;
+            font-size: 1.4rem;
+        }
+        .gate-card h3 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #ff8ebb;
+            margin-bottom: 20px;
+        }
+
+        /* LAYOUT ARCHITECTURE: Split Screen Structure */
+        .main-app-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            gap: 25px;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* LEFT SIDE: Premium Romantic Message Card Display Box */
+        .message-card-box {
+            flex: 1.1;
+            background: rgba(15, 8, 22, 0.72);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            backdrop-filter: blur(25px);
+            padding: 35px 30px;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.65);
+            transition: all 0.5s ease;
+        }
+        
+        .destination-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            opacity: 0;
+            transform: translateY(-15px);
+            transition: all 0.6s ease;
+        }
+        .romantic-msg {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #f1e5f2;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.7s ease;
+        }
+
+        /* RIGHT SIDE: Dedicated Passport Stage With Smart Scaling Auto Wrappers */
+        .passport-stage {
+            width: 380px;
+            max-width: 100%;
+            perspective: 1200px;
+        }
+
+        /* REAL PASSPORT LEATHER BOOKLET DESIGN FRAME */
+        .passport-card {
+            width: 100%;
+            background: linear-gradient(135deg, #2b1704 0%, #170c02 100%);
+            border: 3px solid #8a5a22;
+            border-radius: 24px;
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(0,0,0,0.8);
+            padding: 16px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Inner Passport Vintage Paper Sheet */
+        .passport-inner-paper {
+            background: radial-gradient(circle, #fdfaf2 60%, #ebdcb9 100%);
+            border-radius: 16px;
+            padding: 20px 16px;
+            color: #2b1f11;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 1px solid #d4c49d;
+            position: relative;
+            overflow: hidden;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .passport-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed rgba(43, 31, 17, 0.3);
+            padding-bottom: 8px;
+        }
+        .passport-header span {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #5c4326;
+            font-weight: 700;
+        }
+
+        /* COMPACT INTERNAL ACCOUNT DESIGN: Built Safe To Avoid Text Clipping */
+        .passport-identity-block {
+            display: flex;
+            gap: 12px;
+            background: rgba(43, 31, 17, 0.04);
+            border: 1px solid rgba(43, 31, 17, 0.1);
+            border-radius: 10px;
+            padding: 8px;
+            margin-top: 8px;
+            text-align: left;
+            align-items: center;
+        }
+        .identity-photo-box {
+            width: 60px;
+            height: 72px;
+            border: 2px solid #8e6535;
+            background: #e2d2a0;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+        .identity-photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .identity-fields {
+            flex: 1;
+            min-width: 0; /* Clear overflow limits */
+        }
+        .identity-fields label {
+            font-size: 0.52rem;
+            text-transform: uppercase;
+            color: #8c6e4b;
+            display: block;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .identity-fields p {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #2b1f11;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .name-highlight {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.95rem !important;
+            color: #902945 !important;
+        }
+
+        /* Visa Layer Grid Box Sheet for Ink Stamp Blends */
+        .visa-page-graphic {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: rgba(92, 67, 38, 0.12);
+            letter-spacing: 3px;
+            border: 1px dashed rgba(92, 67, 38, 0.15);
+            margin: 12px 0;
+            border-radius: 10px;
+            position: relative;
+            min-height: 120px;
+        }
+
+        /* ULTRA BOLD CRISP HIGH SATURATION SEAL */
+        .ink-stamp-container {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(4);
+            width: 115px; height: 115px;
+            border: 4px double #b00b31; 
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #b00b31; 
+            font-family: 'Cinzel', serif;
+            font-weight: 900; 
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0;
+            z-index: 50;
+            background: transparent;
+            mix-blend-mode: multiply;
+        }
+        .stamp-inner { transform: rotate(-15deg); text-align: center; line-height: 1.1; font-weight: 900; }
+
+        @keyframes stampImprintAnimation {
+            0% { transform: translate(-50%, -50%) scale(4) rotate(45deg); opacity: 0; }
+            75% { transform: translate(-50%, -50%) scale(0.92) rotate(-10deg); opacity: 0.95; }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(-15deg); opacity: 1; }
+        }
+
+        /* Airplane Dynamic Orbit Layer Box Overlay View */
+        .flight-orbit-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 80;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(5, 2, 8, 0.85);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .earth-sphere {
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255,255,255,0.3);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .earth-sphere::before { content: '🌍'; font-size: 3.5rem; animation: pulseEarth 2s infinite alternate; }
+        .plane-node { position: absolute; font-size: 1.6rem; top: -12px; left: -12px; transform-origin: 82px 82px; }
+
+        @keyframes orbitFlightSequence { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulseEarth { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1.05); opacity: 1; } }
+
+        /* Typography Styles adapted to blend elegantly */
+        .font-paris { font-family: 'Great Vibes', cursive; font-size: 2.6rem; color: #ff8ebb; text-shadow: 0 2px 10px rgba(255,142,187,0.3); }
+        .font-kyoto { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.1rem; color: #a3e2a7; }
+        .font-santorini { font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 700; color: #6bb9ff; letter-spacing: 1px; }
+        .font-venice { font-family: 'Pinyon Script', cursive; font-size: 2.8rem; color: #ff7676; }
+        .font-maldives { font-family: 'Alex Brush', cursive; font-size: 2.8rem; color: #4effe9; }
+        .font-swiss { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.6rem; color: #ffca7b; letter-spacing: 0.5px; }
+        .font-borabora { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 2.2rem; font-weight: 600; color: #4effffe0; }
+
+        /* Active Text Transition States */
+        .active-text { opacity: 1 !important; transform: translateY(0) !important; }
+
+        /* Navigation Pipeline Bottom Layout UI */
+        .bottom-controls {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            z-index: 20;
+            width: 100%;
+        }
+        .indicator-track { display: flex; justify-content: center; gap: 8px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); transition: all 0.4s ease; }
+        .dot.active { width: 22px; border-radius: 6px; background: #ffffff; }
+
+        .nav-btn {
+            background: #ffffff;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 30px;
+            color: #0d0614;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            max-width: 90%;
+        }
+        .nav-btn:hover { background: #ffd700; transform: translateY(-2px); box-shadow: 0 15px 30px rgba(255,215,0,0.3); }
+
+        /* MOBILE ARCHITECTURE: Specific Responsive Rules Custom-Tailored for Small Viewports (e.g., Samsung A06) */
+        @media (max-width: 768px) {
+            body, html {
+                overflow-y: auto;
+                height: auto;
+                min-height: 100%;
+                padding: 15px 0;
+            }
+            .main-app-container {
+                flex-direction: column;
+                gap: 20px;
+                padding: 10px;
+                width: 100%;
+            }
+            .message-card-box {
+                width: 100%;
+                min-height: auto;
+                padding: 25px 20px;
+            }
+            .destination-title {
+                font-size: 2rem;
+            }
+            .romantic-msg {
+                font-size: 0.95rem;
+            }
+            .passport-stage {
+                width: 100%;
+                max-width: 350px; /* Secure bounding boundaries */
+            }
+            .passport-inner-paper {
+                min-height: 320px;
+                padding: 15px 12px;
+            }
+            .ink-stamp-container {
+                width: 105px;
+                height: 105px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Auto Play System Activator Cover -->
+    <div class="welcome-gate" id="welcomeGate">
+        <div class="gate-card">
+            <h2>Our Future Journey Book</h2>
+            <h3>Prova & Shuaib</h3>
+            <p style="color: rgba(255,255,255,0.6); margin-bottom: 25px; font-size: 0.85rem;">Turn pages, explore destinations together.</p>
+            <button class="nav-btn" style="background:#ffd700; color:#000;" onclick="openPassportAndPlayMusic()">Open Our Passport 📖</button>
+        </div>
+    </div>
+
+    <!-- Background Images Stage -->
+    <div class="bg-layer theme-paris" id="bgLayer"></div>
+
+    <!-- Airplane Orbit Flight Animation Panel Overlay -->
+    <div class="flight-orbit-overlay" id="flightOverlay">
+        <div class="earth-sphere">
+            <div class="plane-node" id="orbitPlane">✈️</div>
+        </div>
+    </div>
+
+    <!-- MAIN INTERACTIVE ARCHITECTURE HUB -->
+    <div class="main-app-container">
+        
+        <!-- LEFT PANEL BOX: Dynamic Romantic Message Container -->
+        <div class="message-card-box" id="msgCardBox">
+            <h2 class="destination-title font-paris" id="destTitle">Paris, France</h2>
+            <p class="romantic-msg" id="destMsg">Someday, we will stand right here... with the cold Parisian breeze in our hair, holding hands under the gold-lit Eiffel Tower. We aren't just tourists, my love; we are creating our own history.</p>
+        </div>
+
+        <!-- RIGHT PANEL BOX: Real Passport Page Turner Window Layout -->
+        <div class="passport-stage">
+            <div class="passport-card" id="passportCard">
+                <div class="passport-inner-paper">
+                    
+                    <div class="passport-header">
+                        <span>Soulmate Tour Passport</span>
+                        <span id="stampCounter" style="color: #b58012; font-weight: 700;">PAGE: 1/7</span>
+                    </div>
+
+                    <!-- FIXED CONTAINER BLOCK: Restored to original safe layouts to stop clipping on phone screens -->
+                    <div class="passport-identity-block">
+                        <div class="identity-photo-box">
+                            <img src="12segment1.jpg" alt="Prova & Shuaib Photo" onerror="this.style.display='none'; this.parentNode.innerText='👩‍❤️‍👨'">
+                        </div>
+                        <div class="identity-fields">
+                            <label>Passport Holder Names</label>
+                            <p class="name-highlight">Prova & Shuaib</p>
+                            
+                            <label>Status</label>
+                            <p style="font-size:0.7rem; color:#4a351a; font-weight:700;">Forever Together 💍</p>
+                        </div>
+                    </div>
+
+                    <!-- Visa Layer Grid Box Sheet for Ink Stamp Blends -->
+                    <div class="visa-page-graphic">
+                        <div id="watermarkLabel" style="font-size:0.75rem;">OFFICIAL IMMIGRATION</div>
+                        
+                        <!-- Real-time Imprinted Ink Seal Stamp Frame -->
+                        <div class="ink-stamp-container" id="inkStamp">
+                            <div class="stamp-inner">
+                                <div id="stampLocation">PARIS</div>
+                                <div style="font-size: 0.45rem; margin-top: 3px; letter-spacing: 1px;">APPROVED</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="font-size: 0.6rem; color: #7a6142; letter-spacing: 1px; font-weight: 600;">PASSPORT CONTROL DEPT</div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BOTTOM ACTIONS TRACK HUB -->
+    <div class="bottom-controls">
+        <div class="indicator-track" id="indicatorTrack"></div>
+        <button class="nav-btn" id="nextBtn" onclick="executeFlightTransitionTimeline()">Fly Next ✈️</button>
+    </div>
+
+    <script>
+        const tourDatabase = [
+            { title: "Paris, France", theme: "theme-paris", fontClass: "font-paris", stampName: "PARIS", message: "Someday, we will stand right here... with the cold Parisian breeze in our hair, holding hands under the gold-lit Eiffel Tower. We aren't just tourists, my love; we are creating our own history." },
+            { title: "Kyoto, Japan", theme: "theme-kyoto", fontClass: "font-kyoto", stampName: "KYOTO", message: "I want to walk with you through a rain of pink Sakura petals. The world moves fast, but when I hold your hand under these ancient trees, time will completely freeze for us." },
+            { title: "Santorini, Greece", theme: "theme-santorini", fontClass: "font-santorini", stampName: "GREECE", message: "Against the endless white walls and the deep blue Aegean sea, watching the golden hour melt away... I will look at you and realize that no sunset on earth can match the light in your eyes." },
+            { title: "Venice, Italy", theme: "theme-venice", fontClass: "font-venice", stampName: "VENICE", message: "Just you, me, and the soft rippling water of the canals. As the gondolier sings an old melody, I'll lean close and whisper how lucky I am to travel through this lifetime with you." },
+            { title: "The Maldives", theme: "theme-maldives", fontClass: "font-maldives", stampName: "MALDIVES", message: "Surrounded by nothing but crystal turquoise waters and sky. At night, we'll sit on the wooden deck of our overwater villa, dipping our feet in the warm ocean, counting shooting stars." },
+            { title: "Swiss Alps, Switzerland", theme: "theme-swiss", fontClass: "font-swiss", stampName: "SWISS", message: "Snuggled up together inside a warm wooden cabin, watching the heavy snow fall softly over the mountain peaks outside. With hot cocoa in our hands, this chilly world will feel so warm." },
+            { title: "Bora Bora, French Polynesia", theme: "theme-borabora", fontClass: "font-borabora", stampName: "BORA BORA", message: "Waking up over crystal-clear turquoise lagoons, away from the loud noise of the world. A private sanctuary where our only schedule is counting stars on a quiet, warm tropical night." }
+        ];
+
+        let currentIndex = 0;
+
+        // --- AUDIO CONTROLLER SYSTEMS ENGINE ---
+        const audio = new Audio();
+        audio.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'; 
+        audio.loop = true;
+
+        function initializeDots() {
+            const track = document.getElementById('indicatorTrack');
+            track.innerHTML = '';
+            for(let i=0; i<tourDatabase.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = i === 0 ? 'dot active' : 'dot';
+                track.appendChild(dot);
+            }
+        }
+
+        function openPassportAndPlayMusic() {
+            audio.currentTime = 30; // Direct beat ignition thread trigger
+            audio.play();
+            
+            document.getElementById('welcomeGate').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('welcomeGate').style.display = 'none';
+                triggerTextEntranceAnimation();
+                
+                // Print the first stamp on loading the app
+                document.getElementById('inkStamp').style.animation = 'stampImprintAnimation 0.5s forwards linear';
+            }, 800);
+        }
+
+        function triggerTextEntranceAnimation() {
+            document.getElementById('destTitle').classList.add('active-text');
+            document.getElementById('destMsg').classList.add('active-text');
+        }
+
+        function removeTextEntranceAnimation() {
+            document.getElementById('destTitle').classList.remove('active-text');
+            document.getElementById('destMsg').classList.remove('active-text');
+        }
+
+        // --- FIXED CHRONOLOGICAL PIPELINE: PAGE TURN ➔ SEAL SMASH ➔ PLANE FLIGHT ---
+        function executeFlightTransitionTimeline() {
+            // SEGMENT 13 GATEWAY ROUTER CHECK
+            if (currentIndex === tourDatabase.length - 1) {
+                window.location.href = 'segment13.html';
+                return;
+            }
+
+            const passportCard = document.getElementById('passportCard');
+            const inkStamp = document.getElementById('inkStamp');
+            const flightOverlay = document.getElementById('flightOverlay');
+            const orbitPlane = document.getElementById('orbitPlane');
+
+            // STEP 1: Text fade out & Reset old stamp layer properties instantly
+            removeTextEntranceAnimation();
+            inkStamp.style.animation = ''; 
+            
+            // STEP 2: Scale down & turn/pop open the crisp brand new passport page layout!
+            passportCard.style.transform = 'scale(0.85) rotateY(-20deg)';
+
+            setTimeout(() => {
+                // Prepare new indexes inside arrays
+                currentIndex++;
+                const nextData = tourDatabase[currentIndex];
+
+                // Snap the book back into position instantly as a blank new sheet
+                passportCard.style.transform = 'scale(1) rotateY(0deg)';
+                
+                document.getElementById('stampCounter').innerText = `PAGE: ${currentIndex + 1}/${tourDatabase.length}`;
+                document.getElementById('watermarkLabel').innerText = `PAGE ${currentIndex + 1} EMBOSS`;
+                document.getElementById('stampLocation').innerText = nextData.stampName;
+
+                // STEP 3: DHUMMM! Smash down the bold country ink stamp instantly!
+                inkStamp.style.animation = 'stampImprintAnimation 0.4s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+
+                // STEP 4: Now that stamp is down, wait a brief moment and release the plane flight overlay!
+                setTimeout(() => {
+                    flightOverlay.style.opacity = '1';
+                    orbitPlane.style.animation = 'orbitFlightSequence 1.4s infinite linear';
+
+                    // While curtains are closed, swap wallpaper themes and text labels safely
+                    setTimeout(() => {
+                        document.getElementById('bgLayer').className = `bg-layer ${nextData.theme}`;
+
+                        const destTitle = document.getElementById('destTitle');
+                        const destMsg = document.getElementById('destMsg');
+                        destTitle.innerText = nextData.title;
+                        destTitle.className = `destination-title ${nextData.fontClass}`;
+                        destMsg.innerText = nextData.message;
+
+                        // Move indicator tracking dots
+                        const dots = document.getElementById('indicatorTrack').getElementsByClassName('dot');
+                        for(let i=0; i<dots.length; i++) { dots[i].classList.remove('active'); }
+                        dots[currentIndex].classList.add('active');
+
+                        // Switch button name if user reaches the final station boundary
+                        if(currentIndex === tourDatabase.length - 1) {
+                            document.getElementById('nextBtn').innerText = "Next Step ➔";
+                        }
+
+                        // Close flight system curtain arrays
+                        flightOverlay.style.opacity = '0';
+                        orbitPlane.style.animation = '';
+
+                        // Fade left text card blocks inside views gracefully
+                        setTimeout(triggerTextEntranceAnimation, 200);
+
+                    }, 1400); // Orbit loop timeline matching duration parameter bounds
+
+                }, 700); // Brief delay for stamp to visually print before taking off
+
+            }, 400); // Page flip execution window time segment
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeDots();
+        });
+    </script>
+</body>
+</html>
