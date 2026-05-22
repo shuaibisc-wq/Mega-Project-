@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Sacred Duas For You</title>
+    
+    <!-- Premium Elegant Font Layer Injection -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Montserrat:wght@400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            background: #04010a;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* MASTER CORE GRAPHICS CANVAS SYSTEM */
+        #masterCanvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* SUPREME ELEGANT ISLAMIC LANTERNS (Ultra-Detailed Silhouette Structure) */
+        .lantern-rack {
+            position: absolute;
+            top: 0;
+            width: 70px;
+            height: 170px;
+            z-index: 5;
+            pointer-events: none;
+            transform-origin: top center;
+            animation: majesticSway 5s ease-in-out infinite alternate;
+        }
+        .rack-left { left: 5%; }
+        .rack-right { left: 22%; animation-delay: -2.5s; width: 50px; height: 130px; opacity: 0.45; }
+
+        @keyframes majesticSway {
+            0% { transform: rotate(-2deg); }
+            100% { transform: rotate(2deg); }
+        }
+
+        /* MAIN CARD STRUCTURE MODULE */
+        .dua-card-box {
+            position: relative;
+            z-index: 10;
+            width: 88%;
+            max-width: 370px;
+            min-height: 410px;
+            background: rgba(7, 3, 15, 0.76);
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            border-radius: 32px;
+            backdrop-filter: blur(30px);
+            padding: 42px 24px;
+            text-align: center;
+            box-shadow: 0 40px 85px rgba(0, 0, 0, 0.95), 
+                        inset 0 0 35px rgba(212, 175, 55, 0.09),
+                        0 0 30px rgba(212, 175, 55, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .dua-header h1 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.05rem;
+            color: #d4af37;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(212,175,55,0.4);
+            margin-bottom: -4px;
+        }
+        .dua-header h2 {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 3.4rem;
+            color: #ffb8d1;
+            text-shadow: 0 2px 12px rgba(255, 184, 209, 0.25);
+            line-height: 1.1;
+        }
+
+        .dua-content-stage {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 22px 0;
+        }
+
+        .dua-text-display {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.36rem;
+            line-height: 1.68;
+            color: #fcfaff;
+            opacity: 0;
+            transform: scale(0.96) translateY(8px);
+            transition: all 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+            text-shadow: 0 2px 18px rgba(252, 250, 255, 0.15);
+            width: 100%;
+        }
+
+        .dua-text-display.active-state {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .elegant-divider {
+            width: 35%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.4), transparent);
+        }
+
+        .action-hub {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn {
+            background: #ffffff;
+            border: none;
+            padding: 14px 42px;
+            border-radius: 25px;
+            color: #06020c;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 82%;
+        }
+        .action-btn:hover {
+            background: #d4af37;
+            color: #06020c;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(212,175,55,0.35);
+        }
+
+        /* RESPONSIVE STRUCTURE MAPPING FOR PORTABLE VIEWPORTS */
+        @media (max-width: 410px) {
+            .dua-card-box { width: 90%; min-height: 390px; padding: 32px 18px; }
+            .dua-text-display { font-size: 1.22rem; line-height: 1.55; }
+            .dua-header h1 { font-size: 0.95rem; }
+            .dua-header h2 { font-size: 2.8rem; }
+            .lantern-rack { width: 50px; height: 130px; }
+            .rack-right { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Integrated Master Framework Layer Drawing Canvas -->
+    <canvas id="masterCanvas"></canvas>
+
+    <!-- LEFT MASTER SUPREME LANTERN VECTOR -->
+    <svg class="lantern-rack rack-left" viewBox="0 0 100 200">
+        <defs>
+            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff1b0" />
+                <stop offset="50%" stop-color="#d4af37" />
+                <stop offset="100%" stop-color="#aa7c11" />
+            </linearGradient>
+        </defs>
+        <line x1="50" y1="0" x2="50" y2="50" stroke="url(#goldGrad)" stroke-width="2"/>
+        <!-- Ornate Cap Top dome -->
+        <path d="M25 70 C 25 45, 75 45, 75 70 Z" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+        <path d="M20 70 L80 70 L85 82 L15 82 Z" fill="url(#goldGrad)" opacity="0.3"/>
+        <path d="M20 70 L80 70 L85 82 L15 82 Z" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+        <!-- Intricate Geometric Inner Core Windows -->
+        <path d="M15 82 L85 82 L75 145 L25 145 Z" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+        <path d="M35 82 L42 145 M50 82 L50 145 M65 82 L58 145" stroke="url(#goldGrad)" stroke-width="1"/>
+        <path d="M15 105 L85 105 M20 125 L80 125" stroke="url(#goldGrad)" stroke-width="0.75"/>
+        <!-- Bottom Base Finial -->
+        <path d="M25 145 L75 145 L50 180 Z" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+        <circle cx="50" cy="112" r="7" fill="#fff6bd" filter="drop-shadow(0 0 8px #d4af37)"/>
+    </svg>
+
+    <!-- RIGHT SUB-LEVEL DEPTH LANTERN VECTOR -->
+    <svg class="lantern-rack rack-right" viewBox="0 0 100 200">
+        <line x1="50" y1="0" x2="50" y2="50" stroke="url(#goldGrad)" stroke-width="2"/>
+        <path d="M25 70 C 25 45, 75 45, 75 70 Z" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+        <path d="M15 82 L85 82 L75 145 L25 145 Z" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+        <path d="M25 145 L75 145 L50 180 Z" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+        <circle cx="50" cy="112" r="5" fill="#fff6bd"/>
+    </svg>
+
+    <!-- CORE INTERACTION BOARD BOX VIEWPORT -->
+    <div class="dua-card-box">
+        
+        <div class="dua-header">
+            <h1>SACRED</h1>
+            <h2>Whispers</h2>
+            <div class="elegant-divider" style="margin: 6px auto 0 auto;"></div>
+        </div>
+
+        <div class="dua-content-stage">
+            <p class="dua-text-display" id="duaText"></p>
+        </div>
+
+        <div class="action-hub">
+            <div class="elegant-divider" style="margin-bottom: 12px;"></div>
+            <button class="action-btn" id="triggerBtn" onclick="progressDuaTimelineSequence()">Ameen ✨</button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- SECURE MUSIC INTERPRETATION SYSTEM INTERFACE ---
+        const audio = new Audio();
+        // Fully public, raw un-throttled audio channel mirror link
+        audio.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+        audio.loop = true;
+        audio.volume = 0.35;
+
+        // Force ignition across safety browser walls
+        function fireAudioEngine() {
+            if (audio.paused) {
+                audio.play().catch(err => console.log("Audio waiting for explicit touch interaction channel context."));
+            }
+        }
+        window.addEventListener('click', fireAudioEngine, { once: true });
+        window.addEventListener('touchstart', fireAudioEngine, { once: true });
+
+        const wishesDatabase = [
+            "I pray to Almighty Allah that He pours infinite happiness into your life and keeps that beautiful smile forever on your face.",
+            "May Allah always grant you ultimate success in every path you choose, and may everything you touch turn into a blessing.",
+            "My deepest prayer is that Allah always safe-guards our bond and keeps us beautifully united together across this entire lifetime.",
+            "May Allah protect you from every hidden sorrow, keep you completely safe from evil eyes, and surround you with His divine care.",
+            "I pray that Allah guides your beautiful soul firmly on Deen, filling your heart with pure faith, peace, and spiritual light.",
+            "May you grow immensely big in life, achieving every single dream, no matter how small or large they are.",
+            "No matter where the winding tracks of life take us, may Allah always keep you tightly wrapped right next to me, forever."
+        ];
+
+        let currentDuaIndex = 0;
+
+        function renderDuaContent() {
+            const textElement = document.getElementById('duaText');
+            textElement.classList.remove('active-state');
+            
+            setTimeout(() => {
+                textElement.innerText = `"${wishesDatabase[currentDuaIndex]}"`;
+                textElement.classList.add('active-state');
+                
+                if(currentDuaIndex === wishesDatabase.length - 1) {
+                    document.getElementById('triggerBtn').innerText = "Next Chapter ➔";
+                    document.getElementById('triggerBtn').style.background = "#d4af37";
+                }
+            }, 300);
+        }
+
+        function progressDuaTimelineSequence() {
+            fireAudioEngine(); // Double layer insurance call
+            if (currentDuaIndex < wishesDatabase.length - 1) {
+                currentDuaIndex++;
+                renderDuaContent();
+                triggerGlowPulse();
+            } else {
+                window.location.href = 'segment14.html';
+            }
+        }
+
+        // --- GRAPHICS PARSER (PHOTOREALISTIC MOON + MESH GEOMETRIC PATTERNS + HIGH-TWINKLE STARS) ---
+        const canvas = document.getElementById('masterCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        let globalPulseGlow = 0;
+        let runningCycle = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initStars();
+        }
+
+        function initStars() {
+            stars = [];
+            const count = window.innerWidth < 480 ? 80 : 150;
+            for(let i=0; i<count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.5 + 0.4,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.14 + 0.05 // High velocity blinks
+                });
+            }
+        }
+
+        function triggerGlowPulse() {
+            globalPulseGlow = 1.0;
+        }
+
+        // Helper mathematical module to trace architectural vector patterns
+        function drawSacredGeometricArch(x, y, w, h) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(212, 175, 55, 0.07)';
+            ctx.lineWidth = 1;
+            
+            // Generate multiple cascading arabesque nested diamond frames
+            for(let i = 0; i < 5; i++) {
+                let offset = i * 14;
+                ctx.beginPath();
+                ctx.moveTo(x, y + offset);
+                ctx.lineTo(x + w/2 - offset, y + h*0.3);
+                ctx.lineTo(x + w/2 - offset, y + h);
+                ctx.lineTo(x - w/2 + offset, y + h);
+                ctx.lineTo(x - w/2 + offset, y + h*0.3);
+                ctx.closePath();
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        function drawScene() {
+            runningCycle += 0.02;
+            
+            // Clean base slate buffer
+            ctx.fillStyle = '#030108';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 1. Radiant backdrop cosmic glow setup mapping
+            let centerX = canvas.width / 2;
+            let centerY = canvas.height / 2;
+            let spaceGrad = ctx.createRadialGradient(centerX, centerY, 50, centerX, centerY, 350);
+            spaceGrad.addColorStop(0, `rgba(42, 15, 72, ${0.25 + (globalPulseGlow * 0.15)})`);
+            spaceGrad.addColorStop(0.6, 'rgba(10, 4, 22, 0.4)');
+            spaceGrad.addColorStop(1, '#030108');
+            ctx.fillStyle = spaceGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 2. ISLAMIC GEOMETRICAL CARUKAJ PATTERN (Left Side Architecture Column)
+            drawSacredGeometricArch(0, 0, canvas.width * 0.55, canvas.height);
+
+            // 3. PHOTOREALISTIC 3D REAL MOON GENERATION MATRIX
+            let moonX = canvas.width * 0.82;
+            let moonY = canvas.height * 0.14;
+            let moonRadius = window.innerWidth < 480 ? 25 : 32;
+            
+            let pulseWave = Math.sin(runningCycle) * 4;
+
+            ctx.save();
+            // Outer Atmosphere Scattering Glow Ring (Real-life Moon Blur Halo)
+            let atmosphericGlow = ctx.createRadialGradient(moonX, moonY, moonRadius * 0.8, moonX, moonY, moonRadius + 25 + pulseWave);
+            atmosphericGlow.addColorStop(0, 'rgba(255, 253, 235, 0.35)');
+            atmosphericGlow.addColorStop(0.3, 'rgba(255, 243, 190, 0.12)');
+            atmosphericGlow.addColorStop(1, 'rgba(212, 175, 55, 0)');
+            ctx.fillStyle = atmosphericGlow;
+            ctx.beginPath();
+            ctx.arc(moonX, moonY, moonRadius + 25 + pulseWave, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Render solid high definition structural spherical body map
+            let spherical3DGrad = ctx.createRadialGradient(
+                moonX + (moonRadius * 0.3), moonY - (moonRadius * 0.2), 
+                moonRadius * 0.1, 
+                moonX, moonY, 
+                moonRadius
+            );
+            spherical3DGrad.addColorStop(0, '#ffffff');
+            spherical3DGrad.addColorStop(0.4, '#fffde0');
+            spherical3DGrad.addColorStop(0.8, '#e6dba5'); // Organic dusty gold mineral crust rendering
+            spherical3DGrad.addColorStop(1, '#b0a46d');
+
+            ctx.beginPath();
+            ctx.arc(moonX, moonY, moonRadius, 0, Math.PI * 2);
+            ctx.clip();
+            ctx.fillStyle = spherical3DGrad;
+            ctx.fill();
+
+            // 3D Shadow Intersect Interception Layer (Creates crisp, deep real astronomical phase boundary)
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0,0,0,1)';
+            ctx.beginPath();
+            // Shift cutting mass offset exactly to align crisp natural crescent blade bounds
+            ctx.arc(moonX - (moonRadius * 0.38), moonY - (moonRadius * 0.15), moonRadius * 0.96, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // 4. HIGH FREQUENCY STARFIELD SYSTEM EXECUTION
+            ctx.fillStyle = '#ffffff';
+            stars.forEach(star => {
+                ctx.globalAlpha = Math.abs(Math.sin(star.alpha));
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+                star.alpha += star.speed;
+            });
+            ctx.globalAlpha = 1.0;
+
+            if(globalPulseGlow > 0) globalPulseGlow -= 0.03;
+
+            requestAnimationFrame(drawScene);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('DOMContentLoaded', () => {
+            resizeCanvas();
+            renderDuaContent();
+            drawScene();
+        });
+    </script>
+</body>
+</html>
