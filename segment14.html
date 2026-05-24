@@ -20,14 +20,28 @@
             overflow: hidden; 
         }
 
-        /* --- BACKGROUND AURA & CANVAS --- */
+        /* --- BACKGROUND AURA & CANVAS (UPDATED FOR VISIBLE RAPUNZEL) --- */
         #rapunzelAura {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(circle at center, rgba(147, 83, 211, 0.1) 0%, rgba(4, 1, 10, 0.8) 70%), 
-                              url('rapunzel.jpg'); 
-            background-size: cover; background-position: center;
-            opacity: 0.25; z-index: 1; pointer-events: none; mix-blend-mode: screen; filter: blur(3px);
+            /* Ebar mask use korechi jate majhkhaner frame er jaygata ektu dark thake kintu pashe Rapunzel ke clear dekha jay */
+            background-image: 
+                radial-gradient(ellipse at center, rgba(4, 1, 10, 0.7) 10%, rgba(147, 83, 211, 0.2) 60%, rgba(4, 1, 10, 0.4) 100%), 
+                url('rapunzel.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            opacity: 0.65; /* Opacity bariyelchi 0.25 theke 0.65 */
+            z-index: 1; 
+            pointer-events: none; 
+            mix-blend-mode: lighten; /* 'screen' er bodole 'lighten' better visibility dey dark mode e */
+            filter: blur(1.5px); /* Blur kumiyechi jate details bujha jay */
+            animation: slowBreathe 8s infinite alternate ease-in-out;
         }
+
+        @keyframes slowBreathe {
+            0% { opacity: 0.5; filter: blur(2px) brightness(0.9); transform: scale(1); }
+            100% { opacity: 0.75; filter: blur(1px) brightness(1.1); transform: scale(1.02); }
+        }
+
         #magicCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
 
         /* --- MAGIC GATE (COVER) --- */
@@ -48,22 +62,24 @@
             position: relative; z-index: 10; width: 100%; height: 100%;
             display: none; flex-direction: column; justify-content: center; align-items: center;
             opacity: 0; transition: opacity 2s ease; padding: 20px;
+            /* Container eo ekta halka dark fade rekhechi jate text portei shubidha hoy */
+            background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
         }
 
         .magical-frame {
             position: relative; width: 85vw; max-width: 380px; aspect-ratio: 4/5;
             border-radius: 12px; padding: 8px; 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2), inset 0 0 20px rgba(255, 215, 0, 0.1);
+            background: rgba(20, 10, 30, 0.6); /* Slightly darker frame bg for contrast */
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2); /* Stronger dark shadow behind frame */
             opacity: 0; transform: scale(0.95); transition: opacity 1s ease, transform 1s ease;
             display: none; 
         }
         .magical-frame.active { display: block; opacity: 1; transform: scale(1); }
 
         .magical-frame::before, .magical-frame::after {
-            content: ''; position: absolute; width: 40px; height: 40px; border: 2px solid #ffd700; opacity: 0.7; pointer-events: none;
+            content: ''; position: absolute; width: 40px; height: 40px; border: 2px solid #ffd700; opacity: 0.8; pointer-events: none;
         }
         .magical-frame::before { top: -5px; left: -5px; border-right: none; border-bottom: none; border-top-left-radius: 12px; }
         .magical-frame::after { bottom: -5px; right: -5px; border-left: none; border-top: none; border-bottom-right-radius: 12px; }
@@ -75,20 +91,23 @@
         /* TEXT AND CONTROLS */
         .caption-text {
             font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.7rem; color: #fff5ee;
-            text-align: center; text-shadow: 0 2px 10px rgba(255, 215, 0, 0.6);
+            text-align: center; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 215, 0, 0.4); /* Stronger text shadow for readability */
             margin-top: 30px; line-height: 1.3; min-height: 80px;
             opacity: 0; transform: translateY(10px); transition: opacity 1s ease, transform 1s ease;
+            z-index: 15;
         }
         .caption-text.active { opacity: 1; transform: translateY(0); }
 
         .controls {
             display: flex; justify-content: space-between; align-items: center;
-            width: 85vw; max-width: 380px; margin-top: 20px;
+            width: 85vw; max-width: 380px; margin-top: 20px; z-index: 15;
+            background: rgba(0,0,0,0.3); /* Subtle dark bar for controls */
+            padding: 5px 15px; border-radius: 30px;
         }
         
         .nav-btn {
             background: none; border: none; color: #ffd700; font-family: 'Montserrat', sans-serif; font-size: 1rem;
-            letter-spacing: 2px; text-transform: uppercase; cursor: pointer; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            letter-spacing: 2px; text-transform: uppercase; cursor: pointer; text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
             padding: 10px; transition: 0.3s;
         }
         .nav-btn:active { transform: scale(0.9); }
@@ -98,7 +117,7 @@
         #finalBtn {
             background: linear-gradient(45deg, #d4af37, #ffeb85); border: none; padding: 15px 30px; border-radius: 40px; color: #04010a;
             font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4); display: none; margin-top: 15px; animation: fadeIn 1s ease;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4); display: none; margin-top: 15px; animation: fadeIn 1s ease; z-index: 15;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
