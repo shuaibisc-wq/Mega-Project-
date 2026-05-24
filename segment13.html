@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Sacred Duas For You</title>
-    
+
     <!-- Premium Elegant Font Layer Injection -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -208,7 +208,7 @@
 
     <!-- CORE INTERACTION BOARD BOX VIEWPORT -->
     <div class="dua-card-box">
-        
+
         <div class="dua-header">
             <h1>SACRED</h1>
             <h2>Whispers</h2>
@@ -227,22 +227,31 @@
     </div>
 
     <script>
-        // --- SECURE MUSIC INTERPRETATION SYSTEM INTERFACE ---
-        const audio = new Audio();
-        // Fully public, raw un-throttled audio channel mirror link
-        audio.src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+        // --- MASTER AUDIO ARCHITECTURE & AUTOPLAY STRATEGY ---
+        const audio = new Audio('music13.mp3'); 
         audio.loop = true;
-        audio.volume = 0.35;
+        audio.volume = 0.45;
 
-        // Force ignition across safety browser walls
-        function fireAudioEngine() {
+        // Layer 1: Instant trigger attempt on page engine initialization
+        function attemptAutoplayEngine() {
+            audio.play().then(() => {
+                console.log("Autoplay context initialization successful.");
+            }).catch(err => {
+                console.log("Browser protected audio channel block. Awaiting interaction layer fallback.");
+            });
+        }
+
+        // Layer 2: Safe User Interaction Trigger Channel
+        function forceAudioIgnitionChannel() {
             if (audio.paused) {
-                audio.play().catch(err => console.log("Audio waiting for explicit touch interaction channel context."));
+                audio.play().catch(e => console.log("Audio pipeline failed to ignite. Check file path integrity."));
             }
         }
-        window.addEventListener('click', fireAudioEngine, { once: true });
-        window.addEventListener('touchstart', fireAudioEngine, { once: true });
+        
+        window.addEventListener('click', forceAudioIgnitionChannel, { once: true });
+        window.addEventListener('touchstart', forceAudioIgnitionChannel, { once: true });
 
+        // --- WISHES TIMELINE DATA SLATE ---
         const wishesDatabase = [
             "I pray to Almighty Allah that He pours infinite happiness into your life and keeps that beautiful smile forever on your face.",
             "May Allah always grant you ultimate success in every path you choose, and may everything you touch turn into a blessing.",
@@ -258,11 +267,11 @@
         function renderDuaContent() {
             const textElement = document.getElementById('duaText');
             textElement.classList.remove('active-state');
-            
+
             setTimeout(() => {
                 textElement.innerText = `"${wishesDatabase[currentDuaIndex]}"`;
                 textElement.classList.add('active-state');
-                
+
                 if(currentDuaIndex === wishesDatabase.length - 1) {
                     document.getElementById('triggerBtn').innerText = "Next Chapter ➔";
                     document.getElementById('triggerBtn').style.background = "#d4af37";
@@ -271,7 +280,7 @@
         }
 
         function progressDuaTimelineSequence() {
-            fireAudioEngine(); // Double layer insurance call
+            forceAudioIgnitionChannel(); // Interactive assurance layer
             if (currentDuaIndex < wishesDatabase.length - 1) {
                 currentDuaIndex++;
                 renderDuaContent();
@@ -303,7 +312,7 @@
                     y: Math.random() * canvas.height,
                     size: Math.random() * 1.5 + 0.4,
                     alpha: Math.random(),
-                    speed: Math.random() * 0.14 + 0.05 // High velocity blinks
+                    speed: Math.random() * 0.14 + 0.05 
                 });
             }
         }
@@ -312,13 +321,11 @@
             globalPulseGlow = 1.0;
         }
 
-        // Helper mathematical module to trace architectural vector patterns
         function drawSacredGeometricArch(x, y, w, h) {
             ctx.save();
             ctx.strokeStyle = 'rgba(212, 175, 55, 0.07)';
             ctx.lineWidth = 1;
-            
-            // Generate multiple cascading arabesque nested diamond frames
+
             for(let i = 0; i < 5; i++) {
                 let offset = i * 14;
                 ctx.beginPath();
@@ -335,12 +342,10 @@
 
         function drawScene() {
             runningCycle += 0.02;
-            
-            // Clean base slate buffer
+
             ctx.fillStyle = '#030108';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // 1. Radiant backdrop cosmic glow setup mapping
             let centerX = canvas.width / 2;
             let centerY = canvas.height / 2;
             let spaceGrad = ctx.createRadialGradient(centerX, centerY, 50, centerX, centerY, 350);
@@ -350,18 +355,15 @@
             ctx.fillStyle = spaceGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // 2. ISLAMIC GEOMETRICAL CARUKAJ PATTERN (Left Side Architecture Column)
             drawSacredGeometricArch(0, 0, canvas.width * 0.55, canvas.height);
 
-            // 3. PHOTOREALISTIC 3D REAL MOON GENERATION MATRIX
             let moonX = canvas.width * 0.82;
             let moonY = canvas.height * 0.14;
             let moonRadius = window.innerWidth < 480 ? 25 : 32;
-            
+
             let pulseWave = Math.sin(runningCycle) * 4;
 
             ctx.save();
-            // Outer Atmosphere Scattering Glow Ring (Real-life Moon Blur Halo)
             let atmosphericGlow = ctx.createRadialGradient(moonX, moonY, moonRadius * 0.8, moonX, moonY, moonRadius + 25 + pulseWave);
             atmosphericGlow.addColorStop(0, 'rgba(255, 253, 235, 0.35)');
             atmosphericGlow.addColorStop(0.3, 'rgba(255, 243, 190, 0.12)');
@@ -371,7 +373,6 @@
             ctx.arc(moonX, moonY, moonRadius + 25 + pulseWave, 0, Math.PI * 2);
             ctx.fill();
 
-            // Render solid high definition structural spherical body map
             let spherical3DGrad = ctx.createRadialGradient(
                 moonX + (moonRadius * 0.3), moonY - (moonRadius * 0.2), 
                 moonRadius * 0.1, 
@@ -380,7 +381,7 @@
             );
             spherical3DGrad.addColorStop(0, '#ffffff');
             spherical3DGrad.addColorStop(0.4, '#fffde0');
-            spherical3DGrad.addColorStop(0.8, '#e6dba5'); // Organic dusty gold mineral crust rendering
+            spherical3DGrad.addColorStop(0.8, '#e6dba5'); 
             spherical3DGrad.addColorStop(1, '#b0a46d');
 
             ctx.beginPath();
@@ -389,16 +390,13 @@
             ctx.fillStyle = spherical3DGrad;
             ctx.fill();
 
-            // 3D Shadow Intersect Interception Layer (Creates crisp, deep real astronomical phase boundary)
             ctx.globalCompositeOperation = 'destination-out';
             ctx.fillStyle = 'rgba(0,0,0,1)';
             ctx.beginPath();
-            // Shift cutting mass offset exactly to align crisp natural crescent blade bounds
             ctx.arc(moonX - (moonRadius * 0.38), moonY - (moonRadius * 0.15), moonRadius * 0.96, 0, Math.PI * 2);
             ctx.fill();
             ctx.restore();
 
-            // 4. HIGH FREQUENCY STARFIELD SYSTEM EXECUTION
             ctx.fillStyle = '#ffffff';
             stars.forEach(star => {
                 ctx.globalAlpha = Math.abs(Math.sin(star.alpha));
@@ -419,6 +417,7 @@
             resizeCanvas();
             renderDuaContent();
             drawScene();
+            attemptAutoplayEngine(); // Trigger automatic deployment try
         });
     </script>
 </body>
