@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Segment 10 - High-End Dynamic Chocolate Box</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -15,7 +18,8 @@
         }
 
         body {
-            background: #060100;
+            /* Romantic Starry Night Twilight Background */
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #060100 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -23,7 +27,6 @@
             justify-content: center;
             overflow: hidden;
             position: relative;
-            perspective: 1000px; /* Added for 3D effects */
         }
 
         /* Continuous High-Density Fusion Background Engine */
@@ -49,218 +52,189 @@
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            color: #ffebd1;
-            font-size: 28px;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            text-shadow: 0 4px 20px rgba(255, 215, 0, 0.4), 0 0 10px rgba(0,0,0,0.8);
-            animation: floatGlow 3s infinite alternate ease-in-out;
+            font-family: 'Great Vibes', cursive;
+            color: #ffd700;
+            font-size: 42px;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(255, 215, 0, 0.6), 0 0 10px rgba(0,0,0,0.8);
+            animation: pulseGlow 3s infinite alternate ease-in-out;
         }
 
-        @keyframes floatGlow {
-            0% { text-shadow: 0 4px 20px rgba(255, 235, 150, 0.3), 0 0 10px rgba(0,0,0,0.8); transform: translateY(0); }
-            100% { text-shadow: 0 4px 30px rgba(255, 235, 150, 0.7), 0 0 10px rgba(0,0,0,0.8); transform: translateY(-3px); }
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); transform: scale(1); }
+            100% { text-shadow: 0 4px 25px rgba(255, 215, 0, 0.8); transform: scale(1.02); }
         }
 
         p.subtitle {
-            color: #e5bba1;
+            color: #fce2b8;
             font-size: 14px;
             margin-bottom: 35px;
             font-weight: 300;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.9);
         }
 
-        /* Glassmorphic Luxury Box Container Matrix */
+        /* Premium Glass Box */
         .chocolate-box {
-            background: rgba(30, 12, 6, 0.25);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 30px;
             padding: 25px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 235, 200, 0.1);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 
-                        inset 0 2px 15px rgba(255, 235, 200, 0.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 
+                        inset 0 0 20px rgba(255, 215, 0, 0.05);
             display: grid;
             grid-template-columns: repeat(2, 135px);
-            gap: 22px;
+            gap: 25px;
             justify-content: center;
             margin-bottom: 45px;
-            transform-style: preserve-3d;
         }
 
-        /* 3D Chocolate Cards */
-        .chocolate-card {
-            background: linear-gradient(145deg, rgba(50, 20, 10, 0.8), rgba(20, 5, 2, 0.9));
+        /* --- 3D FLIP CARD ENGINE --- */
+        .card-container {
+            background: transparent;
+            width: 135px;
             height: 135px;
+            perspective: 1000px; /* Essential for 3D effect */
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .card-container.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.15s ease-out, box-shadow 0.4s ease, background 0.4s;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            box-shadow: 5px 10px 25px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255, 215, 0, 0.2);
         }
 
-        .choco-icon {
-            font-size: 46px;
-            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.8));
-            transform: translateZ(30px); /* 3D pop out effect */
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Front - Wrapped Chocolate */
+        .card-front {
+            background: linear-gradient(135deg, #4a1f0d, #1a0802);
+            box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.1);
+        }
+
+        .card-front::before {
+            content: 'Tap to Unwrap';
+            position: absolute;
+            bottom: 10px;
+            font-size: 9px;
+            color: #d49a5b;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .front-icon { font-size: 45px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.8)); }
+
+        /* Back - Unwrapped Premium State */
+        .card-back {
+            background: linear-gradient(145deg, #1f0b04, #3d1405);
+            transform: rotateY(180deg);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255,255,255,0.1);
+            border-color: #ffdca8;
+        }
+
+        .back-icon { 
+            font-size: 55px; 
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+            transform: rotate(15deg);
         }
 
         .choco-name {
             color: #f7e7d2;
             font-size: 11px;
-            margin-top: 12px;
-            font-weight: 500;
-            letter-spacing: 0.6px;
+            margin-top: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            transform: translateZ(20px); /* 3D pop out effect */
         }
 
-        /* Unwrapped Cinematic Glow State */
-        .chocolate-card.unwrapped {
-            background: linear-gradient(145deg, #8a3a16, #3d1405);
-            border-color: #ffdca8;
-            box-shadow: 0 0 35px rgba(255, 180, 100, 0.4), inset 0 0 20px rgba(255,255,255,0.1);
-        }
-
-        .chocolate-card.unwrapped .choco-icon {
-            transform: translateZ(40px) scale(1.3) rotate(15deg);
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
-        }
-
-        /* Premium Custom Glass Message PopUp Frame Setup */
+        /* Message PopUp Frame */
         .message-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(15, 5, 2, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10; opacity: 0; pointer-events: none;
+            transition: opacity 0.4s ease;
         }
 
-        .message-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .message-overlay.active { opacity: 1; pointer-events: auto; }
 
         .message-card {
-            background: linear-gradient(135deg, rgba(45, 15, 8, 0.9), rgba(15, 5, 2, 0.95));
-            padding: 35px 30px;
-            border-radius: 28px;
-            width: 88%;
-            max-width: 330px;
+            background: linear-gradient(135deg, rgba(45, 15, 8, 0.95), rgba(15, 5, 2, 0.98));
+            padding: 35px 25px;
+            border-radius: 24px;
+            width: 85%; max-width: 320px;
             text-align: center;
-            border: 1px solid rgba(255, 215, 150, 0.3);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.95), 0 0 40px rgba(150, 60, 20, 0.4);
-            transform: translateY(60px) scale(0.8) rotateX(-10deg);
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-            opacity: 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.9), 0 0 40px rgba(212, 154, 91, 0.3);
+            transform: translateY(50px) scale(0.9);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .message-overlay.active .message-card {
-            transform: translateY(0) scale(1) rotateX(0deg);
-            opacity: 1;
-        }
+        .message-overlay.active .message-card { transform: translateY(0) scale(1); }
 
         .message-card h3 {
             font-family: 'Playfair Display', serif;
-            color: #ffebd1;
-            font-size: 22px;
-            margin-bottom: 15px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 10px rgba(255,215,0,0.3);
+            color: #ffdca8; font-size: 22px; margin-bottom: 15px; font-weight: 600;
         }
 
         .message-card p {
-            color: #e5d1c5;
-            font-size: 14.5px;
-            line-height: 1.7;
-            margin-bottom: 28px;
-            font-weight: 300;
+            color: #e5d1c5; font-size: 14px; line-height: 1.6; margin-bottom: 25px; font-weight: 300;
         }
 
         .close-btn {
-            background: linear-gradient(45deg, #d49a5b, #fce2b8, #d49a5b);
-            background-size: 200% auto;
-            color: #2b1104;
-            border: none;
-            padding: 12px 35px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 14px;
-            letter-spacing: 0.8px;
+            background: linear-gradient(45deg, #d49a5b, #fce2b8);
+            color: #2b1104; border: none; padding: 12px 35px;
+            border-radius: 30px; font-weight: 600; cursor: pointer;
+            font-size: 14px; letter-spacing: 1px;
             box-shadow: 0 8px 20px rgba(212, 154, 91, 0.4);
-            transition: all 0.3s ease;
-            animation: shine 3s infinite linear;
+            transition: transform 0.2s;
         }
+        .close-btn:active { transform: scale(0.92); }
 
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
-
-        .close-btn:active {
-            transform: scale(0.92);
-        }
-
-        /* Romantic and Mysterious Dynamic Link Trigger */
+        /* Navigation Button */
         .nav-btn {
             display: inline-block;
-            background: linear-gradient(45deg, #7a1226, #3a0410);
-            color: #ffe6d9;
-            text-decoration: none;
-            padding: 16px 36px;
-            border-radius: 35px;
-            font-weight: 500;
-            font-size: 13px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border: 1px solid rgba(255, 180, 150, 0.2);
-            box-shadow: 0 10px 35px rgba(122, 18, 38, 0.6),
-                        inset 0 2px 5px rgba(255,255,255,0.15);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .nav-btn:hover::after { opacity: 1; }
-        .nav-btn:active { transform: scale(0.94); box-shadow: 0 5px 15px rgba(122, 18, 38, 0.4); }
-        
-        .pulse-animation {
-            animation: navPulse 2.5s infinite;
+            background: linear-gradient(45deg, #ff0055, #6b0024);
+            color: #fff; text-decoration: none;
+            padding: 16px 36px; border-radius: 35px;
+            font-weight: 500; font-size: 13px; letter-spacing: 1.5px;
+            text-transform: uppercase; border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(255, 0, 85, 0.5);
+            transition: all 0.3s ease; animation: navPulse 2s infinite;
         }
 
         @keyframes navPulse {
-            0% { box-shadow: 0 0 0 0 rgba(122, 18, 38, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(122, 18, 38, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(122, 18, 38, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 85, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 85, 0); }
         }
     </style>
 </head>
@@ -273,29 +247,56 @@
     </audio>
 
     <div class="container">
-        <h1>Chocolate Box for Prova 🍫</h1>
-        <p class="subtitle">Tap the boxes to unwrap premium treats!</p>
+        <h1>For You, Prova</h1>
+        <p class="subtitle">Tap the boxes to unwrap your magic</p>
 
         <div class="chocolate-box">
-            <div class="chocolate-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)" onclick="unwrapChocolate(this, 'Dark Chocolate 🖤', 'You are deeper and more beautiful than the finest Dark Chocolate, Prova!')">
-                <div class="choco-icon">🍫</div>
-                <div class="choco-name">Dark Choco</div>
+            <!-- 3D FLIP CARD 1 -->
+            <div class="card-container" onclick="unwrapChocolate(this, 'Dark Chocolate 🖤', 'You are deeper and more beautiful than the finest Dark Chocolate, Prova!')">
+                <div class="card-inner">
+                    <div class="card-front"><div class="front-icon">🎁</div></div>
+                    <div class="card-back">
+                        <div class="back-icon">🍫</div>
+                        <div class="choco-name">Dark Choco</div>
+                    </div>
+                </div>
             </div>
-            <div class="chocolate-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)" onclick="unwrapChocolate(this, 'Caramel Truffle 🍯', 'You are sweeter than this golden Caramel Truffle, Prova! 💖')">
-                <div class="choco-icon">🍬</div>
-                <div class="choco-name">Caramel Truffle</div>
+
+            <!-- 3D FLIP CARD 2 -->
+            <div class="card-container" onclick="unwrapChocolate(this, 'Caramel Truffle 🍯', 'You are sweeter than this golden Caramel Truffle, Prova! 💖')">
+                <div class="card-inner">
+                    <div class="card-front"><div class="front-icon">🎁</div></div>
+                    <div class="card-back">
+                        <div class="back-icon">🍬</div>
+                        <div class="choco-name">Caramel Truffle</div>
+                    </div>
+                </div>
             </div>
-            <div class="chocolate-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)" onclick="unwrapChocolate(this, 'Strawberry Silk 🍓', 'Every moment with you feels as premium and smooth as Strawberry Silk!')">
-                <div class="choco-icon">💝</div>
-                <div class="choco-name">Strawberry Silk</div>
+
+            <!-- 3D FLIP CARD 3 -->
+            <div class="card-container" onclick="unwrapChocolate(this, 'Strawberry Silk 🍓', 'Every moment with you feels as premium and smooth as Strawberry Silk!')">
+                <div class="card-inner">
+                    <div class="card-front"><div class="front-icon">🎁</div></div>
+                    <div class="card-back">
+                        <div class="back-icon">💝</div>
+                        <div class="choco-name">Strawberry Silk</div>
+                    </div>
+                </div>
             </div>
-            <div class="chocolate-card" onmousemove="tiltCard(event, this)" onmouseleave="resetTilt(this)" onclick="unwrapChocolate(this, 'White Almond 🤍', 'Pure, rare, and unique—just like the best White Almond block!')">
-                <div class="choco-icon">🍪</div>
-                <div class="choco-name">White Almond</div>
+
+            <!-- 3D FLIP CARD 4 -->
+            <div class="card-container" onclick="unwrapChocolate(this, 'White Almond 🤍', 'Pure, rare, and unique—just like the best White Almond block!')">
+                <div class="card-inner">
+                    <div class="card-front"><div class="front-icon">🎁</div></div>
+                    <div class="card-back">
+                        <div class="back-icon">🍪</div>
+                        <div class="choco-name">White Almond</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <a href="segment11.html" class="nav-btn pulse-animation" onclick="saveAudioState()">A Mysterious Symphony Awaits... 🎵</a>
+        <a href="segment11.html" class="nav-btn" onclick="saveAudioState()">A Mysterious Symphony Awaits... 🎵</a>
     </div>
 
     <div class="message-overlay" id="msgOverlay">
@@ -307,17 +308,23 @@
     </div>
 
     <script>
-        // --- 1. CONTINUOUS TRACK INTEGRATION ENGINE ---
+        // --- 1. CONTINUOUS TRACK INTEGRATION ENGINE (EXACTLY AS YOU PROVIDED) ---
         const audio = document.getElementById('bg-music');
 
         window.addEventListener('DOMContentLoaded', () => {
             const savedTime = localStorage.getItem('music_time');
             const isPaused = localStorage.getItem('music_paused');
 
-            if (savedTime !== null) audio.currentTime = parseFloat(savedTime);
+            if (savedTime !== null) {
+                audio.currentTime = parseFloat(savedTime);
+            }
 
             if (isPaused !== 'true') {
-                const playAudio = () => { audio.play().catch(e => console.log(e)); };
+                const playAudio = () => {
+                    audio.play().catch(err => {
+                        console.log("Audio lock framework waiting engine interact call sequence...", err);
+                    });
+                };
                 playAudio();
                 window.addEventListener('click', playAudio, { once: true });
                 window.addEventListener('touchstart', playAudio, { once: true });
@@ -336,186 +343,128 @@
             localStorage.setItem('music_paused', audio.paused ? 'true' : 'false');
         }
 
-        // --- 2. 3D CARD TILT ENGINE ---
-        function tiltCard(e, card) {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; 
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = ((y - centerY) / centerY) * -15; // Max 15 deg tilt
-            const rotateY = ((x - centerX) / centerX) * 15;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        }
-
-        function resetTilt(card) {
-            if(!card.classList.contains('unwrapped')) {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            }
-        }
-
-        // --- 3. MULTI-LAYER STAR & AURORA CANVAS ENGINE ---
+        // --- 2. ROMANTIC STARRY NIGHT CANVAS ENGINE ---
         const canvas = document.getElementById('hyper-dynamic-canvas');
         const ctx = canvas.getContext('2d');
-
         let interactionParticles = [];
-        let ambientStars = [];
-        const emojis = ['🍫', '✨', '💖', '💝', '🌟', '✨'];
-        let waveTime = 0;
+        let stars = [];
+        let shootingStars = [];
 
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
 
-        function initAmbientStars() {
-            ambientStars = [];
-            for(let i=0; i<60; i++) {
-                ambientStars.push({
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * window.innerHeight,
-                    radius: Math.random() * 2 + 0.5,
-                    alpha: Math.random(),
-                    speed: Math.random() * 0.015 + 0.005,
-                    driftX: Math.random() * 0.4 - 0.2,
-                    driftY: Math.random() * 0.5 + 0.1,
-                    isFirefly: Math.random() > 0.8
+        function initStars() {
+            for(let i=0; i<100; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                    r: Math.random() * 1.5, alpha: Math.random(),
+                    speed: Math.random() * 0.02 + 0.005
                 });
             }
         }
-        initAmbientStars();
+        initStars();
 
-        class ExplosionParticle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.emoji = emojis[Math.floor(Math.random() * emojis.length)];
-                this.size = Math.random() * 20 + 15;
-                this.speedX = (Math.random() - 0.5) * 12;
-                this.speedY = (Math.random() - 1) * 12 - 4;
-                this.gravity = 0.5;
-                this.opacity = 1;
-                this.spin = (Math.random() - 0.5) * 0.2;
-                this.angle = Math.random() * Math.PI * 2;
-                this.scale = 1;
+        class Particle {
+            constructor(x, y, char) {
+                this.x = x; this.y = y; this.char = char;
+                this.size = Math.random() * 15 + 15;
+                this.speedX = (Math.random() - 0.5) * 10;
+                this.speedY = (Math.random() - 1) * 10 - 2;
+                this.gravity = 0.4; this.opacity = 1; this.spin = (Math.random()-0.5)*0.2;
+                this.angle = 0;
             }
-
             update() {
-                this.speedY += this.gravity;
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.angle += this.spin;
-                this.opacity -= 0.015;
-                this.scale *= 0.98; // Shrink as they fall
+                this.speedY += this.gravity; this.x += this.speedX; this.y += this.speedY;
+                this.angle += this.spin; this.opacity -= 0.015;
             }
-
             draw() {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, this.opacity);
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.angle);
-                ctx.scale(this.scale, this.scale);
+                ctx.save(); ctx.globalAlpha = Math.max(0, this.opacity);
+                ctx.translate(this.x, this.y); ctx.rotate(this.angle);
                 ctx.font = `${this.size}px Arial`;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = "rgba(255, 215, 0, 0.5)";
-                ctx.fillText(this.emoji, -this.size/2, this.size/2);
-                ctx.restore();
+                ctx.fillText(this.char, -this.size/2, this.size/2); ctx.restore();
             }
         }
 
-        function renderLivingBackground() {
-            waveTime += 0.002;
-            ctx.fillStyle = '#060100';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Layer 1: Luxury Deep Cocoa Aurora
-            ctx.fillStyle = 'rgba(40, 15, 8, 0.5)';
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            for (let x = 0; x <= canvas.width; x += 20) {
-                let y = canvas.height * 0.3 + Math.sin(x * 0.002 + waveTime) * 80 + Math.cos(x * 0.001 - waveTime) * 40;
-                ctx.lineTo(x, y);
+        class ShootingStar {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width * 1.5; this.y = 0;
+                this.len = Math.random() * 80 + 30; this.speed = Math.random() * 10 + 10;
+                this.active = false;
             }
-            ctx.lineTo(canvas.width, canvas.height); ctx.lineTo(0, canvas.height); ctx.fill();
-
-            // Layer 2: Deep Velvet Swell
-            ctx.fillStyle = 'rgba(60, 10, 15, 0.25)';
-            ctx.beginPath();
-            ctx.moveTo(0, 0);
-            for (let x = 0; x <= canvas.width; x += 20) {
-                let y = canvas.height * 0.6 + Math.cos(x * 0.003 - waveTime * 1.2) * 60 + Math.sin(x * 0.0015 + waveTime * 1.5) * 50;
-                ctx.lineTo(x, y);
+            update() {
+                if (this.active) {
+                    this.x -= this.speed; this.y += this.speed;
+                    if (this.x < 0 || this.y > canvas.height) this.active = false;
+                } else if (Math.random() < 0.005) { this.reset(); this.active = true; }
             }
-            ctx.lineTo(canvas.width, canvas.height); ctx.lineTo(0, canvas.height); ctx.fill();
+            draw() {
+                if (!this.active) return;
+                ctx.beginPath(); ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x + this.len, this.y - this.len);
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.4)"; ctx.lineWidth = 2; ctx.stroke();
+            }
+        }
+        for(let i=0; i<3; i++) shootingStars.push(new ShootingStar());
 
-            // Layer 3: Glowing Starry Night / Fireflies
-            for (let i = 0; i < ambientStars.length; i++) {
-                let s = ambientStars[i];
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw Twinkling Stars
+            stars.forEach(s => {
                 s.alpha += s.speed;
-                s.y -= s.driftY; 
-                s.x += s.driftX;
+                if (s.alpha > 1 || s.alpha < 0) s.speed *= -1;
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0, s.alpha)})`; ctx.fill();
+            });
 
-                if (s.alpha > 1 || s.alpha < 0) s.speed = -s.speed;
-                if (s.y < -10) { s.y = canvas.height + 10; s.x = Math.random() * canvas.width; }
-                if (s.x < -10 || s.x > canvas.width + 10) s.driftX = -s.driftX;
+            // Draw Shooting Stars
+            shootingStars.forEach(s => { s.update(); s.draw(); });
 
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                
-                if (s.isFirefly) {
-                    ctx.fillStyle = `rgba(255, 215, 100, ${Math.max(0, s.alpha)})`;
-                    ctx.shadowBlur = 12;
-                    ctx.shadowColor = "rgba(255, 200, 50, 0.8)";
-                } else {
-                    ctx.fillStyle = `rgba(255, 245, 230, ${Math.max(0, s.alpha * 0.6)})`;
-                    ctx.shadowBlur = 0;
-                }
-                ctx.fill();
-                ctx.shadowBlur = 0; // Reset
-            }
-        }
-
-        function mainLoop() {
-            renderLivingBackground();
+            // Draw Particles
             for (let i = interactionParticles.length - 1; i >= 0; i--) {
-                interactionParticles[i].update();
-                interactionParticles[i].draw();
-                if (interactionParticles[i].opacity <= 0) interactionParticles.splice(i, 1);
+                let p = interactionParticles[i];
+                p.update(); p.draw();
+                if (p.opacity <= 0) interactionParticles.splice(i, 1);
             }
-            requestAnimationFrame(mainLoop);
+            requestAnimationFrame(animateCanvas);
         }
-        mainLoop();
+        animateCanvas();
 
-        // --- 4. CORE INTERACTIVE UNWRAP LOGIC ---
+        // --- 3. 3D UNWRAP LOGIC ---
         function unwrapChocolate(element, title, text) {
-            element.classList.add('unwrapped');
-            element.style.transform = `perspective(1000px) scale3d(0.95, 0.95, 0.95)`;
+            // Avoid triggering if already flipped
+            if(element.classList.contains('flipped')) return;
+
+            // Trigger 3D Flip
+            element.classList.add('flipped');
 
             const rect = element.getBoundingClientRect();
             const startX = rect.left + rect.width / 2;
             const startY = rect.top + rect.height / 2;
 
-            for(let i = 0; i < 25; i++) {
-                interactionParticles.push(new ExplosionParticle(startX, startY));
-            }
+            // Wait for flip to reach halfway before bursting particles
+            setTimeout(() => {
+                const elements = ['✨', '💖', '🍫', '💫'];
+                for(let i = 0; i < 20; i++) {
+                    let char = elements[Math.floor(Math.random() * elements.length)];
+                    interactionParticles.push(new Particle(startX, startY, char));
+                }
+            }, 300);
 
+            // Show Message
             setTimeout(() => {
                 document.getElementById('msgTitle').innerText = title;
                 document.getElementById('msgText').innerText = text;
                 document.getElementById('msgOverlay').classList.add('active');
-            }, 400);
+            }, 800);
         }
 
         function closePopup() {
             document.getElementById('msgOverlay').classList.remove('active');
-            // Reset unwrapped cards slightly
-            document.querySelectorAll('.unwrapped').forEach(card => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            });
         }
     </script>
 </body>
