@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Eternally Yours, Prova</title>
 
-    <!-- ULTRA PREMIUM HIGH-END TYPOGRAPHY -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Great+Vibes&family=Playfair+Display:ital,wght@1,500;1,700&family=Montserrat:wght@200;400;600;800&display=swap" rel="stylesheet">
@@ -80,7 +79,7 @@
             transition: opacity 2s ease; margin-top: -30px;
         }
         .wave-container { position: relative; width: 160px; height: 160px; display: flex; justify-content: center; align-items: center; }
-        
+
         .wave-ring { 
             position: absolute; width: 100%; height: 100%; 
             border: 2px dashed rgba(255, 51, 102, 0.4); border-radius: 50%; 
@@ -88,7 +87,7 @@
         }
         .wave-ring:nth-child(2) { animation-delay: 0.8s; border-style: solid; border-color: rgba(255, 215, 0, 0.3); }
         .wave-ring:nth-child(3) { animation-delay: 1.6s; }
-        
+
         .voice-center-orb { 
             width: 80px; height: 80px; 
             background: radial-gradient(circle, #ff4757, #ff6b81, #b30021); 
@@ -109,11 +108,11 @@
             100% { transform: scale(1); }
         }
 
-        /* --- HIGH-FIDELITY TELEVISION STATIC CANVASES (THE ORIGINAL JHIRJHIR) --- */
+        /* --- HIGH-FIDELITY TELEVISION STATIC CANVASES --- */
         #tvStaticCanvas {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 40;
-            display: none; opacity: 0; transition: opacity 0.4s ease;
-            object-fit: cover; /* Blows up low-res pixel arrays into heavy organic noise fields */
+            display: none; opacity: 0; transition: opacity 0.6s ease;
+            object-fit: cover; 
         }
 
         /* --- THE ROMANTIC CONNECTING CAPTION CONTAINER --- */
@@ -125,12 +124,12 @@
         .connecting-text {
             font-family: 'Cinzel Decorative', serif; font-size: 1.3rem; font-weight: 700;
             color: #ffd700; letter-spacing: 4px; text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 158, 0, 0.3);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 158, 0, 0.3), 2px 2px 5px rgba(0,0,0,0.8);
             animation: textGlowPulse 1.5s infinite alternate;
         }
         .connecting-subtext {
             font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: #f0e6ff;
-            margin-top: 15px; text-shadow: 0 0 10px rgba(255,255,255,0.2);
+            margin-top: 15px; text-shadow: 0 0 10px rgba(255,255,255,0.2), 2px 2px 5px rgba(0,0,0,0.8);
         }
 
         /* --- PREMIUM LIVE STREAM VIDEO FRAMING --- */
@@ -140,14 +139,17 @@
             opacity: 0; display: none; transition: all 2.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
         #video-container.active { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        
+
         .video-wrapper {
             position: relative; border-radius: 25px; overflow: hidden;
             border: 2px solid rgba(255, 215, 0, 0.4);
             box-shadow: 0 0 40px rgba(255, 158, 0, 0.35), 0 25px 70px rgba(0,0,0,0.9);
             background: #000; aspect-ratio: 9/16;
+            transition: opacity 1.5s ease; /* Smooth fade out for video */
         }
-        video { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* Changed object-fit to contain so 9:16 aspect ratio isn't cut off */
+        video { width: 100%; height: 100%; object-fit: contain; }
 
         .live-badge {
             position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
@@ -183,21 +185,17 @@
 </head>
 <body>
 
-    <!-- LAYER MEDIA SYSTEM -->
     <div id="bg-image"></div>
     <div id="bg-overlay"></div>
     <canvas id="cosmicCanvas"></canvas>
 
-    <!-- REAL HARDCORE TV JHIRJHIR CANVAS LAYER -->
     <canvas id="tvStaticCanvas"></canvas>
 
-    <!-- ROMANTIC LIVE TIMELINE UPDATES -->
     <div id="connecting-container">
         <div class="connecting-text">Connecting to Shuaib's heart...</div>
         <div class="connecting-subtext">Tuning into our universe</div>
     </div>
 
-    <!-- MAIN ACCESS GATEWAY PORTAL -->
     <div id="gateway" onclick="igniteCinematicClimax()">
         <div class="wave-container" style="width:110px; height:110px;">
             <div class="portal-ring"></div>
@@ -207,13 +205,11 @@
         <div class="gateway-sub">Tap to feel my heart, Prova...</div>
     </div>
 
-    <!-- SCRIPT MONOLOGUE MODULE -->
     <div class="cinema-box" id="cinemaTheater">
         <div class="cinematic-line master-glow" id="l1">I know you are missing me deeply tonight, my love... <span class="gold-accent">I wished I could hold you close.</span></div>
         <div class="cinematic-line master-glow" id="l2">But with my critical exam tomorrow, this distance stands between us... <span class="gold-accent">yet every beat of my soul belongs to you.</span></div>
         <div class="cinematic-line master-glow" id="l3">I would never let my Queen feel alone tonight... so I left a piece of my heart right here. <span class="gold-accent">Listen closely...</span></div>
-        
-        <!-- VISUALIZER WRAPPER -->
+
         <div id="voice-interface">
             <div class="wave-container">
                 <div class="wave-ring"></div>
@@ -224,9 +220,8 @@
         </div>
     </div>
 
-    <!-- REVEAL VIDEO SYSTEM FRAME -->
     <div id="video-container">
-        <div class="video-wrapper">
+        <div class="video-wrapper" id="vidWrapper">
             <div class="live-badge">For Your Eyes Only, My Love ❤️</div>
             <video id="kissVideo" src="flying_kiss.mp4" playsinline></video>
         </div>
@@ -285,26 +280,24 @@
         const tvCtx = tvCanvas.getContext('2d');
         let isStaticRunning = false;
 
-        // Set low processing block matrix dimension grid 
         tvCanvas.width = 250;
         tvCanvas.height = 250;
 
         function runTVStaticLoop() {
             if (!isStaticRunning) return;
-            
+
             const tvImgData = tvCtx.createImageData(tvCanvas.width, tvCanvas.height);
             const dataBuffer = tvImgData.data;
             const bufferLength = dataBuffer.length;
-            
+
             for (let i = 0; i < bufferLength; i += 4) {
-                // Generate absolute chaotic grayscale noise values (0 to 255)
                 const grainNoiseValue = Math.floor(Math.random() * 255);
-                dataBuffer[i]     = grainNoiseValue; // R
-                dataBuffer[i + 1] = grainNoiseValue; // G
-                dataBuffer[i + 2] = grainNoiseValue; // B
-                dataBuffer[i + 3] = 255;             // Completely Alpha Opaque
+                dataBuffer[i]     = grainNoiseValue; 
+                dataBuffer[i + 1] = grainNoiseValue; 
+                dataBuffer[i + 2] = grainNoiseValue; 
+                dataBuffer[i + 3] = 255;             
             }
-            
+
             tvCtx.putImageData(tvImgData, 0, 0);
             requestAnimationFrame(runTVStaticLoop);
         }
@@ -346,8 +339,8 @@
                     voiceUI.style.display = 'flex';
                     setTimeout(() => voiceUI.style.opacity = '1', 100);
 
-                    // Drop volume softly for voice layout focus
-                    fadeVolumeTrack(bgMusic, 0.12, 1600);
+                    // Music fade volume significantly reduced (0.12 -> 0.03) for clearer voice note
+                    fadeVolumeTrack(bgMusic, 0.03, 1600);
                     setTimeout(() => { dynamicVoiceNote.play(); }, 500);
                 }, 2000);
             }, 21500);
@@ -357,57 +350,69 @@
         dynamicVoiceNote.addEventListener('ended', () => {
             const voiceUI = document.getElementById('voice-interface');
             voiceUI.style.opacity = '0';
-            
-            // 1. Cushion Silence: Perfect emotional suspension for 3.5 seconds
+
+            // 1. Cushion Silence
             setTimeout(() => {
                 voiceUI.style.display = 'none';
-                
-                // 2. LAUNCH RAW REAL DYNAMIC TELEVISION SNOW STATIC (4.5 SECONDS)
+
+                // 2. LAUNCH STATIC (JHIRJHIR)
                 isStaticRunning = true;
                 tvCanvas.style.display = 'block';
                 setTimeout(() => tvCanvas.style.opacity = '1', 50);
                 runTVStaticLoop();
 
-                // Drop background soundtrack down to 3% to make way for feed sync
+                // Keep BG music very low
                 fadeVolumeTrack(bgMusic, 0.03, 400);
 
-                // 3. Keep dynamic jhirjhir blasting for 4.5 seconds, then shift to Connection Layout
+                // 3. Bring in 'Connecting' text WHILE jhir-jhir is active
                 setTimeout(() => {
-                    // Turn off static loop processing safely
-                    isStaticRunning = false;
-                    tvCanvas.style.opacity = '0';
-                    setTimeout(() => tvCanvas.style.display = 'none', 400);
-                    
-                    // 4. Reveal "Connecting to Shuaib's heart..." Box for exactly 2.5 seconds
                     const connectingBox = document.getElementById('connecting-container');
                     connectingBox.style.display = 'block';
                     setTimeout(() => connectingBox.style.opacity = '1', 100);
 
+                    // 4. Fade BOTH out at the same time after 2.5 seconds
                     setTimeout(() => {
                         connectingBox.style.opacity = '0';
-                        setTimeout(() => connectingBox.style.display = 'none', 400);
+                        tvCanvas.style.opacity = '0';
 
-                        // 5. Fire Core Climax Video Container Engine Setup
-                        const videoBox = document.getElementById('video-container');
-                        const videoElement = document.getElementById('kissVideo');
-                        
-                        videoBox.style.display = 'block';
                         setTimeout(() => {
-                            videoBox.classList.add('active');
-                            videoElement.play();
-                        }, 100);
+                            connectingBox.style.display = 'none';
+                            isStaticRunning = false;
+                            tvCanvas.style.display = 'none';
 
-                    }, 2500); // Connection Text Duration Frame
+                            // 5. Fire Core Climax Video
+                            const videoBox = document.getElementById('video-container');
+                            const videoElement = document.getElementById('kissVideo');
 
-                }, 4500); // Real Dynamic Noise Jhirjhir Duration Frame
+                            videoBox.style.display = 'block';
+                            setTimeout(() => {
+                                videoBox.classList.add('active');
+                                videoElement.play();
+                            }, 100);
+
+                        }, 800); // Wait for transition fade-out
+                    }, 3000); // Duration of connecting text over the static
+
+                }, 1200); // Delay before connecting text appears over static
 
             }, 3500); // Cushion Silence Duration Frame
         });
 
         // --- VIDEO STREAM COMPLETION TERMINATION LINKUP ---
         document.getElementById('kissVideo').addEventListener('ended', () => {
-            document.getElementById('nextSegBtn').classList.add('visible');
-            fadeVolumeTrack(bgMusic, 0.55, 1500); // Restore background score softly
+            const videoWrapper = document.getElementById('vidWrapper');
+            
+            // Fade out the video wrapper completely
+            videoWrapper.style.opacity = '0';
+            
+            setTimeout(() => {
+                videoWrapper.style.display = 'none'; // Remove it from view
+                // Show the Next Button centered
+                document.getElementById('nextSegBtn').classList.add('visible');
+            }, 1500); // Wait for fade transition
+
+            // Restore background score softly
+            fadeVolumeTrack(bgMusic, 0.55, 1500); 
         });
 
         // Logarithmic sound fading tracking configuration math helper
