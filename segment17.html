@@ -115,21 +115,30 @@
             object-fit: cover; 
         }
 
-        /* --- THE ROMANTIC CONNECTING CAPTION CONTAINER --- */
+        /* --- THE DIGITAL CONNECTING CAPTION CONTAINER --- */
         #connecting-container {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             z-index: 45; text-align: center; display: none; opacity: 0;
             transition: opacity 0.8s ease; width: 90%;
         }
         .connecting-text {
-            font-family: 'Cinzel Decorative', serif; font-size: 1.3rem; font-weight: 700;
-            color: #ffd700; letter-spacing: 4px; text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 158, 0, 0.3), 2px 2px 5px rgba(0,0,0,0.8);
-            animation: textGlowPulse 1.5s infinite alternate;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem; font-weight: bold;
+            color: #00ff00;
+            letter-spacing: 2px; text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+            animation: textBlink 1s infinite;
         }
         .connecting-subtext {
-            font-family: 'Great Vibes', cursive; font-size: 2.2rem; color: #f0e6ff;
-            margin-top: 15px; text-shadow: 0 0 10px rgba(255,255,255,0.2), 2px 2px 5px rgba(0,0,0,0.8);
+            font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; 
+            color: #ffffff; margin-top: 10px; opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        @keyframes textBlink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
         }
 
         /* --- PREMIUM LIVE STREAM VIDEO FRAMING --- */
@@ -145,10 +154,9 @@
             border: 2px solid rgba(255, 215, 0, 0.4);
             box-shadow: 0 0 40px rgba(255, 158, 0, 0.35), 0 25px 70px rgba(0,0,0,0.9);
             background: #000; aspect-ratio: 9/16;
-            transition: opacity 1.5s ease; /* Smooth fade out for video */
+            transition: opacity 1.5s ease;
         }
-        
-        /* Changed object-fit to contain so 9:16 aspect ratio isn't cut off */
+
         video { width: 100%; height: 100%; object-fit: contain; }
 
         .live-badge {
@@ -179,7 +187,7 @@
             .gold-accent { font-size: 2.6rem; }
             .video-wrapper { aspect-ratio: 9/16; max-height: 68vh; }
             .connecting-text { font-size: 1rem; letter-spacing: 2px; }
-            .connecting-subtext { font-size: 1.8rem; }
+            .connecting-subtext { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -191,10 +199,7 @@
 
     <canvas id="tvStaticCanvas"></canvas>
 
-    <div id="connecting-container">
-        <div class="connecting-text">Connecting to Shuaib's heart...</div>
-        <div class="connecting-subtext">Tuning into our universe</div>
-    </div>
+    <div id="connecting-container"></div>
 
     <div id="gateway" onclick="igniteCinematicClimax()">
         <div class="wave-container" style="width:110px; height:110px;">
@@ -280,8 +285,13 @@
         const tvCtx = tvCanvas.getContext('2d');
         let isStaticRunning = false;
 
-        tvCanvas.width = 250;
-        tvCanvas.height = 250;
+        tvCanvas.width = window.innerWidth;
+        tvCanvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            tvCanvas.width = window.innerWidth;
+            tvCanvas.height = window.innerHeight;
+        });
 
         function runTVStaticLoop() {
             if (!isStaticRunning) return;
@@ -339,8 +349,8 @@
                     voiceUI.style.display = 'flex';
                     setTimeout(() => voiceUI.style.opacity = '1', 100);
 
-                    // Music fade volume significantly reduced (0.12 -> 0.03) for clearer voice note
-                    fadeVolumeTrack(bgMusic, 0.03, 1600);
+                    // FIXED: Music volume reduced to 0.18 to balance with voice note
+                    fadeVolumeTrack(bgMusic, 0.18, 1600);
                     setTimeout(() => { dynamicVoiceNote.play(); }, 500);
                 }, 2000);
             }, 21500);
@@ -351,65 +361,66 @@
             const voiceUI = document.getElementById('voice-interface');
             voiceUI.style.opacity = '0';
 
-            // 1. Cushion Silence
             setTimeout(() => {
                 voiceUI.style.display = 'none';
 
-                // 2. LAUNCH STATIC (JHIRJHIR)
                 isStaticRunning = true;
                 tvCanvas.style.display = 'block';
                 setTimeout(() => tvCanvas.style.opacity = '1', 50);
                 runTVStaticLoop();
 
-                // Keep BG music very low
-                fadeVolumeTrack(bgMusic, 0.03, 400);
+                // Music stays low during static
+                fadeVolumeTrack(bgMusic, 0.05, 400);
 
-                // 3. Bring in 'Connecting' text WHILE jhir-jhir is active
                 setTimeout(() => {
                     const connectingBox = document.getElementById('connecting-container');
+                    
+                    connectingBox.innerHTML = `
+                        <div class="connecting-text">Establishing Connection...</div>
+                        <div class="connecting-subtext">Accessing secure server: Prova's Heart</div>
+                    `;
                     connectingBox.style.display = 'block';
                     setTimeout(() => connectingBox.style.opacity = '1', 100);
 
-                    // 4. Fade BOTH out at the same time after 2.5 seconds
                     setTimeout(() => {
                         connectingBox.style.opacity = '0';
                         tvCanvas.style.opacity = '0';
 
                         setTimeout(() => {
                             connectingBox.style.display = 'none';
+                            
+                            // FIXED: Clear TV Canvas to free up phone memory for smooth video playback
                             isStaticRunning = false;
                             tvCanvas.style.display = 'none';
+                            tvCtx.clearRect(0, 0, tvCanvas.width, tvCanvas.height); 
 
-                            // 5. Fire Core Climax Video
                             const videoBox = document.getElementById('video-container');
                             const videoElement = document.getElementById('kissVideo');
 
                             videoBox.style.display = 'block';
                             setTimeout(() => {
                                 videoBox.classList.add('active');
-                                videoElement.play();
+                                videoElement.play().catch(e => console.log("Video Play Error:", e));
                             }, 100);
 
-                        }, 800); // Wait for transition fade-out
-                    }, 3000); // Duration of connecting text over the static
+                        }, 800); 
+                    }, 3000); 
 
-                }, 1200); // Delay before connecting text appears over static
+                }, 1200); 
 
-            }, 3500); // Cushion Silence Duration Frame
+            }, 3500); 
         });
 
         // --- VIDEO STREAM COMPLETION TERMINATION LINKUP ---
         document.getElementById('kissVideo').addEventListener('ended', () => {
             const videoWrapper = document.getElementById('vidWrapper');
-            
-            // Fade out the video wrapper completely
+
             videoWrapper.style.opacity = '0';
-            
+
             setTimeout(() => {
-                videoWrapper.style.display = 'none'; // Remove it from view
-                // Show the Next Button centered
+                videoWrapper.style.display = 'none'; 
                 document.getElementById('nextSegBtn').classList.add('visible');
-            }, 1500); // Wait for fade transition
+            }, 1500); 
 
             // Restore background score softly
             fadeVolumeTrack(bgMusic, 0.55, 1500); 
