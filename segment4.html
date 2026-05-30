@@ -37,48 +37,38 @@
             position: relative; z-index: 2;
             height: 100vh; width: 100%;
             display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            perspective: 1000px;
+            align-items: center; justify-content: space-evenly; 
+            padding: 3vh 0;
         }
 
-        /* --- FLOATING LANDSCAPE MEMORIES (GLASSMORPHISM) --- */
-        .landscape-frame {
-            position: absolute;
-            width: 75%; max-width: 320px; aspect-ratio: 16 / 9;
-            border-radius: 12px; overflow: hidden;
+        /* --- DYNAMIC AUTO-FIT FRAMES (NO CROPPING) --- */
+        .image-frame {
+            display: inline-block; /* Auto-shrinks to fit the image exactly */
+            max-width: 90%; 
+            border-radius: 12px;
+            padding: 6px; /* Creates a beautiful glass border around the pic */
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 210, 255, 0.15);
-            z-index: 3;
-            transition: transform 0.5s ease;
-        }
-        .landscape-frame img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            opacity: 0.85; filter: contrast(1.1);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 210, 255, 0.15);
+            animation: floatUpDown 4.5s infinite alternate ease-in-out;
         }
 
-        /* Top Image Positioning */
-        .frame-top {
-            top: 6%;
-            animation: floatSlow 6s infinite alternate ease-in-out;
-            transform: rotate(-3deg);
-        }
-        
-        /* Bottom Image Positioning */
-        .frame-bottom {
-            bottom: 6%;
-            animation: floatSlowReverse 7s infinite alternate ease-in-out;
-            transform: rotate(3deg);
+        .image-frame img {
+            display: block;
+            max-width: 100%; 
+            max-height: 24vh; /* Adjusts height automatically based on screen, never squishes */
+            width: auto; 
+            height: auto;
+            border-radius: 8px; /* Soft curves for the image itself */
+            filter: contrast(1.05) brightness(1.05);
         }
 
-        @keyframes floatSlow {
-            0% { transform: translateY(0px) rotate(-3deg); }
-            100% { transform: translateY(-15px) rotate(-1deg); }
-        }
-        @keyframes floatSlowReverse {
-            0% { transform: translateY(0px) rotate(3deg); }
-            100% { transform: translateY(15px) rotate(1deg); }
+        .frame-2 { animation-delay: -2s; animation-duration: 5s; } /* Opposite float for balance */
+
+        @keyframes floatUpDown {
+            0% { transform: translateY(-6px); }
+            100% { transform: translateY(6px); }
         }
 
         /* --- THE CONSTANT PROPOSAL BOX --- */
@@ -86,35 +76,33 @@
             position: relative; z-index: 10;
             background: rgba(15, 10, 30, 0.65);
             border: 1px solid rgba(0, 210, 255, 0.3);
-            padding: 35px 25px; border-radius: 20px;
-            backdrop-filter: blur(25px); text-align: center;
+            padding: 25px 20px; border-radius: 20px;
+            backdrop-filter: blur(20px); text-align: center;
             width: 88%; max-width: 420px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 210, 255, 0.2) inset;
-            animation: pulseGlow 4s infinite alternate;
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 20px rgba(0, 210, 255, 0.1) inset; }
-            100% { box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 40px rgba(0, 210, 255, 0.3) inset; }
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 210, 255, 0.15) inset;
         }
 
         .final-msg { 
             font-family: 'Dancing Script', cursive; 
-            font-size: clamp(1.6rem, 6vw, 2.2rem); 
-            line-height: 1.4; color: #fff; margin-bottom: 30px;
-            text-shadow: 0 0 15px rgba(0, 210, 255, 0.6), 2px 2px 5px rgba(0,0,0,0.8);
+            font-size: clamp(1.4rem, 5.5vw, 1.8rem); 
+            line-height: 1.4; color: #fff; margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
         }
 
-        .highlight { color: #00d2ff; font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 1.2rem; display: block; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px;}
+        .highlight { 
+            color: #00d2ff; font-family: 'Montserrat', sans-serif; 
+            font-weight: 500; font-size: clamp(1rem, 4vw, 1.1rem); 
+            display: block; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px;
+        }
 
         /* --- INTERACTIVE BUTTONS --- */
         .btn-group { 
-            display: flex; justify-content: center; gap: 20px; 
-            position: relative; height: 50px; /* fixed height to constrain NO button area initially */
+            display: flex; justify-content: center; gap: 15px; 
+            position: relative; height: 45px;
         }
 
         .choice-btn {
-            padding: 12px 35px; font-family: 'Cinzel', serif; font-size: 0.95rem;
+            padding: 10px 30px; font-family: 'Cinzel', serif; font-size: 0.9rem;
             cursor: pointer; border-radius: 50px; transition: all 0.3s ease; 
             letter-spacing: 2px; font-weight: bold; outline: none;
         }
@@ -122,10 +110,10 @@
         #yesBtn { 
             background: linear-gradient(45deg, #00d2ff, #0077ff); 
             color: #fff; border: none; 
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.6); 
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.6); 
             animation: heartbeat 1.5s infinite;
         }
-        #yesBtn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(0, 210, 255, 0.9); }
+        #yesBtn:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(0, 210, 255, 0.9); }
 
         @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -140,15 +128,6 @@
             backdrop-filter: blur(5px);
             z-index: 100;
         }
-
-        /* --- RESPONSIVE FIX (iPhone 6s) --- */
-        @media (max-height: 700px) {
-            .frame-top { top: 2%; width: 65%; }
-            .frame-bottom { bottom: 2%; width: 65%; }
-            .proposal-box { padding: 25px 20px; }
-            .final-msg { font-size: 1.5rem; margin-bottom: 20px; }
-            .choice-btn { padding: 10px 25px; font-size: 0.85rem; }
-        }
     </style>
 </head>
 <body onload="initSystem(); resumeMusic();">
@@ -161,10 +140,12 @@
     <canvas id="starCanvas"></canvas>
 
     <div class="content-wrapper">
-        <div class="landscape-frame frame-top">
+        <!-- IMAGE 1 (Auto-fits picture perfectly) -->
+        <div class="image-frame">
             <img src="4segment1.jpg" alt="Moment 1">
         </div>
 
+        <!-- PROPOSAL BOX -->
         <div class="proposal-box">
             <p class="final-msg">
                 "In this infinite universe of variables, <br>
@@ -178,7 +159,8 @@
             </div>
         </div>
 
-        <div class="landscape-frame frame-bottom">
+        <!-- IMAGE 2 (Auto-fits picture perfectly) -->
+        <div class="image-frame frame-2">
             <img src="4segment2.jpg" alt="Moment 2">
         </div>
     </div>
@@ -193,10 +175,9 @@
 
         // --- SMOOTH EVASION LOGIC FOR 'NO' BUTTON ---
         function moveNo(e) {
-            if(e) e.preventDefault(); // Stop mobile click from registering if it manages to tap
+            if(e) e.preventDefault(); 
             const btn = document.getElementById('noBtn');
             
-            // Set to fixed on first interaction to allow screen-wide movement
             if (btn.style.position !== 'fixed') {
                 const rect = btn.getBoundingClientRect();
                 btn.style.left = rect.left + 'px';
@@ -204,7 +185,6 @@
                 btn.style.position = 'fixed';
             }
 
-            // Calculate safe boundaries so it doesn't go off-screen
             const btnWidth = btn.offsetWidth;
             const btnHeight = btn.offsetHeight;
             const maxX = window.innerWidth - btnWidth - 20;
@@ -232,7 +212,6 @@
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
             
-            // Create 1000 background stars
             for (let i = 0; i < 1000; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
@@ -259,7 +238,7 @@
                 this.length = Math.random() * 80 + 20;
                 this.speed = Math.random() * 10 + 5;
                 this.opacity = 1;
-                this.angle = Math.PI / 4 + (Math.random() * 0.2 - 0.1); // Angled downward
+                this.angle = Math.PI / 4 + (Math.random() * 0.2 - 0.1);
             }
             update() {
                 this.x += Math.cos(this.angle) * this.speed;
@@ -288,7 +267,6 @@
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Animate 1000 stars
             stars.forEach(s => {
                 s.y += s.vy;
                 s.opacity += s.pulse;
@@ -298,17 +276,15 @@
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
                 ctx.fillStyle = s.color;
-                ctx.globalAlpha = Math.max(0, Math.min(1, s.opacity)); // keep within bounds
+                ctx.globalAlpha = Math.max(0, Math.min(1, s.opacity));
                 ctx.fill();
             });
             ctx.globalAlpha = 1;
 
-            // Randomly spawn shooting stars
             if (Math.random() < 0.02) {
                 shootingStars.push(new ShootingStar());
             }
 
-            // Animate shooting stars
             for (let i = shootingStars.length - 1; i >= 0; i--) {
                 shootingStars[i].update();
                 shootingStars[i].draw();
