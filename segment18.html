@@ -2,90 +2,144 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=auto">
     <title>The Cosmic Mainframe — Royal Edition</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { width: 100%; height: 100%; overflow: hidden; background: #020108; color: #ffffff; font-family: 'Montserrat', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body, html { 
+            width: 100%; height: 100%; 
+            background: #020108; color: #ffffff; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden; /* Prevents side-scrolling bugs */
+        }
 
-        /* ================= PHASE 1: CELESTIAL BACKGROUND (CLASSIC) ================= */
-        .universe-container { position: absolute; width: 100%; height: 100%; z-index: 1; transition: opacity 1.2s ease-in-out; background: radial-gradient(circle at center, #0a0e29 0%, #020108 100%); }
+        /* ================= PHASE 1: CELESTIAL BACKGROUND ================= */
+        .universe-container { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 1; transition: opacity 1.2s ease-in-out; 
+            background: radial-gradient(circle at center, #0a0e29 0%, #020108 100%); 
+        }
 
         .aurora-bg { position: absolute; width: 100%; height: 100%; opacity: 0.35; mix-blend-mode: screen; pointer-events: none; }
-        .aurora-wave { position: absolute; width: 150%; height: 60%; background: linear-gradient(90deg, rgba(138,43,226,0.15), rgba(0,191,255,0.15), rgba(255,215,0,0.05)); filter: blur(90px); border-radius: 40%; animation: floatWave 20s infinite alternate ease-in-out; }
-        @keyframes floatWave { 0% { transform: translate(-10%, -20%) rotate(0deg); } 100% { transform: translate(5%, 10%) rotate(10deg); } }
+        .aurora-wave { 
+            position: absolute; width: 150%; height: 60%; 
+            background: linear-gradient(90deg, rgba(138,43,226,0.15), rgba(0,191,255,0.15), rgba(255,215,0,0.05)); 
+            filter: blur(50px); /* Reduced blur for better performance */
+            border-radius: 40%; animation: floatWave 15s infinite alternate ease-in-out; 
+        }
+        @keyframes floatWave { 0% { transform: translate(-10%, -20%) rotate(0deg); } 100% { transform: translate(5%, 10%) rotate(5deg); } }
 
         /* DEEP WARM CLASSY GLOWING MOON */
         .romantic-moon { 
-            position: absolute; 
-            top: 12%; 
-            right: 15%; 
-            width: 95px; 
-            height: 95px; 
+            position: absolute; top: 10%; right: 10%; 
+            width: clamp(70px, 15vw, 95px); height: clamp(70px, 15vw, 95px); 
             background: radial-gradient(circle at 30% 30%, #ffffff 0%, #fffdf0 60%, #fffae0 100%); 
             border-radius: 50%; 
             box-shadow: 0 0 40px #ffffff, 0 0 80px rgba(255, 253, 240, 0.4), 0 0 120px rgba(255, 215, 0, 0.15); 
-            filter: drop-shadow(0 0 12px rgba(255,255,255,0.7)); 
             z-index: 2; 
         }
 
-        #starfield { position: absolute; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-        .star { position: absolute; background: #fff; border-radius: 50%; animation: twinkle infinite ease-in-out; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.1; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.4); box-shadow: 0 0 10px #fff; } }
+        #starCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-        .story-panel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 600px; text-align: center; z-index: 10; cursor: pointer; }
-        #typing-text { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; line-height: 1.7; color: #f4f4f6; text-shadow: 0 4px 15px rgba(0,0,0,0.9); }
-        .tap-hint { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 5px; color: rgba(255,215,0,0.9); margin-top: 35px; opacity: 0; transition: opacity 1s ease; text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+        .story-panel { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            width: 90%; max-width: 600px; text-align: center; z-index: 10; cursor: pointer; 
+        }
+        #typing-text { 
+            font-family: 'Playfair Display', serif; 
+            font-size: clamp(1.2rem, 5vw, 1.6rem); 
+            font-style: italic; line-height: 1.6; color: #f4f4f6; 
+            text-shadow: 0 4px 15px rgba(0,0,0,0.9); 
+        }
+        .tap-hint { 
+            font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 3px; 
+            color: rgba(255,215,0,0.9); margin-top: 35px; opacity: 0; 
+            transition: opacity 1s ease; text-shadow: 0 0 10px rgba(255,215,0,0.5); 
+        }
         .tap-hint.pulse { opacity: 1; animation: pulseGlow 2s infinite; }
         @keyframes pulseGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; text-shadow: 0 0 20px #ffd700; } }
 
         /* ================= PHASE 2: SUBTLE TECH TERMINAL ================= */
-        .terminal-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #030307; z-index: 100; display: none; flex-direction: column; justify-content: flex-start; align-items: center; padding: 60px 20px 160px 20px; font-family: monospace; opacity: 0; transition: opacity 0.8s ease-in-out; }
+        .terminal-screen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #030307; z-index: 100; display: none; 
+            flex-direction: column; align-items: center; 
+            padding: 40px 15px 120px 15px; /* Adjusted for mobile */
+            font-family: monospace; opacity: 0; transition: opacity 0.8s ease-in-out; 
+            overflow-y: auto; /* Allows scrolling on tiny phones */
+        }
 
-        .matrix-box { width: 100%; max-width: 750px; height: 100%; overflow-y: hidden; text-align: left; font-size: 0.95rem; line-height: 1.8; color: #94a3b8; letter-spacing: 0.5px; }
+        .matrix-box { 
+            width: 100%; max-width: 750px; 
+            font-size: clamp(0.75rem, 3vw, 0.95rem); 
+            line-height: 1.8; color: #94a3b8; letter-spacing: 0.5px; 
+            padding-bottom: 20px;
+        }
 
-        /* Classy Monochrome & Gold Syntax Formatting */
+        /* Syntax Formatting */
         .keyword { color: #ffd700; font-weight: bold; } 
         .string { color: #e2e8f0; font-style: italic; } 
         .function { color: #f1f5f9; text-decoration: underline; } 
         .number { color: #fbbf24; } 
         .comment { color: #475569; font-style: italic; } 
-        .operator { color: #94a3b8; } 
         .critical { color: #ffd700; font-weight: bold; text-shadow: 0 0 5px rgba(255,215,0,0.3); }
 
-        /* Royal Luxury Dynamic Loader */
-        .loader-container { width: 85%; max-width: 750px; border: 1px solid rgba(255, 215, 0, 0.2); padding: 20px; background: rgba(5, 5, 10, 0.9); backdrop-filter: blur(10px); border-radius: 6px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); position: absolute; bottom: 6%; left: 50%; transform: translateX(-50%); z-index: 110; }
-        .loader-status { font-size: 0.85rem; color: #ffd700; font-weight: 600; letter-spacing: 1px; text-shadow: 0 0 5px rgba(255,215,0,0.2); }
-        .progress-box { width: 100%; background: #111118; height: 10px; border-radius: 5px; overflow: hidden; border: 1px solid rgba(255,255,255,0.02); margin-top: 10px; }
-
-        /* Luxury Royal Gold Progress Fill */
+        /* Loader */
+        .loader-container { 
+            width: 90%; max-width: 750px; 
+            border: 1px solid rgba(255, 215, 0, 0.2); padding: 20px; 
+            background: rgba(5, 5, 10, 0.9); backdrop-filter: blur(10px); 
+            border-radius: 6px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); 
+            position: fixed; bottom: 5%; left: 50%; transform: translateX(-50%); z-index: 110; 
+        }
+        .loader-status { font-size: 0.75rem; color: #ffd700; font-weight: 600; letter-spacing: 1px; }
+        .progress-box { width: 100%; background: #111118; height: 10px; border-radius: 5px; margin-top: 10px; }
         .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #b38f00 0%, #ffd700 50%, #fff3b0 100%); box-shadow: 0 0 15px rgba(255,215,0,0.6); transition: width 0.1s linear; }
 
         /* ================= PHASE 3: THE ROYAL REVEAL ================= */
-        .final-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #070a24 0%, #020108 100%); z-index: 200; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; opacity: 0; transition: opacity 1.5s ease-in-out; }
+        .final-screen { 
+            position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; 
+            background: radial-gradient(circle at center, #070a24 0%, #020108 100%); 
+            z-index: 200; display: none; flex-direction: column; justify-content: center; 
+            align-items: center; text-align: center; padding: 40px 20px; 
+            opacity: 0; transition: opacity 1.5s ease-in-out; 
+            overflow-y: auto; /* Ensures scroll if screen is too small */
+        }
 
-        .signature-box { opacity: 0; transform: translateY(20px); transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .signature-box { opacity: 0; transform: translateY(20px); transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1); margin-bottom: 40px; }
         .signature-box.show { opacity: 1; transform: translateY(0); }
 
-        /* Restored Luxury Typography Style */
-        .final-title { font-family: 'Cinzel', serif; font-size: 1.35rem; font-weight: 500; letter-spacing: 4px; color: #a4a7bf; margin-bottom: 20px; line-height: 2; }
-        .final-title span { font-family: 'Cinzel', serif; font-weight: 700; color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.4); font-size: 1.7rem; letter-spacing: 5px; }
-        .final-sub { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 0.95rem; letter-spacing: 3px; color: #5c5e75; text-transform: uppercase; margin-bottom: 60px; }
+        .final-title { font-family: 'Cinzel', serif; font-size: clamp(1rem, 4vw, 1.35rem); font-weight: 500; letter-spacing: 2px; color: #a4a7bf; margin-bottom: 20px; line-height: 2; }
+        .final-title span { font-weight: 700; color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.4); font-size: clamp(1.3rem, 6vw, 1.7rem); letter-spacing: 3px; }
+        .final-sub { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: clamp(0.75rem, 3vw, 0.95rem); letter-spacing: 2px; color: #5c5e75; text-transform: uppercase; }
 
-        .the-end-title { font-family: 'Cinzel', serif; font-size: 4rem; font-weight: 700; letter-spacing: 25px; color: #ffffff; text-shadow: 0 0 30px rgba(255,255,255,0.4); opacity: 0; transform: scale(0.9); transition: all 2.5s ease; margin-left: 25px; }
+        /* Fixed "THE END" typography so it doesn't break mobile layout */
+        .the-end-title { 
+            font-family: 'Cinzel', serif; 
+            font-size: clamp(2rem, 10vw, 4rem); 
+            font-weight: 700; 
+            letter-spacing: clamp(5px, 3vw, 20px); /* Adjusts dynamically */
+            color: #ffffff; text-shadow: 0 0 30px rgba(255,255,255,0.4); 
+            opacity: 0; transform: scale(0.9); transition: all 2.5s ease; 
+        }
         .the-end-title.show { opacity: 1; transform: scale(1); }
 
     </style>
 </head>
 <body>
 
+    <audio id="ending-music" loop>
+        <source src="ending_vibe.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="universe-container" id="universeGrid">
         <div class="aurora-bg"><div class="aurora-wave"></div></div>
         <div class="romantic-moon"></div>
-        <div id="starfield"></div>
+        <canvas id="starCanvas"></canvas>
 
         <div class="story-panel" id="storyPanel" onclick="triggerSystemShift()">
             <div id="typing-text"></div>
@@ -110,23 +164,50 @@
     </div>
 
     <script>
-        // 1. GENERATE STARFIELD
-        const starfield = document.getElementById('starfield');
-        for(let i=0; i<180; i++) {
-            let star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = Math.random() * 100 + 'vh';
-            let size = Math.random() * 2 + 0.5;
-            star.style.width = size + 'px'; star.style.height = size + 'px';
-            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            star.style.animationDelay = (Math.random() * 3) + 's';
-            starfield.appendChild(star);
+        // 1. HIGH PERFORMANCE CANVAS STARFIELD (Zero Lag)
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
+        
+        function initStars() {
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            for(let i=0; i<150; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.5,
+                    pulse: Math.random() * 0.02,
+                    opacity: Math.random()
+                });
+            }
+            animateStars();
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#ffffff";
+            stars.forEach(s => {
+                s.opacity += s.pulse;
+                if(s.opacity > 1 || s.opacity < 0.1) s.pulse = -s.pulse;
+                ctx.globalAlpha = Math.max(0, Math.min(1, s.opacity));
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+        initStars();
 
         // 2. SHORT ELEGANT INITIAL MESSAGE
         const storyMessage = "In a cosmos full of infinite variables, every single line of my code was structured to find you... Tap to execute.";
         let typingComplete = false;
+        let musicStarted = false;
 
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
@@ -148,9 +229,16 @@
             typing();
         }
 
-        // 3. SHIFT TRANSITION
+        // 3. SHIFT TRANSITION & PLAY MUSIC
         function triggerSystemShift() {
             if (!typingComplete) return; 
+
+            // Play music on first tap
+            if(!musicStarted) {
+                document.getElementById('ending-music').play().catch(()=>{});
+                musicStarted = true;
+            }
+
             document.getElementById('universeGrid').style.opacity = '0';
 
             setTimeout(() => {
@@ -164,11 +252,12 @@
             }, 1200);
         }
 
-        // 4. CLASSY SPEED SCROLL LOADING DATA (~5.4 SECONDS)
+        // 4. CLASSY SPEED SCROLL LOADING DATA
         function runSupercomputerSequence() {
             const consoleBox = document.getElementById('matrixConsole');
             const statusText = document.getElementById('loadStatus');
             const progressBar = document.getElementById('pBar');
+            const termScreen = document.getElementById('terminalScreen');
 
             const cyberScript = [
                 "<span class='comment'>// [SYSTEM]: Accessing encrypted memory layers...</span>",
@@ -219,15 +308,15 @@
             ];
 
             let index = 0;
-            const logInterval = 120; // 45 lines * 120ms = 5.4 seconds execution loop
+            const logInterval = 120; 
 
             function printCodeLogs() {
                 if (index < cyberScript.length) {
-                    let div = document.createElement('div');
-                    div.innerHTML = cyberScript[index];
-                    consoleBox.appendChild(div);
-
-                    consoleBox.scrollTop = consoleBox.scrollHeight;
+                    // Optimized DOM insertion to prevent lag
+                    consoleBox.insertAdjacentHTML('beforeend', `<div>${cyberScript[index]}</div>`);
+                    
+                    // Keep auto-scrolling to bottom
+                    termScreen.scrollTop = termScreen.scrollHeight;
 
                     index++;
                     let progressPct = Math.floor((index / cyberScript.length) * 100);
@@ -238,13 +327,13 @@
                 } else {
                     statusText.innerText = "ACCESS GRANTED. INITIALIZING PRINCESS HANDSHAKE...";
                     statusText.style.color = "#ffd700";
-                    setTimeout(revealFinal, 900); 
+                    setTimeout(revealFinal, 1200); 
                 }
             }
             printCodeLogs();
         }
 
-        // 5. THE ROYAL CREDIT REVEAL (BACK TO ROYALTY)
+        // 5. THE ROYAL CREDIT REVEAL 
         function revealFinal() {
             const term = document.getElementById('terminalScreen');
             term.style.opacity = '0';
@@ -257,12 +346,10 @@
                 setTimeout(() => {
                     fScreen.style.opacity = '1';
 
-                    // Step 1: Design By Shuaib Text fute uthbe (After 1 sec)
                     setTimeout(() => {
                         document.getElementById('sigBox').classList.add('show');
                     }, 1000);
 
-                    // Step 2: THE END text ashbe exactly 2.5 seconds later
                     setTimeout(() => {
                         document.getElementById('theEnd').classList.add('show');
                     }, 3500);
