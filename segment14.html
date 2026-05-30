@@ -13,27 +13,29 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body, html {
-            width: 100%; height: 100%;
+            width: 100%; 
+            min-height: 100vh;
             background: #04010a; 
             font-family: 'Montserrat', sans-serif;
             color: #ffffff;
-            overflow: hidden; 
+            overflow-x: hidden; /* Pashe jeno scroll na hoy */
+            overflow-y: auto;   /* Niche jeno scroll kora jay */
         }
 
-        /* --- BACKGROUND AURA & CANVAS (UPDATED FOR VISIBLE RAPUNZEL) --- */
+        /* --- BACKGROUND AURA & CANVAS --- */
         #rapunzelAura {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Ebar mask use korechi jate majhkhaner frame er jaygata ektu dark thake kintu pashe Rapunzel ke clear dekha jay */
+            position: fixed; /* Scroll korleo background fixed thakbe */
+            top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
                 radial-gradient(ellipse at center, rgba(4, 1, 10, 0.7) 10%, rgba(147, 83, 211, 0.2) 60%, rgba(4, 1, 10, 0.4) 100%), 
                 url('rapunzel.jpg'); 
             background-size: cover; 
             background-position: center;
-            opacity: 0.65; /* Opacity bariyelchi 0.25 theke 0.65 */
+            opacity: 0.65; 
             z-index: 1; 
             pointer-events: none; 
-            mix-blend-mode: lighten; /* 'screen' er bodole 'lighten' better visibility dey dark mode e */
-            filter: blur(1.5px); /* Blur kumiyechi jate details bujha jay */
+            mix-blend-mode: lighten; 
+            filter: blur(1.5px); 
             animation: slowBreathe 8s infinite alternate ease-in-out;
         }
 
@@ -42,11 +44,16 @@
             100% { opacity: 0.75; filter: blur(1px) brightness(1.1); transform: scale(1.02); }
         }
 
-        #magicCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+        #magicCanvas { 
+            position: fixed; /* Lantern gulo fixed thakbe */
+            top: 0; left: 0; width: 100%; height: 100%; 
+            z-index: 2; pointer-events: none; 
+        }
 
         /* --- MAGIC GATE (COVER) --- */
         #magicCover {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, #1b0c2a 0%, #04010a 100%);
             z-index: 100; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center;
@@ -59,20 +66,22 @@
 
         /* --- SLIDESHOW CONTAINER --- */
         #slideshowContainer {
-            position: relative; z-index: 10; width: 100%; height: 100%;
+            position: relative; 
+            z-index: 10; width: 100%; 
+            min-height: 100vh; /* Full screen nibe, content beshi hole boro hobe */
             display: none; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; transition: opacity 2s ease; padding: 20px;
-            /* Container eo ekta halka dark fade rekhechi jate text portei shubidha hoy */
+            opacity: 0; transition: opacity 2s ease; 
+            padding: 40px 20px; /* Upor-niche ektu space rekhechi jate button ta ekdom border-e na lege thake */
             background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
         }
 
         .magical-frame {
             position: relative; width: 85vw; max-width: 380px; aspect-ratio: 4/5;
             border-radius: 12px; padding: 8px; 
-            background: rgba(20, 10, 30, 0.6); /* Slightly darker frame bg for contrast */
+            background: rgba(20, 10, 30, 0.6); 
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 215, 0, 0.4);
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2); /* Stronger dark shadow behind frame */
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.2); 
             opacity: 0; transform: scale(0.95); transition: opacity 1s ease, transform 1s ease;
             display: none; 
         }
@@ -91,7 +100,7 @@
         /* TEXT AND CONTROLS */
         .caption-text {
             font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.7rem; color: #fff5ee;
-            text-align: center; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 215, 0, 0.4); /* Stronger text shadow for readability */
+            text-align: center; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 215, 0, 0.4); 
             margin-top: 30px; line-height: 1.3; min-height: 80px;
             opacity: 0; transform: translateY(10px); transition: opacity 1s ease, transform 1s ease;
             z-index: 15;
@@ -101,10 +110,10 @@
         .controls {
             display: flex; justify-content: space-between; align-items: center;
             width: 85vw; max-width: 380px; margin-top: 20px; z-index: 15;
-            background: rgba(0,0,0,0.3); /* Subtle dark bar for controls */
+            background: rgba(0,0,0,0.3); 
             padding: 5px 15px; border-radius: 30px;
         }
-        
+
         .nav-btn {
             background: none; border: none; color: #ffd700; font-family: 'Montserrat', sans-serif; font-size: 1rem;
             letter-spacing: 2px; text-transform: uppercase; cursor: pointer; text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
@@ -117,10 +126,18 @@
         #finalBtn {
             background: linear-gradient(45deg, #d4af37, #ffeb85); border: none; padding: 15px 30px; border-radius: 40px; color: #04010a;
             font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; cursor: pointer;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4); display: none; margin-top: 15px; animation: fadeIn 1s ease; z-index: 15;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4); display: none; margin-top: 20px; animation: fadeIn 1s ease; z-index: 15;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-height: 750px) {
+            .magical-frame { width: 75vw; max-width: 320px; }
+            .cover-title { font-size: 2.2rem; }
+            .cover-subtitle { font-size: 2rem; }
+            .caption-text { margin-top: 15px; font-size: 1.5rem; min-height: 70px; }
+            #slideshowContainer { padding: 30px 20px; }
+        }
     </style>
 </head>
 <body>
@@ -170,12 +187,10 @@
         // --- AUDIO SETUP ---
         const audio = new Audio('music14.mp3');
         audio.loop = true;
-        
-        // 🔥 Gaaner vocal start hoyar exact second (15s) 🔥
+
         const singingStartTime = 15; 
 
         function startExperience() {
-            // Start audio precisely when the singing begins
             audio.currentTime = singingStartTime;
             audio.play().catch(e => console.log("Audio failed:", e));
 
@@ -185,7 +200,7 @@
                 const container = document.getElementById('slideshowContainer');
                 container.style.display = 'flex';
                 setTimeout(() => container.style.opacity = '1', 100);
-                
+
                 initSlideshow();
             }, 2000);
         }
@@ -222,9 +237,9 @@
             }, 100);
 
             counterDisplay.innerText = `${currentIndex + 1} / ${galleryData.length}`;
-            
+
             prevBtn.classList.toggle('disabled', currentIndex === 0);
-            
+
             if (currentIndex === galleryData.length - 1) {
                 nextBtn.style.display = 'none';
                 finalBtn.style.display = 'block'; 
