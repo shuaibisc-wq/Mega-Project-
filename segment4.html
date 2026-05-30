@@ -2,92 +2,156 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Theorem of Us | Final Proof</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300&family=Dancing+Script:wght@700&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500&family=Dancing+Script:wght@700&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
         body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: #000; color: white; font-family: 'Montserrat', sans-serif;
-            overflow: hidden;
+            width: 100%; height: 100%; 
+            background: #030108; color: white; font-family: 'Montserrat', sans-serif;
+            overflow: hidden; 
         }
 
         #starCanvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
-        /* Powerful Aurora Backdrop */
+        /* --- PREMIUM AURORA BACKDROP --- */
         .aurora-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.3), transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(112, 0, 255, 0.3), transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(0, 255, 150, 0.15), transparent 60%);
-            z-index: 0; filter: blur(60px);
-            animation: auroraAnimate 10s infinite alternate linear;
+                radial-gradient(circle at 15% 30%, rgba(0, 210, 255, 0.25), transparent 45%),
+                radial-gradient(circle at 85% 70%, rgba(147, 83, 211, 0.25), transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(0, 255, 150, 0.1), transparent 60%);
+            z-index: 0; filter: blur(40px);
+            animation: auroraAnimate 12s infinite alternate ease-in-out;
         }
-
         @keyframes auroraAnimate {
-            0% { opacity: 0.7; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.1); }
+            0% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+            100% { opacity: 1; transform: scale(1.1) rotate(2deg); }
         }
 
-        /* Fully Responsive Content Wrapper */
+        /* --- CONTENT WRAPPER --- */
         .content-wrapper {
             position: relative; z-index: 2;
             height: 100vh; width: 100%;
             display: flex; flex-direction: column;
-            align-items: center; justify-content: space-evenly; 
-            padding: 10px 0;
+            align-items: center; justify-content: center;
+            perspective: 1000px;
         }
 
-        /* Responsive Landscape Frame */
+        /* --- FLOATING LANDSCAPE MEMORIES (GLASSMORPHISM) --- */
         .landscape-frame {
-            width: 90%; /* Adapts to any screen width */
-            max-width: 500px; 
-            aspect-ratio: 16 / 9;
-            border-radius: 12px; 
-            border: 1px solid rgba(0, 210, 255, 0.4);
-            overflow: hidden; 
-            box-shadow: 0 0 40px rgba(0, 210, 255, 0.2);
-            background: rgba(255, 255, 255, 0.02);
+            position: absolute;
+            width: 75%; max-width: 320px; aspect-ratio: 16 / 9;
+            border-radius: 12px; overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 210, 255, 0.15);
+            z-index: 3;
+            transition: transform 0.5s ease;
         }
         .landscape-frame img { 
-            width: 100%; height: 100%; 
-            object-fit: contain; /* Ensures the whole picture is visible */
+            width: 100%; height: 100%; object-fit: cover; 
+            opacity: 0.85; filter: contrast(1.1);
         }
 
-        /* Centered Proposal Box */
+        /* Top Image Positioning */
+        .frame-top {
+            top: 6%;
+            animation: floatSlow 6s infinite alternate ease-in-out;
+            transform: rotate(-3deg);
+        }
+        
+        /* Bottom Image Positioning */
+        .frame-bottom {
+            bottom: 6%;
+            animation: floatSlowReverse 7s infinite alternate ease-in-out;
+            transform: rotate(3deg);
+        }
+
+        @keyframes floatSlow {
+            0% { transform: translateY(0px) rotate(-3deg); }
+            100% { transform: translateY(-15px) rotate(-1deg); }
+        }
+        @keyframes floatSlowReverse {
+            0% { transform: translateY(0px) rotate(3deg); }
+            100% { transform: translateY(15px) rotate(1deg); }
+        }
+
+        /* --- THE CONSTANT PROPOSAL BOX --- */
         .proposal-box {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px; border-radius: 20px;
-            backdrop-filter: blur(20px); text-align: center;
-            width: 85%; max-width: 400px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+            position: relative; z-index: 10;
+            background: rgba(15, 10, 30, 0.65);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            padding: 35px 25px; border-radius: 20px;
+            backdrop-filter: blur(25px); text-align: center;
+            width: 88%; max-width: 420px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 210, 255, 0.2) inset;
+            animation: pulseGlow 4s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 20px rgba(0, 210, 255, 0.1) inset; }
+            100% { box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 40px rgba(0, 210, 255, 0.3) inset; }
         }
 
         .final-msg { 
             font-family: 'Dancing Script', cursive; 
-            font-size: clamp(1.3rem, 5vw, 1.7rem); /* Auto-sizes font */
-            line-height: 1.4; color: #fff; margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+            font-size: clamp(1.6rem, 6vw, 2.2rem); 
+            line-height: 1.4; color: #fff; margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(0, 210, 255, 0.6), 2px 2px 5px rgba(0,0,0,0.8);
         }
 
-        .btn-group { display: flex; justify-content: center; gap: 15px; }
+        .highlight { color: #00d2ff; font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 1.2rem; display: block; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px;}
+
+        /* --- INTERACTIVE BUTTONS --- */
+        .btn-group { 
+            display: flex; justify-content: center; gap: 20px; 
+            position: relative; height: 50px; /* fixed height to constrain NO button area initially */
+        }
 
         .choice-btn {
-            padding: 12px 30px; font-family: 'Cinzel'; font-size: 0.85rem;
-            cursor: pointer; border-radius: 50px; transition: 0.3s; 
-            letter-spacing: 2px; font-weight: bold;
+            padding: 12px 35px; font-family: 'Cinzel', serif; font-size: 0.95rem;
+            cursor: pointer; border-radius: 50px; transition: all 0.3s ease; 
+            letter-spacing: 2px; font-weight: bold; outline: none;
         }
 
-        #yesBtn { background: #00d2ff; color: #000; border: none; box-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
-        #noBtn { background: transparent; color: #ff4d4d; border: 1px solid #ff4d4d; position: relative; }
+        #yesBtn { 
+            background: linear-gradient(45deg, #00d2ff, #0077ff); 
+            color: #fff; border: none; 
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.6); 
+            animation: heartbeat 1.5s infinite;
+        }
+        #yesBtn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(0, 210, 255, 0.9); }
 
-        #bg-music { display: none; }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.05); }
+            30% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        #noBtn { 
+            background: rgba(255, 77, 77, 0.1); color: #ff4d4d; 
+            border: 1px solid #ff4d4d; position: relative; 
+            backdrop-filter: blur(5px);
+            z-index: 100;
+        }
+
+        /* --- RESPONSIVE FIX (iPhone 6s) --- */
+        @media (max-height: 700px) {
+            .frame-top { top: 2%; width: 65%; }
+            .frame-bottom { bottom: 2%; width: 65%; }
+            .proposal-box { padding: 25px 20px; }
+            .final-msg { font-size: 1.5rem; margin-bottom: 20px; }
+            .choice-btn { padding: 10px 25px; font-size: 0.85rem; }
+        }
     </style>
 </head>
-<body onload="initStars(); resumeMusic();">
+<body onload="initSystem(); resumeMusic();">
 
     <audio id="bg-music" loop>
         <source src="music2.mp3" type="audio/mpeg">
@@ -97,24 +161,24 @@
     <canvas id="starCanvas"></canvas>
 
     <div class="content-wrapper">
-        <div class="landscape-frame">
+        <div class="landscape-frame frame-top">
             <img src="4segment1.jpg" alt="Moment 1">
         </div>
 
         <div class="proposal-box">
             <p class="final-msg">
                 "In this infinite universe of variables, <br>
-                I've found my only absolute truth.<br><br>
-                Will you be my 'Constant' forever, Prova?"
+                I've found my only absolute truth."<br>
+                <span class="highlight">Will you be my 'Constant' forever, Prova?</span>
             </p>
-            
+
             <div class="btn-group">
                 <button id="yesBtn" class="choice-btn" onclick="goToSegment5()">YES</button>
-                <button id="noBtn" class="choice-btn" onmouseover="moveNo()">NO</button>
+                <button id="noBtn" class="choice-btn" onmouseover="moveNo()" onpointerdown="moveNo(event)">NO</button>
             </div>
         </div>
 
-        <div class="landscape-frame">
+        <div class="landscape-frame frame-bottom">
             <img src="4segment2.jpg" alt="Moment 2">
         </div>
     </div>
@@ -127,11 +191,28 @@
             music.play().catch(() => {});
         }
 
-        function moveNo() {
+        // --- SMOOTH EVASION LOGIC FOR 'NO' BUTTON ---
+        function moveNo(e) {
+            if(e) e.preventDefault(); // Stop mobile click from registering if it manages to tap
             const btn = document.getElementById('noBtn');
-            const x = Math.max(10, Math.random() * (window.innerWidth - btn.offsetWidth - 10));
-            const y = Math.max(10, Math.random() * (window.innerHeight - btn.offsetHeight - 10));
-            btn.style.position = 'fixed';
+            
+            // Set to fixed on first interaction to allow screen-wide movement
+            if (btn.style.position !== 'fixed') {
+                const rect = btn.getBoundingClientRect();
+                btn.style.left = rect.left + 'px';
+                btn.style.top = rect.top + 'px';
+                btn.style.position = 'fixed';
+            }
+
+            // Calculate safe boundaries so it doesn't go off-screen
+            const btnWidth = btn.offsetWidth;
+            const btnHeight = btn.offsetHeight;
+            const maxX = window.innerWidth - btnWidth - 20;
+            const maxY = window.innerHeight - btnHeight - 20;
+
+            const x = Math.max(20, Math.floor(Math.random() * maxX));
+            const y = Math.max(20, Math.floor(Math.random() * maxY));
+            
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
         }
@@ -141,49 +222,103 @@
             window.location.href = 'segment5.html'; 
         }
 
-        // --- EXTREME STARFIELD (1000 STARS FOR FULL EFFECT) ---
+        // --- ADVANCED CANVAS: 1000 STARS + SHOOTING STARS ---
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
         let stars = [];
+        let shootingStars = [];
 
-        function initStars() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+        function initSystem() {
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Create 1000 background stars
             for (let i = 0; i < 1000; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    radius: Math.random() * 1.4 + 0.1,
-                    vy: Math.random() * 0.3 + 0.1,
+                    radius: Math.random() * 1.2 + 0.1,
+                    vy: Math.random() * 0.2 + 0.05,
                     opacity: Math.random(),
-                    pulse: Math.random() * 0.02 + 0.01
+                    pulse: Math.random() * 0.02 + 0.01,
+                    color: Math.random() > 0.8 ? '#00d2ff' : '#ffffff' 
                 });
             }
             animate();
         }
 
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class ShootingStar {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = 0;
+                this.length = Math.random() * 80 + 20;
+                this.speed = Math.random() * 10 + 5;
+                this.opacity = 1;
+                this.angle = Math.PI / 4 + (Math.random() * 0.2 - 0.1); // Angled downward
+            }
+            update() {
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                this.opacity -= 0.02;
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                
+                const grad = ctx.createLinearGradient(0, 0, -this.length, 0);
+                grad.addColorStop(0, `rgba(255, 255, 255, ${this.opacity})`);
+                grad.addColorStop(1, `rgba(255, 255, 255, 0)`);
+                
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(-this.length, 1);
+                ctx.lineTo(-this.length, -1);
+                ctx.fillStyle = grad;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Animate 1000 stars
             stars.forEach(s => {
                 s.y += s.vy;
                 s.opacity += s.pulse;
-                if (s.opacity > 1 || s.opacity < 0.2) s.pulse = -s.pulse;
+                if (s.opacity > 1 || s.opacity < 0.1) s.pulse = -s.pulse;
                 if (s.y > canvas.height) s.y = 0;
 
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
+                ctx.fillStyle = s.color;
+                ctx.globalAlpha = Math.max(0, Math.min(1, s.opacity)); // keep within bounds
                 ctx.fill();
             });
+            ctx.globalAlpha = 1;
+
+            // Randomly spawn shooting stars
+            if (Math.random() < 0.02) {
+                shootingStars.push(new ShootingStar());
+            }
+
+            // Animate shooting stars
+            for (let i = shootingStars.length - 1; i >= 0; i--) {
+                shootingStars[i].update();
+                shootingStars[i].draw();
+                if (shootingStars[i].opacity <= 0 || shootingStars[i].y > canvas.height) {
+                    shootingStars.splice(i, 1);
+                }
+            }
+
             requestAnimationFrame(animate);
         }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            stars = [];
-            initStars();
-        });
     </script>
 </body>
 </html>
