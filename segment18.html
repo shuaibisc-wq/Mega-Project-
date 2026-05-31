@@ -7,14 +7,17 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
+
         body, html { 
             width: 100%; height: 100%; 
             background: #020108; color: #ffffff; 
             font-family: 'Montserrat', sans-serif; 
-            overflow-x: hidden; /* Prevents side-scrolling bugs */
+            overflow-x: hidden;
         }
 
         /* ================= PHASE 1: CELESTIAL BACKGROUND ================= */
@@ -27,19 +30,18 @@
         .aurora-bg { position: absolute; width: 100%; height: 100%; opacity: 0.35; mix-blend-mode: screen; pointer-events: none; }
         .aurora-wave { 
             position: absolute; width: 150%; height: 60%; 
-            background: linear-gradient(90deg, rgba(138,43,226,0.15), rgba(0,191,255,0.15), rgba(255,215,0,0.05)); 
-            filter: blur(50px); /* Reduced blur for better performance */
+            background: linear-gradient(90deg, rgba(138,43,226,0.15), rgba(0,191,255,0.15), rgba(0,255,204,0.05)); 
+            filter: blur(50px); 
             border-radius: 40%; animation: floatWave 15s infinite alternate ease-in-out; 
         }
         @keyframes floatWave { 0% { transform: translate(-10%, -20%) rotate(0deg); } 100% { transform: translate(5%, 10%) rotate(5deg); } }
 
-        /* DEEP WARM CLASSY GLOWING MOON */
         .romantic-moon { 
             position: absolute; top: 10%; right: 10%; 
             width: clamp(70px, 15vw, 95px); height: clamp(70px, 15vw, 95px); 
-            background: radial-gradient(circle at 30% 30%, #ffffff 0%, #fffdf0 60%, #fffae0 100%); 
+            background: radial-gradient(circle at 30% 30%, #ffffff 0%, #fffdf0 60%, #e0fcff 100%); 
             border-radius: 50%; 
-            box-shadow: 0 0 40px #ffffff, 0 0 80px rgba(255, 253, 240, 0.4), 0 0 120px rgba(255, 215, 0, 0.15); 
+            box-shadow: 0 0 40px #ffffff, 0 0 80px rgba(0, 255, 204, 0.2), 0 0 120px rgba(0, 255, 204, 0.1); 
             z-index: 2; 
         }
 
@@ -57,20 +59,20 @@
         }
         .tap-hint { 
             font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 3px; 
-            color: rgba(255,215,0,0.9); margin-top: 35px; opacity: 0; 
-            transition: opacity 1s ease; text-shadow: 0 0 10px rgba(255,215,0,0.5); 
+            color: rgba(0,255,204,0.9); margin-top: 35px; opacity: 0; 
+            transition: opacity 1s ease; text-shadow: 0 0 10px rgba(0,255,204,0.5); 
         }
         .tap-hint.pulse { opacity: 1; animation: pulseGlow 2s infinite; }
-        @keyframes pulseGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; text-shadow: 0 0 20px #ffd700; } }
+        @keyframes pulseGlow { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; text-shadow: 0 0 20px #00ffcc; } }
 
-        /* ================= PHASE 2: SUBTLE TECH TERMINAL ================= */
+        /* ================= PHASE 2: TECH TERMINAL ================= */
         .terminal-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: #030307; z-index: 100; display: none; 
             flex-direction: column; align-items: center; 
-            padding: 40px 15px 120px 15px; /* Adjusted for mobile */
+            padding: 40px 15px 140px 15px; 
             font-family: monospace; opacity: 0; transition: opacity 0.8s ease-in-out; 
-            overflow-y: auto; /* Allows scrolling on tiny phones */
+            overflow-y: auto; 
         }
 
         .matrix-box { 
@@ -80,54 +82,111 @@
             padding-bottom: 20px;
         }
 
-        /* Syntax Formatting */
-        .keyword { color: #ffd700; font-weight: bold; } 
+        .keyword { color: #00ffcc; font-weight: bold; } 
         .string { color: #e2e8f0; font-style: italic; } 
         .function { color: #f1f5f9; text-decoration: underline; } 
-        .number { color: #fbbf24; } 
+        .number { color: #00ffcc; } 
         .comment { color: #475569; font-style: italic; } 
-        .critical { color: #ffd700; font-weight: bold; text-shadow: 0 0 5px rgba(255,215,0,0.3); }
+        .critical { color: #00ffcc; font-weight: bold; text-shadow: 0 0 5px rgba(0,255,204,0.3); }
 
-        /* Loader */
         .loader-container { 
             width: 90%; max-width: 750px; 
-            border: 1px solid rgba(255, 215, 0, 0.2); padding: 20px; 
+            border: 1px solid rgba(0, 255, 204, 0.2); padding: 20px; 
             background: rgba(5, 5, 10, 0.9); backdrop-filter: blur(10px); 
             border-radius: 6px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); 
             position: fixed; bottom: 5%; left: 50%; transform: translateX(-50%); z-index: 110; 
         }
-        .loader-status { font-size: 0.75rem; color: #ffd700; font-weight: 600; letter-spacing: 1px; }
+        .loader-status { font-size: 0.75rem; color: #00ffcc; font-weight: 600; letter-spacing: 1px; }
         .progress-box { width: 100%; background: #111118; height: 10px; border-radius: 5px; margin-top: 10px; }
-        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #b38f00 0%, #ffd700 50%, #fff3b0 100%); box-shadow: 0 0 15px rgba(255,215,0,0.6); transition: width 0.1s linear; }
+        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #008066 0%, #00ffcc 50%, #b3ffeb 100%); box-shadow: 0 0 15px rgba(0,255,204,0.6); transition: width 0.1s linear; }
 
         /* ================= PHASE 3: THE ROYAL REVEAL ================= */
         .final-screen { 
             position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; 
             background: radial-gradient(circle at center, #070a24 0%, #020108 100%); 
             z-index: 200; display: none; flex-direction: column; justify-content: center; 
-            align-items: center; text-align: center; padding: 40px 20px; 
+            align-items: center; text-align: center; padding: 60px 20px; 
             opacity: 0; transition: opacity 1.5s ease-in-out; 
-            overflow-y: auto; /* Ensures scroll if screen is too small */
+            overflow-y: auto; 
         }
 
-        .signature-box { opacity: 0; transform: translateY(20px); transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1); margin-bottom: 40px; }
+        .signature-box { opacity: 0; transform: translateY(20px); transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1); margin-bottom: 30px; }
         .signature-box.show { opacity: 1; transform: translateY(0); }
 
         .final-title { font-family: 'Cinzel', serif; font-size: clamp(1rem, 4vw, 1.35rem); font-weight: 500; letter-spacing: 2px; color: #a4a7bf; margin-bottom: 20px; line-height: 2; }
-        .final-title span { font-weight: 700; color: #ffd700; text-shadow: 0 0 20px rgba(255,215,0,0.4); font-size: clamp(1.3rem, 6vw, 1.7rem); letter-spacing: 3px; }
+        .final-title span { font-weight: 700; color: #00ffcc; text-shadow: 0 0 20px rgba(0,255,204,0.4); font-size: clamp(1.3rem, 6vw, 1.7rem); letter-spacing: 3px; }
         .final-sub { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: clamp(0.75rem, 3vw, 0.95rem); letter-spacing: 2px; color: #5c5e75; text-transform: uppercase; }
 
-        /* Fixed "THE END" typography so it doesn't break mobile layout */
         .the-end-title { 
             font-family: 'Cinzel', serif; 
             font-size: clamp(2rem, 10vw, 4rem); 
             font-weight: 700; 
-            letter-spacing: clamp(5px, 3vw, 20px); /* Adjusts dynamically */
+            letter-spacing: clamp(5px, 3vw, 20px); 
             color: #ffffff; text-shadow: 0 0 30px rgba(255,255,255,0.4); 
             opacity: 0; transform: scale(0.9); transition: all 2.5s ease; 
         }
         .the-end-title.show { opacity: 1; transform: scale(1); }
 
+        /* Dynamic Feedback Trigger Button */
+        .comment-btn-container {
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 1.5s ease;
+        }
+        .comment-btn-container.show { opacity: 1; transform: translateY(0); }
+
+        .btn-cyan {
+            background: transparent; border: 1px solid #00ffcc; color: #00ffcc;
+            padding: 14px 30px; font-size: 0.9rem; border-radius: 50px; cursor: pointer;
+            font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 2px;
+            transition: all 0.4s ease; box-shadow: 0 0 10px rgba(0,255,204,0.1);
+        }
+        .btn-cyan:hover { background: rgba(0, 255, 204, 0.15); box-shadow: 0 0 25px rgba(0,255,204,0.4); color: #ffffff; }
+
+        /* ================= PHASE 4: GLOBAL COMMENTS MODAL ================= */
+        #commentsModal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #020108; /* FIX: Solid dark background to hide elements underneath */
+            z-index: 500;
+            display: none; flex-direction: column; align-items: center; padding: 40px 20px;
+            overflow-y: auto; -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Fixed Star Canvas for the Modal Background */
+        #modalStarCanvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+
+        .comments-container { width: 100%; max-width: 600px; text-align: left; margin-bottom: 40px; position: relative; z-index: 10; }
+        
+        input[type="text"], textarea {
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,255,204,0.3);
+            color: #fff; border-radius: 8px; margin-bottom: 15px; outline: none; font-size: 0.95rem;
+            transition: border 0.3s;
+        }
+        input[type="text"]:focus, textarea:focus { border-color: #00ffcc; box-shadow: 0 0 10px rgba(0,255,204,0.2); }
+        textarea { resize: none; height: 90px; }
+
+        .comment-box {
+            background: rgba(10, 12, 25, 0.8); padding: 18px 20px; border-left: 3px solid #00ffcc;
+            border-radius: 4px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+        .comment-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 5px;
+        }
+        .comment-name { color: #00ffcc; font-weight: 600; font-size: 0.95rem; }
+        .comment-time { color: #a4a7bf; font-size: 0.75rem; font-style: italic; }
+        .comment-text { color: #e5e7eb; font-size: 0.95rem; line-height: 1.6; margin-top: 6px; word-wrap: break-word; }
+        
+        .close-btn { position: absolute; top: 20px; right: 35px; font-size: 2.5rem; color: #fff; cursor: pointer; transition: 0.3s; opacity: 0.7; z-index: 20; }
+        .close-btn:hover { color: #00ffcc; opacity: 1; }
+        
+        #commentsModal::-webkit-scrollbar { width: 6px; }
+        #commentsModal::-webkit-scrollbar-thumb { background: #00ffcc; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -161,10 +220,32 @@
             <div class="final-sub">Every line of code in this system was written in your rhythm</div>
         </div>
         <div class="the-end-title" id="theEnd">THE END</div>
+        
+        <div class="comment-btn-container" id="commentBtnContainer">
+            <button class="btn-cyan" onclick="openComments()">Leave a Comment ➔</button>
+        </div>
+    </div>
+
+    <div id="commentsModal">
+        <canvas id="modalStarCanvas"></canvas>
+
+        <span class="close-btn" onclick="closeComments()">&times;</span>
+        <div class="comments-container">
+            <h2 style="text-align: center; margin-bottom: 25px; color: #00ffcc; font-family: 'Cinzel', serif; letter-spacing: 2px;">Visitors' Feelings</h2>
+            
+            <div style="background: rgba(10,12,25,0.7); padding: 22px; border-radius: 10px; margin-bottom: 30px; border: 1px solid rgba(0,255,204,0.2); backdrop-filter: blur(10px);">
+                <input type="text" id="commenterName" placeholder="Your Name">
+                <textarea id="commentText" placeholder="Leave a comment or share your feelings..."></textarea>
+                <button class="btn-cyan" style="width: 100%; border-radius: 8px;" onclick="addComment()">Submit Comment</button>
+            </div>
+
+            <div id="commentList">
+                </div>
+        </div>
     </div>
 
     <script>
-        // 1. HIGH PERFORMANCE CANVAS STARFIELD (Zero Lag)
+        // 1. HIGH PERFORMANCE CANVAS STARFIELD (Main Background)
         const canvas = document.getElementById('starCanvas');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -173,7 +254,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        
+
         function initStars() {
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
@@ -204,7 +285,7 @@
         }
         initStars();
 
-        // 2. SHORT ELEGANT INITIAL MESSAGE
+        // 2. INITIAL MESSAGE TYPING
         const storyMessage = "In a cosmos full of infinite variables, every single line of my code was structured to find you... Tap to execute.";
         let typingComplete = false;
         let musicStarted = false;
@@ -229,11 +310,10 @@
             typing();
         }
 
-        // 3. SHIFT TRANSITION & PLAY MUSIC
+        // 3. TRANSITION TO TERMINAL
         function triggerSystemShift() {
             if (!typingComplete) return; 
 
-            // Play music on first tap
             if(!musicStarted) {
                 document.getElementById('ending-music').play().catch(()=>{});
                 musicStarted = true;
@@ -252,7 +332,7 @@
             }, 1200);
         }
 
-        // 4. CLASSY SPEED SCROLL LOADING DATA
+        // 4. SPEED ADJUSTED CORE LOGIC (Lasts ~13 seconds)
         function runSupercomputerSequence() {
             const consoleBox = document.getElementById('matrixConsole');
             const statusText = document.getElementById('loadStatus');
@@ -301,21 +381,18 @@
                 "system.clearAllAnxieties();",
                 "let matrix_validation = <span class='keyword'>true</span>;",
                 "<span class='comment'>// [FINALIZING]: Compiling script bundles to mainframe...</span>",
-                "system.render('Golden_Glow_Effects');",
+                "system.render('Cyan_Glow_Effects');",
                 "<span class='keyword'>Status</span>: <span class='string'>'Everything_Optimized_For_Her'</span>;",
                 "<span class='comment'>// [SUCCESS]: System handshake sequence successful.</span>",
                 "<span class='function'>system.execute_final_handshake</span>();"
             ];
 
             let index = 0;
-            const logInterval = 120; 
+            const logInterval = 285; 
 
             function printCodeLogs() {
                 if (index < cyberScript.length) {
-                    // Optimized DOM insertion to prevent lag
                     consoleBox.insertAdjacentHTML('beforeend', `<div>${cyberScript[index]}</div>`);
-                    
-                    // Keep auto-scrolling to bottom
                     termScreen.scrollTop = termScreen.scrollHeight;
 
                     index++;
@@ -326,14 +403,14 @@
                     setTimeout(printCodeLogs, logInterval); 
                 } else {
                     statusText.innerText = "ACCESS GRANTED. INITIALIZING PRINCESS HANDSHAKE...";
-                    statusText.style.color = "#ffd700";
+                    statusText.style.color = "#00ffcc";
                     setTimeout(revealFinal, 1200); 
                 }
             }
             printCodeLogs();
         }
 
-        // 5. THE ROYAL CREDIT REVEAL 
+        // 5. TIMED REVEAL SEQUENCING
         function revealFinal() {
             const term = document.getElementById('terminalScreen');
             term.style.opacity = '0';
@@ -354,8 +431,152 @@
                         document.getElementById('theEnd').classList.add('show');
                     }, 3500);
 
+                    setTimeout(() => {
+                        document.getElementById('commentBtnContainer').classList.add('show');
+                    }, 5500);
+
                 }, 50);
             }, 1000);
+        }
+
+        // ================= NEW: MODAL 700+ STARFIELD =================
+        const mCanvas = document.getElementById('modalStarCanvas');
+        const mCtx = mCanvas.getContext('2d');
+        let mStars = [];
+        let modalAnimationId;
+
+        function resizeModalCanvas() {
+            mCanvas.width = window.innerWidth;
+            mCanvas.height = window.innerHeight;
+        }
+
+        function initModalStars() {
+            resizeModalCanvas();
+            window.addEventListener('resize', resizeModalCanvas);
+            mStars = [];
+            // FIX: Increased star radius heavily so they are clearly visible
+            for(let i=0; i<700; i++) {
+                mStars.push({
+                    x: Math.random() * mCanvas.width,
+                    y: Math.random() * mCanvas.height,
+                    r: Math.random() * 2.5 + 0.8, // Min 0.8px, Max 3.3px
+                    pulse: Math.random() * 0.04,
+                    opacity: Math.random()
+                });
+            }
+        }
+
+        function animateModalStars() {
+            mCtx.clearRect(0, 0, mCanvas.width, mCanvas.height);
+            mCtx.fillStyle = "#ffffff";
+            mStars.forEach(s => {
+                s.opacity += s.pulse;
+                if(s.opacity > 1 || s.opacity < 0.1) s.pulse = -s.pulse;
+                mCtx.globalAlpha = Math.max(0, Math.min(1, s.opacity));
+                mCtx.beginPath();
+                mCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                mCtx.fill();
+            });
+            modalAnimationId = requestAnimationFrame(animateModalStars);
+        }
+
+        // ================= 6. DATABASE FIREBASE STORAGE =================
+        const firebaseConfig = {
+            apiKey: "AIzaSyBpE5VmnJfrSsr1-aC3DgXlMXVazmeWRAs",
+            authDomain: "birthday-gateway.firebaseapp.com",
+            databaseURL: "https://birthday-gateway-default-rtdb.firebaseio.com", 
+            projectId: "birthday-gateway",
+            storageBucket: "birthday-gateway.firebasestorage.app",
+            messagingSenderId: "80435207036",
+            appId: "1:80435207036:web:a85b56cc203a8821cd62f9"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        function formatDateTime(timestamp) {
+            const date = new Date(timestamp);
+            const options = { 
+                month: 'short', day: 'numeric', year: 'numeric', 
+                hour: '2-digit', minute: '2-digit', hour12: true 
+            };
+            return date.toLocaleString('en-US', options);
+        }
+
+        function openComments() {
+            document.getElementById('commentsModal').style.display = 'flex';
+            // Start modal stars animation
+            initModalStars();
+            animateModalStars();
+            loadComments(); 
+        }
+
+        function closeComments() {
+            document.getElementById('commentsModal').style.display = 'none';
+            // Stop animation when closed to save memory/battery
+            cancelAnimationFrame(modalAnimationId);
+        }
+
+        function addComment() {
+            const name = document.getElementById('commenterName').value.trim();
+            const text = document.getElementById('commentText').value.trim();
+
+            if (name === "" || text === "") {
+                alert("Please type your name and a comment before submitting.");
+                return;
+            }
+
+            const btn = document.querySelector('#commentsModal .btn-cyan');
+            btn.innerText = "Submitting Comment...";
+            btn.disabled = true;
+
+            database.ref('global_comments').push({
+                name: name,
+                text: text,
+                timestamp: Date.now()
+            }).then(() => {
+                document.getElementById('commenterName').value = '';
+                document.getElementById('commentText').value = '';
+                btn.innerText = "Submit Comment";
+                btn.disabled = false;
+            }).catch((error) => {
+                console.error("Data push failed: ", error);
+                alert("Submission failed. Please verify configurations.");
+                btn.innerText = "Submit Comment";
+                btn.disabled = false;
+            });
+        }
+
+        function loadComments() {
+            const list = document.getElementById('commentList');
+            
+            database.ref('global_comments').orderByChild('timestamp').on('value', (snapshot) => {
+                list.innerHTML = ""; 
+                const comments = [];
+                
+                snapshot.forEach((childSnapshot) => {
+                    comments.push(childSnapshot.val());
+                });
+
+                if (comments.length === 0) {
+                    list.innerHTML = "<p style='text-align:center; color:#5c5e75; font-style: italic;'>No messages found. Be the first to leave a comment!</p>";
+                    return;
+                }
+
+                comments.reverse().forEach(comment => {
+                    const formattedTime = formatDateTime(comment.timestamp);
+                    const div = document.createElement('div');
+                    div.className = "comment-box";
+                    div.innerHTML = `
+                        <div class="comment-header">
+                            <span class="comment-name">${comment.name}</span>
+                            <span class="comment-time">${formattedTime}</span>
+                        </div>
+                        <div class="comment-text">${comment.text}</div>
+                    `;
+                    list.appendChild(div);
+                });
+            });
         }
     </script>
 </body>
