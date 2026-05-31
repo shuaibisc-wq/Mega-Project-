@@ -7,7 +7,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <!-- Firebase Compatibility SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
@@ -59,11 +58,34 @@
         .btn-comment:hover { color: #fff; }
 
         #passwordSection { display: none; }
+        
+        /* Input & Textarea Styling */
         input[type="password"], input[type="text"], textarea {
             width: 100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid #00ffcc;
             color: #fff; border-radius: 6px; margin-bottom: 15px; font-family: monospace; outline: none;
         }
         textarea { resize: none; height: 80px; }
+        
+        /* Password Eye Toggle Styling */
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .password-wrapper input {
+            padding-right: 45px; /* Make room for the eye icon */
+        }
+        .eye-icon {
+            position: absolute;
+            top: 40%;
+            right: 15px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #00ffcc;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        .eye-icon:hover { opacity: 1; }
+
         .error-msg { color: #ff4d4d; font-size: 0.85rem; margin-top: 10px; display: none; }
 
         /* Comments Section Styling */
@@ -97,7 +119,6 @@
 
     <div class="bg-glow"></div>
 
-    <!-- Identity Section -->
     <div class="container" id="identitySection">
         <h2>[ RESTRICTED AREA ]</h2>
         <p>This segment holds highly classified, personal memories. Before proceeding, please verify your identity.</p>
@@ -111,12 +132,23 @@
         <button class="btn-comment" onclick="openComments()">View / Leave Comments</button>
     </div>
 
-    <!-- Password Section -->
     <div class="container" id="passwordSection">
         <h2>[ VERIFICATION ]</h2>
         <p>Only the owner of this heart knows the secret key. Enter to unlock Segment 17.</p>
         
-        <input type="password" id="secretKey" placeholder="Enter Secret Key">
+        <div class="password-wrapper">
+            <input type="password" id="secretKey" placeholder="Enter Secret Key">
+            <span class="eye-icon" onclick="togglePassword()">
+                <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <svg id="eyeClosed" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+            </span>
+        </div>
         
         <div class="btn-group">
             <button class="btn" onclick="checkPassword()">Unlock Access</button>
@@ -126,7 +158,6 @@
         <div class="error-msg" id="errorMsg">Access Denied! Incorrect Key.</div>
     </div>
 
-    <!-- Comments Modal -->
     <div id="commentsModal">
         <span class="close-btn" onclick="closeComments()">&times;</span>
         <div class="comments-container">
@@ -139,8 +170,7 @@
             </div>
 
             <div id="commentList">
-                <!-- Comments will load here -->
-            </div>
+                </div>
         </div>
     </div>
 
@@ -160,12 +190,34 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // --- 2. NAVIGATION LOGIC ---
+        // --- 2. PASSWORD TOGGLE LOGIC ---
+        function togglePassword() {
+            const passwordInput = document.getElementById('secretKey');
+            const eyeOpen = document.getElementById('eyeOpen');
+            const eyeClosed = document.getElementById('eyeClosed');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeOpen.style.display = 'none';
+                eyeClosed.style.display = 'block';
+            } else {
+                passwordInput.type = 'password';
+                eyeOpen.style.display = 'block';
+                eyeClosed.style.display = 'none';
+            }
+        }
+
+        // --- 3. NAVIGATION LOGIC ---
         function showPasswordPrompt() {
             document.getElementById('identitySection').style.display = 'none';
             document.getElementById('passwordSection').style.display = 'block';
             document.getElementById('errorMsg').style.display = 'none';
             document.getElementById('secretKey').value = '';
+            
+            // Reset eye icon to default on open
+            document.getElementById('secretKey').type = 'password';
+            document.getElementById('eyeOpen').style.display = 'block';
+            document.getElementById('eyeClosed').style.display = 'none';
         }
 
         function goBack() {
@@ -189,9 +241,7 @@
             }
         }
 
-        // --- 3. GLOBAL REALTIME COMMENTS LOGIC ---
-        
-        // Helper function to format timestamp beautifully
+        // --- 4. GLOBAL REALTIME COMMENTS LOGIC ---
         function formatDateTime(timestamp) {
             const date = new Date(timestamp);
             const options = { 
@@ -219,7 +269,6 @@
                 return;
             }
 
-            // Disable button briefly to prevent double clicks
             const btn = document.querySelector('.comments-container .btn');
             btn.innerText = "Submitting...";
             btn.disabled = true;
