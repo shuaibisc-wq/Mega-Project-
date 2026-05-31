@@ -7,9 +7,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
         
@@ -54,17 +51,14 @@
         .btn:hover { background: #00ffcc; color: #020108; box-shadow: 0 0 15px rgba(0,255,204,0.5); }
         .btn-alt { border-color: #5c5e75; color: #5c5e75; }
         .btn-alt:hover { background: #5c5e75; color: #fff; box-shadow: 0 0 15px rgba(92,94,117,0.5); }
-        .btn-comment { margin-top: 30px; font-size: 0.85rem; border: none; text-decoration: underline; color: #a4a7bf; cursor: pointer; background: none; }
-        .btn-comment:hover { color: #fff; }
 
         #passwordSection { display: none; }
         
-        /* Input & Textarea Styling */
-        input[type="password"], input[type="text"], textarea {
+        /* Input Styling */
+        input[type="password"], input[type="text"] {
             width: 100%; padding: 12px; background: rgba(0,0,0,0.5); border: 1px solid #00ffcc;
             color: #fff; border-radius: 6px; margin-bottom: 15px; font-family: monospace; outline: none;
         }
-        textarea { resize: none; height: 80px; }
         
         /* Password Eye Toggle Styling */
         .password-wrapper {
@@ -72,7 +66,7 @@
             width: 100%;
         }
         .password-wrapper input {
-            padding-right: 45px; /* Make room for the eye icon */
+            padding-right: 45px;
         }
         .eye-icon {
             position: absolute;
@@ -87,32 +81,6 @@
         .eye-icon:hover { opacity: 1; }
 
         .error-msg { color: #ff4d4d; font-size: 0.85rem; margin-top: 10px; display: none; }
-
-        /* Comments Section Styling */
-        #commentsModal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 1, 8, 0.95); z-index: 100;
-            display: none; flex-direction: column; align-items: center; padding: 40px 20px;
-            overflow-y: auto;
-        }
-        .comments-container { width: 100%; max-width: 600px; text-align: left; margin-bottom: 40px; }
-        .comment-box {
-            background: rgba(255,255,255,0.05); padding: 15px 20px; border-left: 3px solid #00ffcc;
-            border-radius: 4px; margin-bottom: 15px;
-        }
-        .comment-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 5px;
-        }
-        .comment-name { color: #00ffcc; font-weight: bold; font-size: 1rem; }
-        .comment-time { color: #888a9e; font-size: 0.75rem; font-style: italic; }
-        .comment-text { color: #d1d5db; font-size: 0.95rem; line-height: 1.5; margin-top: 5px; }
-        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 2rem; color: #fff; cursor: pointer; transition: 0.3s; }
-        .close-btn:hover { color: #00ffcc; }
-        
-        /* Custom Scrollbar for Modal */
-        #commentsModal::-webkit-scrollbar { width: 8px; }
-        #commentsModal::-webkit-scrollbar-thumb { background: #00ffcc; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -128,8 +96,6 @@
             <button class="btn" onclick="showPasswordPrompt()">I am Prova</button>
             <button class="btn btn-alt" onclick="goToOthers()">I am a Viewer</button>
         </div>
-
-        <button class="btn-comment" onclick="openComments()">View / Leave Comments</button>
     </div>
 
     <div class="container" id="passwordSection">
@@ -158,39 +124,8 @@
         <div class="error-msg" id="errorMsg">Access Denied! Incorrect Key.</div>
     </div>
 
-    <div id="commentsModal">
-        <span class="close-btn" onclick="closeComments()">&times;</span>
-        <div class="comments-container">
-            <h2 style="text-align: center; margin-bottom: 20px; color: #fff;">Visitor Logs</h2>
-            
-            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 1px solid rgba(0,255,204,0.2);">
-                <input type="text" id="commenterName" placeholder="Your Name">
-                <textarea id="commentText" placeholder="Leave a message..."></textarea>
-                <button class="btn" style="width: 100%;" onclick="addComment()">Submit Comment</button>
-            </div>
-
-            <div id="commentList">
-                </div>
-        </div>
-    </div>
-
     <script>
-        // --- 1. FIREBASE CONFIGURATION ---
-        const firebaseConfig = {
-            apiKey: "AIzaSyBpE5VmnJfrSsr1-aC3DgXlMXVazmeWRAs",
-            authDomain: "birthday-gateway.firebaseapp.com",
-            databaseURL: "https://birthday-gateway-default-rtdb.firebaseio.com", 
-            projectId: "birthday-gateway",
-            storageBucket: "birthday-gateway.firebasestorage.app",
-            messagingSenderId: "80435207036",
-            appId: "1:80435207036:web:a85b56cc203a8821cd62f9"
-        };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // --- 2. PASSWORD TOGGLE LOGIC ---
+        // --- 1. PASSWORD TOGGLE LOGIC ---
         function togglePassword() {
             const passwordInput = document.getElementById('secretKey');
             const eyeOpen = document.getElementById('eyeOpen');
@@ -207,7 +142,7 @@
             }
         }
 
-        // --- 3. NAVIGATION LOGIC ---
+        // --- 2. NAVIGATION LOGIC ---
         function showPasswordPrompt() {
             document.getElementById('identitySection').style.display = 'none';
             document.getElementById('passwordSection').style.display = 'block';
@@ -233,94 +168,13 @@
             const key = document.getElementById('secretKey').value.toLowerCase().trim();
             const error = document.getElementById('errorMsg');
 
+            // Secret Password
             if (key === "iloveshuaib") {
                 error.style.display = 'none';
                 window.location.href = "segment17.html"; 
             } else {
                 error.style.display = 'block';
             }
-        }
-
-        // --- 4. GLOBAL REALTIME COMMENTS LOGIC ---
-        function formatDateTime(timestamp) {
-            const date = new Date(timestamp);
-            const options = { 
-                month: 'short', day: 'numeric', year: 'numeric', 
-                hour: '2-digit', minute: '2-digit', hour12: true 
-            };
-            return date.toLocaleString('en-US', options);
-        }
-
-        function openComments() {
-            document.getElementById('commentsModal').style.display = 'flex';
-            loadComments(); 
-        }
-
-        function closeComments() {
-            document.getElementById('commentsModal').style.display = 'none';
-        }
-
-        function addComment() {
-            const name = document.getElementById('commenterName').value.trim();
-            const text = document.getElementById('commentText').value.trim();
-
-            if (name === "" || text === "") {
-                alert("Please enter both your name and a comment.");
-                return;
-            }
-
-            const btn = document.querySelector('.comments-container .btn');
-            btn.innerText = "Submitting...";
-            btn.disabled = true;
-
-            database.ref('global_comments').push({
-                name: name,
-                text: text,
-                timestamp: Date.now()
-            }).then(() => {
-                document.getElementById('commenterName').value = '';
-                document.getElementById('commentText').value = '';
-                btn.innerText = "Submit Comment";
-                btn.disabled = false;
-            }).catch((error) => {
-                console.error("Data push failed: ", error);
-                alert("Could not save comment globally. Check your database rules.");
-                btn.innerText = "Submit Comment";
-                btn.disabled = false;
-            });
-        }
-
-        function loadComments() {
-            const list = document.getElementById('commentList');
-            
-            database.ref('global_comments').orderByChild('timestamp').on('value', (snapshot) => {
-                list.innerHTML = ""; 
-                const comments = [];
-                
-                snapshot.forEach((childSnapshot) => {
-                    comments.push(childSnapshot.val());
-                });
-
-                if (comments.length === 0) {
-                    list.innerHTML = "<p style='text-align:center; color:#5c5e75; font-style: italic;'>No logs found. Be the first to leave a message!</p>";
-                    return;
-                }
-
-                // Newest comments on top
-                comments.reverse().forEach(comment => {
-                    const formattedTime = formatDateTime(comment.timestamp);
-                    const div = document.createElement('div');
-                    div.className = "comment-box";
-                    div.innerHTML = `
-                        <div class="comment-header">
-                            <span class="comment-name">${comment.name}</span>
-                            <span class="comment-time">${formattedTime}</span>
-                        </div>
-                        <div class="comment-text">${comment.text}</div>
-                    `;
-                    list.appendChild(div);
-                });
-            });
         }
     </script>
 </body>
